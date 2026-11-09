@@ -41,8 +41,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Interfaces\IAuthenticateUser.cs" />
+    <Compile Include="Interfaces\IDb.cs" />
+    <Compile Include="Interfaces\IAddUser.cs" />
+    <Compile Include="Interfaces\IDeleteUser.cs" />
+    <Compile Include="Interfaces\IGetAllUsers.cs" />
+    <Compile Include="Interfaces\IGetUserById.cs" />
+    <Compile Include="Interfaces\IGetUserByUsername.cs" />
+    <Compile Include="Interfaces\IRegisterUser.cs" />
+    <Compile Include="Interfaces\IUsernameExists.cs" />
+    <Compile Include="Interfaces\IUpdateUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AddUser.cs" />
+    <Compile Include="Services\AuthenticateUser.cs" />
+    <Compile Include="Services\GetUserByUsername.cs" />
+    <Compile Include="Services\DeleteUser.cs" />
+    <Compile Include="Services\GetAllUsers.cs" />
+    <Compile Include="Services\GetUserById.cs" />
+    <Compile Include="Services\RegisterUser.cs" />
+    <Compile Include="Services\UpdateUser.cs" />
+    <Compile Include="Services\UsernameExists.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UserManagement.Domain\UserManagement.Domain.csproj">
