@@ -1,5 +1,4 @@
-﻿
-using UserManagement.Application.Interfaces;
+﻿using UserManagement.Application.Interfaces;
 using UserManagement.Application.Services;
 using UserManagement.Persistence.Data;
 
@@ -13,7 +12,8 @@ namespace UserManagement.WebForms.Services
 
             return new RegisterUser(
                 new AddUser(db),
-                new UsernameExists(db));
+                new UsernameExists(db)
+            );
         }
 
         public static IGetAllUsers GetAllUsersService()
@@ -38,6 +38,11 @@ namespace UserManagement.WebForms.Services
         {
             var db = new AppDbContext();
             return new UpdateUser(db);
+        }
+        public static IUsernameExists GetUsernameExistsService()
+        {
+            var db = new AppDbContext();
+            return new UsernameExists(db);
         }
     }
 }

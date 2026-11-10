@@ -43,6 +43,10 @@
         <br /><br />
 
         <asp:Label ID="lblMessage" runat="server" />
+        <p>
+            Already have an Account?
+            <a href="Login.aspx">Login</a>
+        </p>
 
     </form>
 </body>

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using UserManagement.Application.Interfaces;
 using UserManagement.Domain.Entities;
 
@@ -9,7 +10,9 @@ namespace UserManagement.Application.Services
         private readonly IAddUser _addUser;
         private readonly IUsernameExists _usernameExists;
 
-        public RegisterUser(IAddUser addUser, IUsernameExists usernameExists)
+        public RegisterUser(
+            IAddUser addUser,
+            IUsernameExists usernameExists)
         {
             _addUser = addUser;
             _usernameExists = usernameExists;
@@ -17,10 +20,16 @@ namespace UserManagement.Application.Services
 
         public async Task<bool> RegisterAsync(User user)
         {
-            if (await _usernameExists.ExistsAsync(user.UserName))
+            user.UserName = user.UserName.Trim();
+
+            bool exists = await _usernameExists.ExistsAsync(user.UserName);
+
+            if (exists)
                 return false;
 
             user.Role = "User";
+            user.CreatedAt = DateTime.UtcNow;
+
             await _addUser.AddAsync(user);
 
             return true;

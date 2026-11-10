@@ -45,7 +45,9 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-
+    <asp:LinkButton ID="btnLogout" runat="server"
+    Text="Logout"
+    OnClick="btnLogout_Click" />
 </form>
 </body>
 </html>

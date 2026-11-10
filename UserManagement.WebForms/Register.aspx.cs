@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.UI;
+using System.Data.Entity.Infrastructure;
 using UserManagement.Application.Interfaces;
 using UserManagement.Domain.Entities;
 using UserManagement.WebForms.Services;
@@ -10,7 +11,9 @@ namespace UserManagement.WebForms
     {
         protected async void btnRegister_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
+            string username = txtUsername.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(txtPassword.Text) ||
                 string.IsNullOrWhiteSpace(txtFullName.Text) ||
                 string.IsNullOrWhiteSpace(txtEmail.Text))
@@ -21,19 +24,45 @@ namespace UserManagement.WebForms
 
             User user = new User
             {
-                UserName = txtUsername.Text.Trim(),
+                UserName = username,
                 Password = txtPassword.Text,
                 FullName = txtFullName.Text.Trim(),
                 Email = txtEmail.Text.Trim()
             };
 
-            IRegisterUser service = ServiceFactory.GetRegisterService();
+            try
+            {
+                IRegisterUser service =
+                    ServiceFactory.GetRegisterService();
 
-            bool result = await service.RegisterAsync(user);
+                bool result = await service.RegisterAsync(user);
 
-            lblMessage.Text = result
-                ? "Registration successful!"
-                : "Username already exists.";
+                if (!result)
+                {
+                    lblMessage.Text = "Username already exists.";
+                    return;
+                }
+
+                Session["UserID"] = user.ID;
+                Session["UserName"] = user.UserName;
+                Session["Role"] = user.Role;
+
+                Response.Redirect("Users.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+            }
+            catch (DbUpdateException ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+
+                lblMessage.Text =
+                    "Username already exists or database error occurred.";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+
+                lblMessage.Text = "Registration failed.";
+            }
         }
     }
 }
