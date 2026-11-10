@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IAuthenticateUser.cs" />
     <Compile Include="Interfaces\IDb.cs" />
     <Compile Include="Interfaces\IAddUser.cs" />
     <Compile Include="Interfaces\IDeleteUser.cs" />
@@ -53,7 +52,6 @@
     <Compile Include="Interfaces\IUpdateUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AddUser.cs" />
-    <Compile Include="Services\AuthenticateUser.cs" />
     <Compile Include="Services\GetUserByUsername.cs" />
     <Compile Include="Services\DeleteUser.cs" />
     <Compile Include="Services\GetAllUsers.cs" />

@@ -1,6 +1,6 @@
 <Solution>
-  <Project Path="UserManagement.Application/UserManagement.Application.csproj" />
-  <Project Path="UserManagement.Domain/UserManagement.Domain.csproj" />
-  <Project Path="UserManagement.Persistence/UserManagement.Persistence.csproj" />
-  <Project Path="UserManagement.WebForms/UserManagement.WebForms.csproj" />
+  <Project Path="UserManagement.Application/UserManagement.Application.csproj" Id="79f103b6-99af-434d-b386-f0057b0be8fe" />
+  <Project Path="UserManagement.Domain/UserManagement.Domain.csproj" Id="db68d839-3435-4cca-a91f-7ebbe995f6c0" />
+  <Project Path="UserManagement.Persistence/UserManagement.Persistence.csproj" Id="af59c540-723e-4616-a3ca-4704146392b8" />
+  <Project Path="UserManagement.WebForms/UserManagement.WebForms.csproj" Id="3db0acad-efaf-4fcf-afa0-0a4406fca670" />
 </Solution>

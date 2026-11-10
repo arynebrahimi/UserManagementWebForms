@@ -13,17 +13,31 @@ namespace UserManagement.WebForms.Services
 
             return new RegisterUser(
                 new AddUser(db),
-                new UsernameExists(db)
-            );
+                new UsernameExists(db));
         }
 
-        public static IAuthenticateUser GetLoginService()
+        public static IGetAllUsers GetAllUsersService()
         {
             var db = new AppDbContext();
+            return new GetAllUsers(db);
+        }
 
-            return new AuthenticateUser(
-                new GetUserByUsername(db)
-            );
+        public static IDeleteUser GetDeleteUserService()
+        {
+            var db = new AppDbContext();
+            return new DeleteUser(db);
+        }
+
+        public static IGetUserById GetUserByIdService()
+        {
+            var db = new AppDbContext();
+            return new GetUserById(db);
+        }
+
+        public static IUpdateUser GetUpdateUserService()
+        {
+            var db = new AppDbContext();
+            return new UpdateUser(db);
         }
     }
 }

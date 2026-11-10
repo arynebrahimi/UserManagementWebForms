@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Threading.Tasks;
+﻿using System;
 using System.Web.UI;
 using UserManagement.Application.Interfaces;
 using UserManagement.Domain.Entities;
@@ -12,13 +10,10 @@ namespace UserManagement.WebForms
     {
         protected async void btnRegister_Click(object sender, EventArgs e)
         {
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Text;
-            string fullName = txtFullName.Text.Trim();
-            string email = txtEmail.Text.Trim();
-
-            if (username == "" || password == "" ||
-                fullName == "" || email == "")
+            if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
+                string.IsNullOrWhiteSpace(txtPassword.Text) ||
+                string.IsNullOrWhiteSpace(txtFullName.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail.Text))
             {
                 lblMessage.Text = "Please fill in all fields.";
                 return;
@@ -26,29 +21,19 @@ namespace UserManagement.WebForms
 
             User user = new User
             {
-                UserName = username,
-                Password = password,
-                FullName = fullName,
-                Email = email
+                UserName = txtUsername.Text.Trim(),
+                Password = txtPassword.Text,
+                FullName = txtFullName.Text.Trim(),
+                Email = txtEmail.Text.Trim()
             };
 
             IRegisterUser service = ServiceFactory.GetRegisterService();
 
             bool result = await service.RegisterAsync(user);
 
-            if (result)
-            {
-                lblMessage.Text = "Registration successful!";
-
-                txtUsername.Text = "";
-                txtPassword.Text = "";
-                txtFullName.Text = "";
-                txtEmail.Text = "";
-            }
-            else
-            {
-                lblMessage.Text = "Username already exists.";
-            }
+            lblMessage.Text = result
+                ? "Registration successful!"
+                : "Username already exists.";
         }
     }
 }
