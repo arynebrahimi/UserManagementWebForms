@@ -1,3 +1,5 @@
-
-# Exclude all default and vendor scripts
+# Exclude third-party WebForms scripts
 UserManagement.WebForms/Scripts/** linguist-vendored
+
+# Exclude JavaScript files from language statistics
+*.js linguist-detectable=false
