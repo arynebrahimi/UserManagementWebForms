@@ -1,7 +1,3 @@
-# ASP.NET Web Forms default scripts
-UserManagement.WebForms/Scripts/WebForms/** linguist-vendored
 
-# Third-party libraries
-UserManagement.WebForms/Scripts/jquery*.js linguist-vendored
-UserManagement.WebForms/Scripts/bootstrap*.js linguist-vendored
-UserManagement.WebForms/Scripts/modernizr*.js linguist-vendored
+# Exclude all default and vendor scripts
+UserManagement.WebForms/Scripts/** linguist-vendored
