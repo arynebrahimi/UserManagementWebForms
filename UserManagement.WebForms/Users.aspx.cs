@@ -12,22 +12,23 @@ namespace UserManagement.WebForms
         {
             if (Session["UserID"] == null)
             {
-                Response.Write("Session is empty!");
+                Response.Redirect("Login.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
                 return;
             }
 
-            Response.Write("Welcome: " + Session["UserName"]);
-
             if (!IsPostBack)
+            {
                 await LoadUsers();
+            }
         }
 
         private async Task LoadUsers()
         {
             bool isAdmin = Session["Role"]?.ToString() == "Admin";
 
-            gvUsers.Columns[5].Visible = isAdmin;
             lnkCreate.Visible = isAdmin;
+            gvUsers.Columns[5].Visible = isAdmin;
 
             var service = ServiceFactory.GetAllUsersService();
 
@@ -40,13 +41,16 @@ namespace UserManagement.WebForms
         {
             if (e.CommandName == "DeleteUser")
             {
-                if (Session["Role"]?.ToString() != "Admin")
+                if (Session["UserID"] == null ||
+                    Session["Role"]?.ToString() != "Admin")
                 {
-                    Response.Redirect("Users.aspx");
+                    Response.Redirect("Login.aspx", false);
+                    Context.ApplicationInstance.CompleteRequest();
                     return;
                 }
 
-                int id = Convert.ToInt32(e.CommandArgument);
+                if (!int.TryParse(e.CommandArgument.ToString(), out int id))
+                    return;
 
                 await ServiceFactory.GetDeleteUserService()
                     .DeleteAsync(id);
@@ -60,7 +64,8 @@ namespace UserManagement.WebForms
             Session.Clear();
             Session.Abandon();
 
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Login.aspx", false);
+            Context.ApplicationInstance.CompleteRequest();
         }
     }
 }
