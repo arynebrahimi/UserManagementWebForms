@@ -1,71 +1,38 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using UserManagement.WebForms.Services;
+using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.WebForms
 {
-    public partial class Users : Page
-    {
-        protected async void Page_Load(object sender, EventArgs e)
-        {
-            if (Session["UserID"] == null)
-            {
-                Response.Redirect("Login.aspx", false);
-                Context.ApplicationInstance.CompleteRequest();
-                return;
-            }
+	public partial class Users : Page
+	{
+		private readonly IGetAllUsers _getAllUsers;
 
-            if (!IsPostBack)
-            {
-                await LoadUsers();
-            }
-        }
+		public Users(IGetAllUsers getAllUsers)
+		{
+			_getAllUsers = getAllUsers;
+		}
 
-        private async Task LoadUsers()
-        {
-            bool isAdmin = Session["Role"]?.ToString() == "Admin";
+		protected async void Page_Load(object sender, EventArgs e)
+		{
+			if (!IsPostBack)
+			{
+				await LoadUsers();
+			}
+		}
 
-            lnkCreate.Visible = isAdmin;
-            gvUsers.Columns[5].Visible = isAdmin;
+		private async Task LoadUsers()
+		{
+			lnkCreate.Visible = true;
 
-            var service = ServiceFactory.GetAllUsersService();
+			// Hide edit and delete actions until
+			// user authentication and role management are implemented.
+			gvUsers.Columns[5].Visible = false;
 
-            gvUsers.DataSource = await service.GetAllAsync();
-            gvUsers.DataBind();
-        }
+			gvUsers.DataSource = await _getAllUsers.GetAllAsync();
 
-        protected async void gvUsers_RowCommand(
-            object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == "DeleteUser")
-            {
-                if (Session["UserID"] == null ||
-                    Session["Role"]?.ToString() != "Admin")
-                {
-                    Response.Redirect("Login.aspx", false);
-                    Context.ApplicationInstance.CompleteRequest();
-                    return;
-                }
-
-                if (!int.TryParse(e.CommandArgument.ToString(), out int id))
-                    return;
-
-                await ServiceFactory.GetDeleteUserService()
-                    .DeleteAsync(id);
-
-                await LoadUsers();
-            }
-        }
-
-        protected void btnLogout_Click(object sender, EventArgs e)
-        {
-            Session.Clear();
-            Session.Abandon();
-
-            Response.Redirect("Login.aspx", false);
-            Context.ApplicationInstance.CompleteRequest();
-        }
-    }
+			gvUsers.DataBind();
+		}
+	}
 }

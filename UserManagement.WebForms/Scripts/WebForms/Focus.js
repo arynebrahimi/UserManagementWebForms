@@ -45,7 +45,7 @@ function WebForm_AutoFocus(focusId) {
                 focused.scrollIntoView(false);
             }
             if (window.__smartNav) {
-                window.__smartNav.ae = focused.id;
+                window.__smartNav.ae = focused.Id;
             }
         }
         catch (e) {
@@ -56,7 +56,7 @@ function WebForm_CanFocus(element) {
     if (!element || !(element.tagName)) return false;
     var tagName = element.tagName.toLowerCase();
     return (!(element.disabled) &&
-            (!(element.type) || element.type.toLowerCase() != "hidden") &&
+            (!(element.type) || element.type.toLowerCase() != "hIdden") &&
             WebForm_IsFocusableTag(tagName) &&
             WebForm_IsInVisibleContainer(element)
             );
@@ -76,7 +76,7 @@ function WebForm_IsInVisibleContainer(ctrl) {
             ( ( typeof(current.style.display) != "undefined" &&
                 current.style.display == "none") ||
                 ( typeof(current.style.visibility) != "undefined" &&
-                current.style.visibility == "hidden") ) ) ) {
+                current.style.visibility == "hIdden") ) ) ) {
             return false;
         }
         if (typeof(current.parentNode) != "undefined" &&

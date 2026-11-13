@@ -1,111 +1,102 @@
 ﻿using System;
 using System.Data.Entity.Infrastructure;
 using System.Web.UI;
-using UserManagement.Application.Interfaces;
-using UserManagement.WebForms.Services;
+using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.WebForms
 {
-    public partial class EditUser : Page
-    {
-        protected async void Page_Load(object sender, EventArgs e)
-        {
-            if (Session["UserID"] == null ||
-                Session["Role"]?.ToString() != "Admin")
-            {
-                Response.Redirect("Users.aspx", false);
-                Context.ApplicationInstance.CompleteRequest();
-                return;
-            }
+	public partial class EditUser : Page
+	{
+		private readonly IGetUserById _getUserById;
+		private readonly IUsernameExists _usernameExists;
+		private readonly IUpdateUser _updateUser;
 
-            if (!IsPostBack)
-            {
-                if (!int.TryParse(Request.QueryString["id"], out int id))
-                {
-                    Response.Redirect("Users.aspx", false);
-                    Context.ApplicationInstance.CompleteRequest();
-                    return;
-                }
+		public EditUser(
+			IGetUserById getUserById,
+			IUsernameExists usernameExists,
+			IUpdateUser updateUser)
+		{
+			_getUserById = getUserById;
+			_usernameExists = usernameExists;
+			_updateUser = updateUser;
+		}
 
-                var service = ServiceFactory.GetUserByIdService();
-                var user = await service.GetByIdAsync(id);
+		protected async void Page_Load(object sender, EventArgs e)
+		{
+			if (!IsPostBack)
+			{
+				if (!int.TryParse(Request.QueryString["id"], out int id))
+				{
+					Response.Redirect("Users.aspx", false);
+					return;
+				}
 
-                if (user == null)
-                {
-                    Response.Redirect("Users.aspx", false);
-                    Context.ApplicationInstance.CompleteRequest();
-                    return;
-                }
+				var user = await _getUserById.GetByIdAsync(id);
 
-                hfID.Value = user.ID.ToString();
-                txtUsername.Text = user.UserName;
-                txtFullName.Text = user.FullName;
-                txtEmail.Text = user.Email;
-            }
-        }
+				if (user == null)
+				{
+					Response.Redirect("Users.aspx", false);
+					return;
+				}
 
-        protected async void btnUpdate_Click(object sender, EventArgs e)
-        {
-            if (Session["UserID"] == null ||
-                Session["Role"]?.ToString() != "Admin")
-            {
-                Response.Redirect("Login.aspx", false);
-                Context.ApplicationInstance.CompleteRequest();
-                return;
-            }
+				hfId.Value = user.Id.ToString();
+				txtUsername.Text = user.UserName;
+				txtFullName.Text = user.FullName;
+				txtEmail.Text = user.Email;
+			}
+		}
 
-            if (!int.TryParse(hfID.Value, out int id))
-            {
-                lblMessage.Text = "Invalid user ID.";
-                return;
-            }
+		protected async void btnUpdate_Click(object sender, EventArgs e)
+		{
+			if (!int.TryParse(hfId.Value, out int id))
+			{
+				lblMessage.Text = "Invalid user ID.";
+				return;
+			}
 
-            string username = txtUsername.Text.Trim();
+			string username = txtUsername.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(username) ||
-                string.IsNullOrWhiteSpace(txtFullName.Text) ||
-                string.IsNullOrWhiteSpace(txtEmail.Text))
-            {
-                lblMessage.Text = "Please fill in all fields.";
-                return;
-            }
+			if (string.IsNullOrWhiteSpace(username) ||
+				string.IsNullOrWhiteSpace(txtFullName.Text) ||
+				string.IsNullOrWhiteSpace(txtEmail.Text))
+			{
+				lblMessage.Text = "Please fill in all fields.";
+				return;
+			}
 
-            var userService = ServiceFactory.GetUserByIdService();
-            var user = await userService.GetByIdAsync(id);
+			var user = await _getUserById.GetByIdAsync(id);
 
-            if (user == null)
-            {
-                lblMessage.Text = "User not found.";
-                return;
-            }
+			if (user == null)
+			{
+				lblMessage.Text = "User not found.";
+				return;
+			}
 
-            var usernameService = ServiceFactory.GetUsernameExistsService();
+			bool exists = await _usernameExists.ExistsAsync(username, id);
 
-            bool exists = await usernameService.ExistsAsync(username, id);
+			if (exists)
+			{
+				lblMessage.Text =
+					"This username is already used by another user.";
+				return;
+			}
 
-            if (exists)
-            {
-                lblMessage.Text = "This username is already used by another user.";
-                return;
-            }
+			user.UserName = username;
+			user.FullName = txtFullName.Text.Trim();
+			user.Email = txtEmail.Text.Trim();
 
-            user.UserName = username;
-            user.FullName = txtFullName.Text.Trim();
-            user.Email = txtEmail.Text.Trim();
+			try
+			{
+				await _updateUser.UpdateAsync(user);
 
-            try
-            {
-                var updateService = ServiceFactory.GetUpdateUserService();
-
-                await updateService.UpdateAsync(user);
-
-                Response.Redirect("Users.aspx", false);
-                Context.ApplicationInstance.CompleteRequest();
-            }
-            catch (DbUpdateException)
-            {
-                lblMessage.Text = "Username already exists or database error occurred.";
-            }
-        }
-    }
+				Response.Redirect("Users.aspx", false);
+				return;
+			}
+			catch (DbUpdateException)
+			{
+				lblMessage.Text =
+					"Username already exists or database error occurred.";
+			}
+		}
+	}
 }

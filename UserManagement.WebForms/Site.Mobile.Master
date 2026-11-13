@@ -4,17 +4,17 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="wIdth=device-wIdth" />
     <title></title>
-    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+    <asp:ContentPlaceHolder runat="server" Id="HeadContent" />
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form Id="form1" runat="server">
     <div>
         <h1>Mobile Master Page</h1>
-        <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+        <asp:ContentPlaceHolder runat="server" Id="FeaturedContent" />
         <section class="content-wrapper main-content clear-fix">
-            <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+            <asp:ContentPlaceHolder runat="server" Id="MainContent" />
         </section>
         <friendlyUrls:ViewSwitcher runat="server" />
     </div>

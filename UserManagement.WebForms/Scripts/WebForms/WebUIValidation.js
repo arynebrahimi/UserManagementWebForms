@@ -1,16 +1,16 @@
-//CdnPath=http://ajax.aspnetcdn.com/ajax/4.5.1/1/WebUIValidation.js
-var Page_ValidationVer = "125";
-var Page_IsValid = true;
+//CdnPath=http://ajax.aspnetcdn.com/ajax/4.5.1/1/WebUIValIdation.js
+var Page_ValIdationVer = "125";
+var Page_IsValId = true;
 var Page_BlockSubmit = false;
-var Page_InvalidControlToBeFocused = null;
+var Page_InvalIdControlToBeFocused = null;
 var Page_TextTypes = /^(text|password|file|search|tel|url|email|number|range|color|datetime|date|month|week|time|datetime-local)$/i;
-function ValidatorUpdateDisplay(val) {
+function ValIdatorUpdateDisplay(val) {
     if (typeof(val.display) == "string") {
         if (val.display == "None") {
             return;
         }
         if (val.display == "Dynamic") {
-            val.style.display = val.isvalid ? "none" : "inline";
+            val.style.display = val.isvalId ? "none" : "inline";
             return;
         }
     }
@@ -18,68 +18,68 @@ function ValidatorUpdateDisplay(val) {
         (navigator.userAgent.indexOf("MSIE") > -1)) {
         val.style.display = "inline";
     }
-    val.style.visibility = val.isvalid ? "hidden" : "visible";
+    val.style.visibility = val.isvalId ? "hIdden" : "visible";
 }
-function ValidatorUpdateIsValid() {
-    Page_IsValid = AllValidatorsValid(Page_Validators);
+function ValIdatorUpdateIsValId() {
+    Page_IsValId = AllValIdatorsValId(Page_ValIdators);
 }
-function AllValidatorsValid(validators) {
-    if ((typeof(validators) != "undefined") && (validators != null)) {
+function AllValIdatorsValId(valIdators) {
+    if ((typeof(valIdators) != "undefined") && (valIdators != null)) {
         var i;
-        for (i = 0; i < validators.length; i++) {
-            if (!validators[i].isvalid) {
+        for (i = 0; i < valIdators.length; i++) {
+            if (!valIdators[i].isvalId) {
                 return false;
             }
         }
     }
     return true;
 }
-function ValidatorHookupControlID(controlID, val) {
-    if (typeof(controlID) != "string") {
+function ValIdatorHookupControlId(controlId, val) {
+    if (typeof(controlId) != "string") {
         return;
     }
-    var ctrl = document.getElementById(controlID);
+    var ctrl = document.getElementById(controlId);
     if ((typeof(ctrl) != "undefined") && (ctrl != null)) {
-        ValidatorHookupControl(ctrl, val);
+        ValIdatorHookupControl(ctrl, val);
     }
     else {
-        val.isvalid = true;
+        val.isvalId = true;
         val.enabled = false;
     }
 }
-function ValidatorHookupControl(control, val) {
+function ValIdatorHookupControl(control, val) {
     if (typeof(control.tagName) != "string") {
         return;  
     }
     if (control.tagName != "INPUT" && control.tagName != "TEXTAREA" && control.tagName != "SELECT") {
         var i;
         for (i = 0; i < control.childNodes.length; i++) {
-            ValidatorHookupControl(control.childNodes[i], val);
+            ValIdatorHookupControl(control.childNodes[i], val);
         }
         return;
     }
     else {
-        if (typeof(control.Validators) == "undefined") {
-            control.Validators = new Array;
+        if (typeof(control.ValIdators) == "undefined") {
+            control.ValIdators = new Array;
             var eventType;
             if (control.type == "radio") {
                 eventType = "onclick";
             } else {
                 eventType = "onchange";
                 if (typeof(val.focusOnError) == "string" && val.focusOnError == "t") {
-                    ValidatorHookupEvent(control, "onblur", "ValidatedControlOnBlur(event); ");
+                    ValIdatorHookupEvent(control, "onblur", "ValidatedControlOnBlur(event); ");
                 }
             }
-            ValidatorHookupEvent(control, eventType, "ValidatorOnChange(event); ");
+            ValIdatorHookupEvent(control, eventType, "ValIdatorOnChange(event); ");
             if (Page_TextTypes.test(control.type)) {
-                ValidatorHookupEvent(control, "onkeypress", 
+                ValIdatorHookupEvent(control, "onkeypress", 
                     "event = event || window.event; if (!ValidatedTextBoxOnKeyPress(event)) { event.cancelBubble = true; if (event.stopPropagation) event.stopPropagation(); return false; } ");
             }
         }
-        control.Validators[control.Validators.length] = val;
+        control.ValIdators[control.ValIdators.length] = val;
     }
 }
-function ValidatorHookupEvent(control, eventType, functionPrefix) {
+function ValIdatorHookupEvent(control, eventType, functionPrefix) {
     var ev = control[eventType];
     if (typeof(ev) == "function") {
         ev = ev.toString();
@@ -90,42 +90,42 @@ function ValidatorHookupEvent(control, eventType, functionPrefix) {
     }
     control[eventType] = new Function("event", functionPrefix + " " + ev);
 }
-function ValidatorGetValue(id) {
+function ValIdatorGetValue(Id) {
     var control;
-    control = document.getElementById(id);
+    control = document.getElementById(Id);
     if (typeof(control.value) == "string") {
         return control.value;
     }
-    return ValidatorGetValueRecursive(control);
+    return ValIdatorGetValueRecursive(control);
 }
-function ValidatorGetValueRecursive(control)
+function ValIdatorGetValueRecursive(control)
 {
     if (typeof(control.value) == "string" && (control.type != "radio" || control.checked == true)) {
         return control.value;
     }
     var i, val;
     for (i = 0; i<control.childNodes.length; i++) {
-        val = ValidatorGetValueRecursive(control.childNodes[i]);
+        val = ValIdatorGetValueRecursive(control.childNodes[i]);
         if (val != "") return val;
     }
     return "";
 }
-function Page_ClientValidate(validationGroup) {
-    Page_InvalidControlToBeFocused = null;
-    if (typeof(Page_Validators) == "undefined") {
+function Page_ClientValidate(valIdationGroup) {
+    Page_InvalIdControlToBeFocused = null;
+    if (typeof(Page_ValIdators) == "undefined") {
         return true;
     }
     var i;
-    for (i = 0; i < Page_Validators.length; i++) {
-        ValidatorValidate(Page_Validators[i], validationGroup, null);
+    for (i = 0; i < Page_ValIdators.length; i++) {
+        ValIdatorValidate(Page_ValIdators[i], valIdationGroup, null);
     }
-    ValidatorUpdateIsValid();
-    ValidationSummaryOnSubmit(validationGroup);
-    Page_BlockSubmit = !Page_IsValid;
-    return Page_IsValid;
+    ValIdatorUpdateIsValId();
+    ValIdationSummaryOnSubmit(valIdationGroup);
+    Page_BlockSubmit = !Page_IsValId;
+    return Page_IsValId;
 }
-function ValidatorCommonOnSubmit() {
-    Page_InvalidControlToBeFocused = null;
+function ValIdatorCommonOnSubmit() {
+    Page_InvalIdControlToBeFocused = null;
     var result = !Page_BlockSubmit;
     if ((typeof(window.event) != "undefined") && (window.event != null)) {
         window.event.returnValue = result;
@@ -133,14 +133,14 @@ function ValidatorCommonOnSubmit() {
     Page_BlockSubmit = false;
     return result;
 }
-function ValidatorEnable(val, enable) {
+function ValIdatorEnable(val, enable) {
     val.enabled = (enable != false);
-    ValidatorValidate(val);
-    ValidatorUpdateIsValid();
+    ValIdatorValidate(val);
+    ValIdatorUpdateIsValId();
 }
-function ValidatorOnChange(event) {
+function ValIdatorOnChange(event) {
     event = event || window.event;
-    Page_InvalidControlToBeFocused = null;
+    Page_InvalIdControlToBeFocused = null;
     var targetedControl;
     if ((typeof(event.srcElement) != "undefined") && (event.srcElement != null)) {
         targetedControl = event.srcElement;
@@ -149,34 +149,34 @@ function ValidatorOnChange(event) {
         targetedControl = event.target;
     }
     var vals;
-    if (typeof(targetedControl.Validators) != "undefined") {
-        vals = targetedControl.Validators;
+    if (typeof(targetedControl.ValIdators) != "undefined") {
+        vals = targetedControl.ValIdators;
     }
     else {
         if (targetedControl.tagName.toLowerCase() == "label") {
             targetedControl = document.getElementById(targetedControl.htmlFor);
-            vals = targetedControl.Validators;
+            vals = targetedControl.ValIdators;
         }
     }
     if (vals) {
         for (var i = 0; i < vals.length; i++) {
-            ValidatorValidate(vals[i], null, event);
+            ValIdatorValidate(vals[i], null, event);
         }
     }
-    ValidatorUpdateIsValid();
+    ValIdatorUpdateIsValId();
 }
 function ValidatedTextBoxOnKeyPress(event) {
     event = event || window.event;
     if (event.keyCode == 13) {
-        ValidatorOnChange(event);
+        ValIdatorOnChange(event);
         var vals;
         if ((typeof(event.srcElement) != "undefined") && (event.srcElement != null)) {
-            vals = event.srcElement.Validators;
+            vals = event.srcElement.ValIdators;
         }
         else {
-            vals = event.target.Validators;
+            vals = event.target.ValIdators;
         }
-        return AllValidatorsValid(vals);
+        return AllValIdatorsValId(vals);
     }
     return true;
 }
@@ -189,25 +189,25 @@ function ValidatedControlOnBlur(event) {
     else {
         control = event.target;
     }
-    if ((typeof(control) != "undefined") && (control != null) && (Page_InvalidControlToBeFocused == control)) {
+    if ((typeof(control) != "undefined") && (control != null) && (Page_InvalIdControlToBeFocused == control)) {
         control.focus();
-        Page_InvalidControlToBeFocused = null;
+        Page_InvalIdControlToBeFocused = null;
     }
 }
-function ValidatorValidate(val, validationGroup, event) {
-    val.isvalid = true;
-    if ((typeof(val.enabled) == "undefined" || val.enabled != false) && IsValidationGroupMatch(val, validationGroup)) {
+function ValIdatorValidate(val, valIdationGroup, event) {
+    val.isvalId = true;
+    if ((typeof(val.enabled) == "undefined" || val.enabled != false) && IsValIdationGroupMatch(val, valIdationGroup)) {
         if (typeof(val.evaluationfunction) == "function") {
-            val.isvalid = val.evaluationfunction(val);
-            if (!val.isvalid && Page_InvalidControlToBeFocused == null &&
+            val.isvalId = val.evaluationfunction(val);
+            if (!val.isvalId && Page_InvalIdControlToBeFocused == null &&
                 typeof(val.focusOnError) == "string" && val.focusOnError == "t") {
-                ValidatorSetFocus(val, event);
+                ValIdatorSetFocus(val, event);
             }
         }
     }
-    ValidatorUpdateDisplay(val);
+    ValIdatorUpdateDisplay(val);
 }
-function ValidatorSetFocus(val, event) {
+function ValIdatorSetFocus(val, event) {
     var ctrl;
     if (typeof(val.controlhookup) == "string") {
         var eventCtrl;
@@ -220,17 +220,17 @@ function ValidatorSetFocus(val, event) {
             }
         }
         if ((typeof(eventCtrl) != "undefined") && (eventCtrl != null) &&
-            (typeof(eventCtrl.id) == "string") &&
-            (eventCtrl.id == val.controlhookup)) {
+            (typeof(eventCtrl.Id) == "string") &&
+            (eventCtrl.Id == val.controlhookup)) {
             ctrl = eventCtrl;
         }
     }
     if ((typeof(ctrl) == "undefined") || (ctrl == null)) {
-        ctrl = document.getElementById(val.controltovalidate);
+        ctrl = document.getElementById(val.controltoValidate);
     }
     if ((typeof(ctrl) != "undefined") && (ctrl != null) &&
         (ctrl.tagName.toLowerCase() != "table" || (typeof(event) == "undefined") || (event == null)) && 
-        ((ctrl.tagName.toLowerCase() != "input") || (ctrl.type.toLowerCase() != "hidden")) &&
+        ((ctrl.tagName.toLowerCase() != "input") || (ctrl.type.toLowerCase() != "hIdden")) &&
         (typeof(ctrl.disabled) == "undefined" || ctrl.disabled == null || ctrl.disabled == false) &&
         (typeof(ctrl.visible) == "undefined" || ctrl.visible == null || ctrl.visible != false) &&
         (IsInVisibleContainer(ctrl))) {
@@ -244,7 +244,7 @@ function ValidatorSetFocus(val, event) {
         }
         if (typeof(ctrl.focus) != "undefined" && ctrl.focus != null) {
             ctrl.focus();
-            Page_InvalidControlToBeFocused = ctrl;
+            Page_InvalIdControlToBeFocused = ctrl;
         }
     }
 }
@@ -253,7 +253,7 @@ function IsInVisibleContainer(ctrl) {
         ( ( typeof(ctrl.style.display) != "undefined" &&
             ctrl.style.display == "none") ||
           ( typeof(ctrl.style.visibility) != "undefined" &&
-            ctrl.style.visibility == "hidden") ) ) {
+            ctrl.style.visibility == "hIdden") ) ) {
         return false;
     }
     else if (typeof(ctrl.parentNode) != "undefined" &&
@@ -263,49 +263,49 @@ function IsInVisibleContainer(ctrl) {
     }
     return true;
 }
-function IsValidationGroupMatch(control, validationGroup) {
-    if ((typeof(validationGroup) == "undefined") || (validationGroup == null)) {
+function IsValIdationGroupMatch(control, valIdationGroup) {
+    if ((typeof(valIdationGroup) == "undefined") || (valIdationGroup == null)) {
         return true;
     }
     var controlGroup = "";
-    if (typeof(control.validationGroup) == "string") {
-        controlGroup = control.validationGroup;
+    if (typeof(control.valIdationGroup) == "string") {
+        controlGroup = control.valIdationGroup;
     }
-    return (controlGroup == validationGroup);
+    return (controlGroup == valIdationGroup);
 }
-function ValidatorOnLoad() {
-    if (typeof(Page_Validators) == "undefined")
+function ValIdatorOnLoad() {
+    if (typeof(Page_ValIdators) == "undefined")
         return;
     var i, val;
-    for (i = 0; i < Page_Validators.length; i++) {
-        val = Page_Validators[i];
+    for (i = 0; i < Page_ValIdators.length; i++) {
+        val = Page_ValIdators[i];
         if (typeof(val.evaluationfunction) == "string") {
             eval("val.evaluationfunction = " + val.evaluationfunction + ";");
         }
-        if (typeof(val.isvalid) == "string") {
-            if (val.isvalid == "False") {
-                val.isvalid = false;
-                Page_IsValid = false;
+        if (typeof(val.isvalId) == "string") {
+            if (val.isvalId == "False") {
+                val.isvalId = false;
+                Page_IsValId = false;
             }
             else {
-                val.isvalid = true;
+                val.isvalId = true;
             }
         } else {
-            val.isvalid = true;
+            val.isvalId = true;
         }
         if (typeof(val.enabled) == "string") {
             val.enabled = (val.enabled != "False");
         }
-        if (typeof(val.controltovalidate) == "string") {
-            ValidatorHookupControlID(val.controltovalidate, val);
+        if (typeof(val.controltoValidate) == "string") {
+            ValIdatorHookupControlId(val.controltoValidate, val);
         }
         if (typeof(val.controlhookup) == "string") {
-            ValidatorHookupControlID(val.controlhookup, val);
+            ValIdatorHookupControlId(val.controlhookup, val);
         }
     }
-    Page_ValidationActive = true;
+    Page_ValIdationActive = true;
 }
-function ValidatorConvert(op, dataType, val) {
+function ValIdatorConvert(op, dataType, val) {
     function GetFullYear(year) {
         var twoDigitCutoffYear = val.cutoffyear % 100;
         var cutoffYearCentury = val.cutoffyear - twoDigitCutoffYear;
@@ -392,14 +392,14 @@ function ValidatorConvert(op, dataType, val) {
         return op.toString();
     }
 }
-function ValidatorCompare(operand1, operand2, operator, val) {
+function ValIdatorCompare(operand1, operand2, operator, val) {
     var dataType = val.type;
     var op1, op2;
-    if ((op1 = ValidatorConvert(operand1, dataType, val)) == null)
+    if ((op1 = ValIdatorConvert(operand1, dataType, val)) == null)
         return false;
     if (operator == "DataTypeCheck")
         return true;
-    if ((op2 = ValidatorConvert(operand2, dataType, val)) == null)
+    if ((op2 = ValIdatorConvert(operand2, dataType, val)) == null)
         return true;
     switch (operator) {
         case "NotEqual":
@@ -416,9 +416,9 @@ function ValidatorCompare(operand1, operand2, operator, val) {
             return (op1 == op2);
     }
 }
-function CompareValidatorEvaluateIsValid(val) {
-    var value = ValidatorGetValue(val.controltovalidate);
-    if (ValidatorTrim(value).length == 0)
+function CompareValIdatorEvaluateIsValId(val) {
+    var value = ValIdatorGetValue(val.controltoValidate);
+    if (ValIdatorTrim(value).length == 0)
         return true;
     var compareTo = "";
     if ((typeof(val.controltocompare) != "string") ||
@@ -429,61 +429,61 @@ function CompareValidatorEvaluateIsValid(val) {
         }
     }
     else {
-        compareTo = ValidatorGetValue(val.controltocompare);
+        compareTo = ValIdatorGetValue(val.controltocompare);
     }
     var operator = "Equal";
     if (typeof(val.operator) == "string") {
         operator = val.operator;
     }
-    return ValidatorCompare(value, compareTo, operator, val);
+    return ValIdatorCompare(value, compareTo, operator, val);
 }
-function CustomValidatorEvaluateIsValid(val) {
+function CustomValIdatorEvaluateIsValId(val) {
     var value = "";
-    if (typeof(val.controltovalidate) == "string") {
-        value = ValidatorGetValue(val.controltovalidate);
-        if ((ValidatorTrim(value).length == 0) &&
-            ((typeof(val.validateemptytext) != "string") || (val.validateemptytext != "true"))) {
+    if (typeof(val.controltoValidate) == "string") {
+        value = ValIdatorGetValue(val.controltoValidate);
+        if ((ValIdatorTrim(value).length == 0) &&
+            ((typeof(val.Validateemptytext) != "string") || (val.Validateemptytext != "true"))) {
             return true;
         }
     }
-    var args = { Value:value, IsValid:true };
-    if (typeof(val.clientvalidationfunction) == "string") {
-        eval(val.clientvalidationfunction + "(val, args) ;");
+    var args = { Value:value, IsValId:true };
+    if (typeof(val.clientvalIdationfunction) == "string") {
+        eval(val.clientvalIdationfunction + "(val, args) ;");
     }
-    return args.IsValid;
+    return args.IsValId;
 }
-function RegularExpressionValidatorEvaluateIsValid(val) {
-    var value = ValidatorGetValue(val.controltovalidate);
-    if (ValidatorTrim(value).length == 0)
+function RegularExpressionValIdatorEvaluateIsValId(val) {
+    var value = ValIdatorGetValue(val.controltoValidate);
+    if (ValIdatorTrim(value).length == 0)
         return true;
-    var rx = new RegExp(val.validationexpression);
+    var rx = new RegExp(val.valIdationexpression);
     var matches = rx.exec(value);
     return (matches != null && value == matches[0]);
 }
-function ValidatorTrim(s) {
+function ValIdatorTrim(s) {
     var m = s.match(/^\s*(\S+(\s+\S+)*)\s*$/);
     return (m == null) ? "" : m[1];
 }
-function RequiredFieldValidatorEvaluateIsValid(val) {
-    return (ValidatorTrim(ValidatorGetValue(val.controltovalidate)) != ValidatorTrim(val.initialvalue))
+function RequiredFieldValIdatorEvaluateIsValId(val) {
+    return (ValIdatorTrim(ValIdatorGetValue(val.controltoValidate)) != ValIdatorTrim(val.initialvalue))
 }
-function RangeValidatorEvaluateIsValid(val) {
-    var value = ValidatorGetValue(val.controltovalidate);
-    if (ValidatorTrim(value).length == 0)
+function RangeValIdatorEvaluateIsValId(val) {
+    var value = ValIdatorGetValue(val.controltoValidate);
+    if (ValIdatorTrim(value).length == 0)
         return true;
-    return (ValidatorCompare(value, val.minimumvalue, "GreaterThanEqual", val) &&
-            ValidatorCompare(value, val.maximumvalue, "LessThanEqual", val));
+    return (ValIdatorCompare(value, val.minimumvalue, "GreaterThanEqual", val) &&
+            ValIdatorCompare(value, val.maximumvalue, "LessThanEqual", val));
 }
-function ValidationSummaryOnSubmit(validationGroup) {
-    if (typeof(Page_ValidationSummaries) == "undefined")
+function ValIdationSummaryOnSubmit(valIdationGroup) {
+    if (typeof(Page_ValIdationSummaries) == "undefined")
         return;
     var summary, sums, s;
     var headerSep, first, pre, post, end;
-    for (sums = 0; sums < Page_ValidationSummaries.length; sums++) {
-        summary = Page_ValidationSummaries[sums];
+    for (sums = 0; sums < Page_ValIdationSummaries.length; sums++) {
+        summary = Page_ValIdationSummaries[sums];
         if (!summary) continue;
         summary.style.display = "none";
-        if (!Page_IsValid && IsValidationGroupMatch(summary, validationGroup)) {
+        if (!Page_IsValId && IsValIdationGroupMatch(summary, valIdationGroup)) {
             var i;
             if (summary.showsummary != "False") {
                 summary.style.display = "";
@@ -519,9 +519,9 @@ function ValidationSummaryOnSubmit(validationGroup) {
                     s += summary.headertext + headerSep;
                 }
                 s += first;
-                for (i=0; i<Page_Validators.length; i++) {
-                    if (!Page_Validators[i].isvalid && typeof(Page_Validators[i].errormessage) == "string") {
-                        s += pre + Page_Validators[i].errormessage + post;
+                for (i=0; i<Page_ValIdators.length; i++) {
+                    if (!Page_ValIdators[i].isvalId && typeof(Page_ValIdators[i].errormessage) == "string") {
+                        s += pre + Page_ValIdators[i].errormessage + post;
                     }
                 }
                 s += end;
@@ -533,25 +533,25 @@ function ValidationSummaryOnSubmit(validationGroup) {
                 if (typeof(summary.headertext) == "string") {
                     s += summary.headertext + "\r\n";
                 }
-                var lastValIndex = Page_Validators.length - 1;
+                var lastValIndex = Page_ValIdators.length - 1;
                 for (i=0; i<=lastValIndex; i++) {
-                    if (!Page_Validators[i].isvalid && typeof(Page_Validators[i].errormessage) == "string") {
+                    if (!Page_ValIdators[i].isvalId && typeof(Page_ValIdators[i].errormessage) == "string") {
                         switch (summary.displaymode) {
                             case "List":
-                                s += Page_Validators[i].errormessage;
+                                s += Page_ValIdators[i].errormessage;
                                 if (i < lastValIndex) {
                                     s += "\r\n";
                                 }
                                 break;
                             case "BulletList":
                             default:
-                                s += "- " + Page_Validators[i].errormessage;
+                                s += "- " + Page_ValIdators[i].errormessage;
                                 if (i < lastValIndex) {
                                     s += "\r\n";
                                 }
                                 break;
                             case "SingleParagraph":
-                                s += Page_Validators[i].errormessage + " ";
+                                s += Page_ValIdators[i].errormessage + " ";
                                 break;
                         }
                     }
@@ -563,9 +563,9 @@ function ValidationSummaryOnSubmit(validationGroup) {
 }
 if (window.jQuery) {
     (function ($) {
-        var dataValidationAttribute = "data-val",
-            dataValidationSummaryAttribute = "data-valsummary",
-            normalizedAttributes = { validationgroup: "validationGroup", focusonerror: "focusOnError" };
+        var dataValIdationAttribute = "data-val",
+            dataValIdationSummaryAttribute = "data-valsummary",
+            normalizedAttributes = { valIdationgroup: "valIdationGroup", focusonerror: "focusOnError" };
         function getAttributesWithPrefix(element, prefix) {
             var i,
                 attribute,
@@ -586,42 +586,42 @@ if (window.jQuery) {
             key = key.toLowerCase();
             return normalizedAttributes[key] === undefined ? key : normalizedAttributes[key];
         }
-        function addValidationExpando(element) {
-            var attributes = getAttributesWithPrefix(element, dataValidationAttribute + "-");
+        function addValIdationExpando(element) {
+            var attributes = getAttributesWithPrefix(element, dataValIdationAttribute + "-");
             $.each(attributes, function (key, value) {
                 element[normalizeKey(key)] = value;
             });
         }
         function dispose(element) {
-            var index = $.inArray(element, Page_Validators);
+            var index = $.inArray(element, Page_ValIdators);
             if (index >= 0) {
-                Page_Validators.splice(index, 1);
+                Page_ValIdators.splice(index, 1);
             }
         }
         function addNormalizedAttribute(name, normalizedName) {
             normalizedAttributes[name.toLowerCase()] = normalizedName;
         }
-        function parseSpecificAttribute(selector, attribute, validatorsArray) {
+        function parseSpecificAttribute(selector, attribute, valIdatorsArray) {
             return $(selector).find("[" + attribute + "='true']").each(function (index, element) {
-                addValidationExpando(element);
+                addValIdationExpando(element);
                 element.dispose = function () { dispose(element); element.dispose = null; };
-                if ($.inArray(element, validatorsArray) === -1) {
-                    validatorsArray.push(element);
+                if ($.inArray(element, valIdatorsArray) === -1) {
+                    valIdatorsArray.push(element);
                 }
             }).length;
         }
         function parse(selector) {
-            var length = parseSpecificAttribute(selector, dataValidationAttribute, Page_Validators);
-            length += parseSpecificAttribute(selector, dataValidationSummaryAttribute, Page_ValidationSummaries);
+            var length = parseSpecificAttribute(selector, dataValIdationAttribute, Page_ValIdators);
+            length += parseSpecificAttribute(selector, dataValIdationSummaryAttribute, Page_ValIdationSummaries);
             return length;
         }
-        function loadValidators() {
-            if (typeof (ValidatorOnLoad) === "function") {
-                ValidatorOnLoad();
+        function loadValIdators() {
+            if (typeof (ValIdatorOnLoad) === "function") {
+                ValIdatorOnLoad();
             }
-            if (typeof (ValidatorOnSubmit) === "undefined") {
-                window.ValidatorOnSubmit = function () {
-                    return Page_ValidationActive ? ValidatorCommonOnSubmit() : true;
+            if (typeof (ValIdatorOnSubmit) === "undefined") {
+                window.ValIdatorOnSubmit = function () {
+                    return Page_ValIdationActive ? ValIdatorCommonOnSubmit() : true;
                 };
             }
         }
@@ -632,7 +632,7 @@ if (window.jQuery) {
                 if (prm.get_isInAsyncPostBack()) {
                     endRequestHandler = function (sender, args) {
                         if (parse(document)) {
-                            loadValidators();
+                            loadValIdators();
                         }
                         prm.remove_endRequest(endRequestHandler);
                         endRequestHandler = null;
@@ -656,27 +656,27 @@ if (window.jQuery) {
                         valFound += parse(panels[i]);
                     }
                     if (valFound) {
-                        loadValidators();
+                        loadValIdators();
                     }
                 });
             }
         }
         $(function () {
-            if (typeof (Page_Validators) === "undefined") {
-                window.Page_Validators = [];
+            if (typeof (Page_ValIdators) === "undefined") {
+                window.Page_ValIdators = [];
             }
-            if (typeof (Page_ValidationSummaries) === "undefined") {
-                window.Page_ValidationSummaries = [];
+            if (typeof (Page_ValIdationSummaries) === "undefined") {
+                window.Page_ValIdationSummaries = [];
             }
-            if (typeof (Page_ValidationActive) === "undefined") {
-                window.Page_ValidationActive = false;
+            if (typeof (Page_ValIdationActive) === "undefined") {
+                window.Page_ValIdationActive = false;
             }
-            $.WebFormValidator = {
+            $.WebFormValIdator = {
                 addNormalizedAttribute: addNormalizedAttribute,
                 parse: parse
             };
             if (parse(document)) {
-                loadValidators();
+                loadValIdators();
             }
             registerUpdatePanel();
         });

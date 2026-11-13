@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace UserManagement.Application.Interfaces
+namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
     public interface IUsernameExists
     {

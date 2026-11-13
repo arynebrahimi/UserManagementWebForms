@@ -9,17 +9,17 @@ namespace UserManagement.WebForms
 {
     public class BundleConfig
     {
-        // For more information on Bundling, visit https://go.microsoft.com/fwlink/?LinkID=303951
+        // For more information on Bundling, visit https://go.microsoft.com/fwlink/?LinkId=303951
         public static void RegisterBundles(BundleCollection bundles)
         {
             RegisterJQueryScriptManager();
 
             bundles.Add(new ScriptBundle("~/bundles/WebFormsJs").Include(
                             "~/Scripts/WebForms/WebForms.js",
-                            "~/Scripts/WebForms/WebUIValidation.js",
+                            "~/Scripts/WebForms/WebUIValIdation.js",
                             "~/Scripts/WebForms/MenuStandards.js",
                             "~/Scripts/WebForms/Focus.js",
-                            "~/Scripts/WebForms/GridView.js",
+                            "~/Scripts/WebForms/GrIdView.js",
                             "~/Scripts/WebForms/DetailsView.js",
                             "~/Scripts/WebForms/TreeView.js",
                             "~/Scripts/WebForms/WebParts.js"));

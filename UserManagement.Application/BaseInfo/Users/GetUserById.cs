@@ -1,10 +1,10 @@
-﻿
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using UserManagement.Application.Interfaces;
 using UserManagement.Domain.Entities;
+using UserManagement.Application.Interfaces;
+using UserManagement.Application.BaseInfo.Users.Interfaces;
 
-namespace UserManagement.Application.Services
+namespace UserManagement.Application.BaseInfo.Users.Services
 {
     public class GetUserById : IGetUserById
     {
@@ -15,10 +15,10 @@ namespace UserManagement.Application.Services
             _db = db;
         }
 
-        public Task<User> GetByIdAsync(int id)
+        public Task<User> GetByIdAsync(int Id)
         {
             var query = _db.Query<User>()
-                .Where(u => u.ID == id);
+                .Where(u => u.Id == Id);
 
             return _db.FirstOrDefaultAsync(query);
         }

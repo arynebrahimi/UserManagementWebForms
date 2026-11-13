@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
-using UserManagement.Application.Interfaces;
 using UserManagement.Domain.Entities;
+using UserManagement.Application.Interfaces;
+using UserManagement.Application.BaseInfo.Users.Interfaces;
 
-namespace UserManagement.Application.Services
+namespace UserManagement.Application.BaseInfo.Users.Services
 {
     public class AddUser : IAddUser
     {

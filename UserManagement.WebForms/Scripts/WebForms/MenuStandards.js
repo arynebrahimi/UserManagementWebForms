@@ -23,8 +23,8 @@ Sys.WebForms.Menu = function(options) {
     if (this.parentMenuItem && this.parentMenuItem.parentMenu) {
         this.parentMenu = this.parentMenuItem.parentMenu;
         this.rootMenu = this.parentMenu.rootMenu;
-        if (!this.element.id) {
-            this.element.id = (this.container.element.id || 'menu') + ':submenu:' + Sys.WebForms.Menu._elementObjectMapper._computedId;
+        if (!this.element.Id) {
+            this.element.Id = (this.container.element.Id || 'menu') + ':submenu:' + Sys.WebForms.Menu._elementObjectMapper._computedId;
         }
         if (this.depth > this.container.staticDisplayLevels) {
             this.displayMode = "dynamic";
@@ -95,7 +95,7 @@ Sys.WebForms.Menu.prototype = {
                 childMenu.collapse();
             }
         });
-        this.hide();
+        this.hIde();
     },
     doDispose: function() { this.each(function(item) { item.doDispose(); }); },
     each: function(fn) {
@@ -125,13 +125,13 @@ Sys.WebForms.Menu.prototype = {
             }
         }
     },
-    hide: function() {
+    hIde: function() {
         if (!this.get_displayed()) {
             return;
         }
         this.each(function(item) {
             if (item.childMenu) {
-                item.childMenu.hide();
+                item.childMenu.hIde();
             }
         });
         if (!this.isRoot()) {
@@ -169,7 +169,7 @@ Sys.WebForms.MenuItem = function(parentMenu, listElement, topLevelMenuItem) {
             this.childMenu = new Sys.WebForms.Menu({ element: subMenu, parentMenuItem: this, depth: parentMenu.depth + 1, container: this.container, keyMap: this.keyMap });
             if (!this.childMenu.isStatic()) {
                 Sys.WebForms.Menu._domHelper.appendCssClass(this.element, 'has-popup');
-                Sys.WebForms.Menu._domHelper.appendAttributeValue(this.element, 'aria-haspopup', this.childMenu.element.id);
+                Sys.WebForms.Menu._domHelper.appendAttributeValue(this.element, 'aria-haspopup', this.childMenu.element.Id);
             }
         }
     }
@@ -258,7 +258,7 @@ Sys.WebForms.MenuItem.prototype = {
                 menuItem.highlight(false);
                 if (menuItem.childMenu) {
                     if (!menuItem.childMenu.isStatic()) {
-                        menuItem.childMenu.hide();
+                        menuItem.childMenu.hIde();
                     }
                 }
                 menuItem = menuItem.parentMenu.parentMenuItem;
@@ -268,10 +268,10 @@ Sys.WebForms.MenuItem.prototype = {
     isSiblingOf: function(menuItem) { return menuItem.parentMenu === this.parentMenu; },
     mouseout: function() {
         var menuItem = this,
-            id = this.container.pendingMouseoutId,
+            Id = this.container.pendingMouseoutId,
             disappearAfter = this.container.disappearAfter;
-        if (id) {
-            window.clearTimeout(id);
+        if (Id) {
+            window.clearTimeout(Id);
         }
         if (disappearAfter > -1) {
             this.container.pendingMouseoutId =
@@ -279,9 +279,9 @@ Sys.WebForms.MenuItem.prototype = {
         }
     },
     mouseover: function() {
-        var id = this.container.pendingMouseoutId;
-        if (id) {
-            window.clearTimeout(id);
+        var Id = this.container.pendingMouseoutId;
+        if (Id) {
+            window.clearTimeout(Id);
             this.container.pendingMouseoutId = null;
         }
         this.hover(true);
@@ -322,7 +322,7 @@ Sys.WebForms.MenuItem.prototype = {
                 if (nextItem == this.topLevelMenuItem) {
                     return;
                 }
-                this.topLevelMenuItem.childMenu.hide();
+                this.topLevelMenuItem.childMenu.hIde();
                 this.container.navigateTo(nextItem);
                 if (nextItem.childMenu) {
                     this.container.navigateTo(nextItem.childMenu.firstChild());
@@ -332,7 +332,7 @@ Sys.WebForms.MenuItem.prototype = {
     },
     navigateNext: function() {
         if (this.childMenu) {
-            this.childMenu.hide();
+            this.childMenu.hIde();
         }
         var nextMenuItem = this.nextSibling;
         if (!nextMenuItem && this.parentMenu.isRoot()) {
@@ -365,20 +365,20 @@ Sys.WebForms.MenuItem.prototype = {
                 if (!previousItem) {
                     previousItem = this.parentMenu.rootMenu.lastChild();
                 }
-                this.topLevelMenuItem.childMenu.hide();
+                this.topLevelMenuItem.childMenu.hIde();
                 this.container.navigateTo(previousItem);
                 if (previousItem.childMenu) {
                     this.container.navigateTo(previousItem.childMenu.firstChild());
                 }
             }
             else {
-                this.parentMenu.hide();
+                this.parentMenu.hIde();
             }
         }
     },
     navigatePrevious: function() {
         if (this.childMenu) {
-            this.childMenu.hide();
+            this.childMenu.hIde();
         }
         var previousMenuItem = this.previousSibling;
         if (previousMenuItem) {
@@ -554,9 +554,9 @@ Sys.WebForms.Menu._elementObjectMapper = {
     _mappings: {},
     _mappingIdName: 'Sys.WebForms.Menu.Mapping',
     getMappedObject: function(element) {
-        var id = element[this._mappingIdName];
-        if (id) {
-            return this._mappings[this._mappingIdName + ':' + id];
+        var Id = element[this._mappingIdName];
+        if (Id) {
+            return this._mappings[this._mappingIdName + ':' + Id];
         }
     },
     map: function(element, theObject) {
@@ -564,7 +564,7 @@ Sys.WebForms.Menu._elementObjectMapper = {
         if (mappedObject === theObject) {
             return;
         }
-        var objectId = element[this._mappingIdName] || element.id || '%' + (++this._computedId); 
+        var objectId = element[this._mappingIdName] || element.Id || '%' + (++this._computedId); 
         element[this._mappingIdName] = objectId;
         this._mappings[this._mappingIdName + ':' + objectId] = theObject;
         theObject.mappingId = objectId;
@@ -618,7 +618,7 @@ Sys.WebForms._MenuContainer = function(options) {
     this.menu.rootMenu = this.menu;
     this.menu.displayMode = 'static';
     this.menu.element.style.position = 'relative';
-    this.menu.element.style.width = 'auto';
+    this.menu.element.style.wIdth = 'auto';
     if (this.orientation === 'vertical') {
         Sys.WebForms.Menu._domHelper.appendAttributeValue(this.menu.element, 'role', 'menu');
         if (this.rightToLeft) {

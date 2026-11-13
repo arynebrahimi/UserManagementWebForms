@@ -1,21 +1,21 @@
 //CdnPath=http://ajax.aspnetcdn.com/ajax/4.5.1/1/WebForms.js
-function WebForm_PostBackOptions(eventTarget, eventArgument, validation, validationGroup, actionUrl, trackFocus, clientSubmit) {
+function WebForm_PostBackOptions(eventTarget, eventArgument, valIdation, valIdationGroup, actionUrl, trackFocus, clientSubmit) {
     this.eventTarget = eventTarget;
     this.eventArgument = eventArgument;
-    this.validation = validation;
-    this.validationGroup = validationGroup;
+    this.valIdation = valIdation;
+    this.valIdationGroup = valIdationGroup;
     this.actionUrl = actionUrl;
     this.trackFocus = trackFocus;
     this.clientSubmit = clientSubmit;
 }
 function WebForm_DoPostBackWithOptions(options) {
-    var validationResult = true;
-    if (options.validation) {
+    var valIdationResult = true;
+    if (options.valIdation) {
         if (typeof(Page_ClientValidate) == 'function') {
-            validationResult = Page_ClientValidate(options.validationGroup);
+            valIdationResult = Page_ClientValidate(options.valIdationGroup);
         }
     }
-    if (validationResult) {
+    if (valIdationResult) {
         if ((typeof(options.actionUrl) != "undefined") && (options.actionUrl != null) && (options.actionUrl.length > 0)) {
             theForm.action = options.actionUrl;
         }
@@ -28,8 +28,8 @@ function WebForm_DoPostBackWithOptions(options) {
                 else {
                     var active = document.activeElement;
                     if ((typeof(active) != "undefined") && (active != null)) {
-                        if ((typeof(active.id) != "undefined") && (active.id != null) && (active.id.length > 0)) {
-                            lastFocus.value = active.id;
+                        if ((typeof(active.Id) != "undefined") && (active.Id != null) && (active.Id.length > 0)) {
+                            lastFocus.value = active.Id;
                         }
                         else if (typeof(active.name) != "undefined") {
                             lastFocus.value = active.name;
@@ -47,10 +47,10 @@ var __pendingCallbacks = new Array();
 var __synchronousCallBackIndex = -1;
 function WebForm_DoCallback(eventTarget, eventArgument, eventCallback, context, errorCallback, useAsync) {
     var postData = __theFormPostData +
-                "__CALLBACKID=" + WebForm_EncodeCallback(eventTarget) +
+                "__CALLBACKId=" + WebForm_EncodeCallback(eventTarget) +
                 "&__CALLBACKPARAM=" + WebForm_EncodeCallback(eventArgument);
-    if (theForm["__EVENTVALIDATION"]) {
-        postData += "&__EVENTVALIDATION=" + WebForm_EncodeCallback(theForm["__EVENTVALIDATION"].value);
+    if (theForm["__EVENTVALIdATION"]) {
+        postData += "&__EVENTVALIdATION=" + WebForm_EncodeCallback(theForm["__EVENTVALIdATION"].value);
     }
     var xmlRequest,e;
     try {
@@ -106,15 +106,15 @@ function WebForm_DoCallback(eventTarget, eventArgument, eventCallback, context, 
         return;
     }
     callback.xmlRequest = new Object();
-    var callbackFrameID = "__CALLBACKFRAME" + callbackIndex;
-    var xmlRequestFrame = document.frames[callbackFrameID];
+    var callbackFrameId = "__CALLBACKFRAME" + callbackIndex;
+    var xmlRequestFrame = document.frames[callbackFrameId];
     if (!xmlRequestFrame) {
         xmlRequestFrame = document.createElement("IFRAME");
-        xmlRequestFrame.width = "1";
+        xmlRequestFrame.wIdth = "1";
         xmlRequestFrame.height = "1";
         xmlRequestFrame.frameBorder = "0";
-        xmlRequestFrame.id = callbackFrameID;
-        xmlRequestFrame.name = callbackFrameID;
+        xmlRequestFrame.Id = callbackFrameId;
+        xmlRequestFrame.name = callbackFrameId;
         xmlRequestFrame.style.position = "absolute";
         xmlRequestFrame.style.top = "-100px"
         xmlRequestFrame.style.left = "-100px";
@@ -127,12 +127,12 @@ function WebForm_DoCallback(eventTarget, eventArgument, eventCallback, context, 
         document.body.appendChild(xmlRequestFrame);
     }
     var interval = window.setInterval(function() {
-        xmlRequestFrame = document.frames[callbackFrameID];
+        xmlRequestFrame = document.frames[callbackFrameId];
         if (xmlRequestFrame && xmlRequestFrame.document) {
             window.clearInterval(interval);
             xmlRequestFrame.document.write("");
             xmlRequestFrame.document.close();
-            xmlRequestFrame.document.write('<html><body><form method="post"><input type="hidden" name="__CALLBACKLOADSCRIPT" value="t"></form></body></html>');
+            xmlRequestFrame.document.write('<html><body><form method="post"><input type="hIdden" name="__CALLBACKLOADSCRIPT" value="t"></form></body></html>');
             xmlRequestFrame.document.close();
             xmlRequestFrame.document.forms[0].action = theForm.action;
             var count = __theFormPostCollection.length;
@@ -141,31 +141,31 @@ function WebForm_DoCallback(eventTarget, eventArgument, eventCallback, context, 
                 element = __theFormPostCollection[i];
                 if (element) {
                     var fieldElement = xmlRequestFrame.document.createElement("INPUT");
-                    fieldElement.type = "hidden";
+                    fieldElement.type = "hIdden";
                     fieldElement.name = element.name;
                     fieldElement.value = element.value;
                     xmlRequestFrame.document.forms[0].appendChild(fieldElement);
                 }
             }
             var callbackIdFieldElement = xmlRequestFrame.document.createElement("INPUT");
-            callbackIdFieldElement.type = "hidden";
-            callbackIdFieldElement.name = "__CALLBACKID";
+            callbackIdFieldElement.type = "hIdden";
+            callbackIdFieldElement.name = "__CALLBACKId";
             callbackIdFieldElement.value = eventTarget;
             xmlRequestFrame.document.forms[0].appendChild(callbackIdFieldElement);
             var callbackParamFieldElement = xmlRequestFrame.document.createElement("INPUT");
-            callbackParamFieldElement.type = "hidden";
+            callbackParamFieldElement.type = "hIdden";
             callbackParamFieldElement.name = "__CALLBACKPARAM";
             callbackParamFieldElement.value = eventArgument;
             xmlRequestFrame.document.forms[0].appendChild(callbackParamFieldElement);
-            if (theForm["__EVENTVALIDATION"]) {
-                var callbackValidationFieldElement = xmlRequestFrame.document.createElement("INPUT");
-                callbackValidationFieldElement.type = "hidden";
-                callbackValidationFieldElement.name = "__EVENTVALIDATION";
-                callbackValidationFieldElement.value = theForm["__EVENTVALIDATION"].value;
-                xmlRequestFrame.document.forms[0].appendChild(callbackValidationFieldElement);
+            if (theForm["__EVENTVALIdATION"]) {
+                var callbackValIdationFieldElement = xmlRequestFrame.document.createElement("INPUT");
+                callbackValIdationFieldElement.type = "hIdden";
+                callbackValIdationFieldElement.name = "__EVENTVALIdATION";
+                callbackValIdationFieldElement.value = theForm["__EVENTVALIdATION"].value;
+                xmlRequestFrame.document.forms[0].appendChild(callbackValIdationFieldElement);
             }
             var callbackIndexFieldElement = xmlRequestFrame.document.createElement("INPUT");
-            callbackIndexFieldElement.type = "hidden";
+            callbackIndexFieldElement.type = "hIdden";
             callbackIndexFieldElement.name = "__CALLBACKINDEX";
             callbackIndexFieldElement.value = callbackIndex;
             xmlRequestFrame.document.forms[0].appendChild(callbackIndexFieldElement);
@@ -181,8 +181,8 @@ function WebForm_CallbackComplete() {
                 __synchronousCallBackIndex = -1;
             }
             __pendingCallbacks[i] = null;
-            var callbackFrameID = "__CALLBACKFRAME" + i;
-            var xmlRequestFrame = document.getElementById(callbackFrameID);
+            var callbackFrameId = "__CALLBACKFRAME" + i;
+            var xmlRequestFrame = document.getElementById(callbackFrameId);
             if (xmlRequestFrame) {
                 xmlRequestFrame.parentNode.removeChild(xmlRequestFrame);
             }
@@ -205,21 +205,21 @@ function WebForm_ExecuteCallback(callbackObject) {
     else {
         var separatorIndex = response.indexOf("|");
         if (separatorIndex != -1) {
-            var validationFieldLength = parseInt(response.substring(0, separatorIndex));
-            if (!isNaN(validationFieldLength)) {
-                var validationField = response.substring(separatorIndex + 1, separatorIndex + validationFieldLength + 1);
-                if (validationField != "") {
-                    var validationFieldElement = theForm["__EVENTVALIDATION"];
-                    if (!validationFieldElement) {
-                        validationFieldElement = document.createElement("INPUT");
-                        validationFieldElement.type = "hidden";
-                        validationFieldElement.name = "__EVENTVALIDATION";
-                        theForm.appendChild(validationFieldElement);
+            var valIdationFieldLength = parseInt(response.substring(0, separatorIndex));
+            if (!isNaN(valIdationFieldLength)) {
+                var valIdationField = response.substring(separatorIndex + 1, separatorIndex + valIdationFieldLength + 1);
+                if (valIdationField != "") {
+                    var valIdationFieldElement = theForm["__EVENTVALIdATION"];
+                    if (!valIdationFieldElement) {
+                        valIdationFieldElement = document.createElement("INPUT");
+                        valIdationFieldElement.type = "hIdden";
+                        valIdationFieldElement.name = "__EVENTVALIdATION";
+                        theForm.appendChild(valIdationFieldElement);
                     }
-                    validationFieldElement.value = validationField;
+                    valIdationFieldElement.value = valIdationField;
                 }
                 if ((typeof(callbackObject.eventCallback) != "undefined") && (callbackObject.eventCallback != null)) {
-                    callbackObject.eventCallback(response.substring(separatorIndex + validationFieldLength + 1), callbackObject.context);
+                    callbackObject.eventCallback(response.substring(separatorIndex + valIdationFieldLength + 1), callbackObject.context);
                 }
             }
         }
@@ -236,7 +236,7 @@ function WebForm_FillFirstAvailableSlot(array, element) {
 var __nonMSDOMBrowser = (window.navigator.appName.toLowerCase().indexOf('explorer') == -1);
 var __theFormPostData = "";
 var __theFormPostCollection = new Array();
-var __callbackTextTypes = /^(text|password|hidden|search|tel|url|email|number|range|color|datetime|date|month|week|time|datetime-local)$/i;
+var __callbackTextTypes = /^(text|password|hIdden|search|tel|url|email|number|range|color|datetime|date|month|week|time|datetime-local)$/i;
 function WebForm_InitCallback() {
     var formElements = theForm.elements,
         count = formElements.length,
@@ -247,7 +247,7 @@ function WebForm_InitCallback() {
         if (tagName == "input") {
             var type = element.type;
             if ((__callbackTextTypes.test(type) || ((type == "checkbox" || type == "radio") && element.checked))
-                && (element.id != "__EVENTVALIDATION")) {
+                && (element.Id != "__EVENTVALIdATION")) {
                 WebForm_InitCallbackAddField(element.name, element.value);
             }
         }
@@ -493,7 +493,7 @@ function WebForm_GetElementPosition(element) {
     var result = new Object();
     result.x = 0;
     result.y = 0;
-    result.width = 0;
+    result.wIdth = 0;
     result.height = 0;
     if (element.offsetParent) {
         result.x = element.offsetLeft;
@@ -527,12 +527,12 @@ function WebForm_GetElementPosition(element) {
             result.y = element.y;
         }
     }
-    if (element.offsetWidth && element.offsetHeight) {
-        result.width = element.offsetWidth;
+    if (element.offsetWIdth && element.offsetHeight) {
+        result.wIdth = element.offsetWIdth;
         result.height = element.offsetHeight;
     }
-    else if (element.style && element.style.pixelWidth && element.style.pixelHeight) {
-        result.width = element.style.pixelWidth;
+    else if (element.style && element.style.pixelWIdth && element.style.pixelHeight) {
+        result.wIdth = element.style.pixelWIdth;
         result.height = element.style.pixelHeight;
     }
     return result;
@@ -550,9 +550,9 @@ function WebForm_SetElementHeight(element, height) {
         element.style.height = height + "px";
     }
 }
-function WebForm_SetElementWidth(element, width) {
+function WebForm_SetElementWIdth(element, wIdth) {
     if (element && element.style) {
-        element.style.width = width + "px";
+        element.style.wIdth = wIdth + "px";
     }
 }
 function WebForm_SetElementX(element, x) {

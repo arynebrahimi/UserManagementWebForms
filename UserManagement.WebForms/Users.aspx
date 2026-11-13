@@ -8,6 +8,7 @@
     <title>Users</title>
 </head>
 <body>
+
 <form id="form1" runat="server">
 
     <h2>Users List</h2>
@@ -20,34 +21,29 @@
 
     <asp:GridView ID="gvUsers" runat="server"
         AutoGenerateColumns="False"
-        DataKeyNames="ID"
-        OnRowCommand="gvUsers_RowCommand">
+        DataKeyNames="ID">
 
         <Columns>
+
             <asp:BoundField DataField="ID" HeaderText="ID" />
-            <asp:BoundField DataField="UserName" HeaderText="Username" />
-            <asp:BoundField DataField="FullName" HeaderText="Full Name" />
-            <asp:BoundField DataField="Email" HeaderText="Email" />
-            <asp:BoundField DataField="Role" HeaderText="Role" />
 
-            <asp:TemplateField HeaderText="Actions">
-                <ItemTemplate>
-                    <asp:HyperLink runat="server"
-                        Text="Edit"
-                        NavigateUrl='<%# "EditUser.aspx?id=" + Eval("ID") %>' />
+            <asp:BoundField DataField="UserName"
+                HeaderText="Username" />
 
-                    <asp:LinkButton runat="server"
-                        Text="Delete"
-                        CommandName="DeleteUser"
-                        CommandArgument='<%# Eval("ID") %>'
-                        OnClientClick="return confirm('Delete this user?');" />
-                </ItemTemplate>
-            </asp:TemplateField>
+            <asp:BoundField DataField="FullName"
+                HeaderText="Full Name" />
+
+            <asp:BoundField DataField="Email"
+                HeaderText="Email" />
+
+            <asp:BoundField DataField="Role"
+                HeaderText="Role" />
+
         </Columns>
+
     </asp:GridView>
-    <asp:LinkButton ID="btnLogout" runat="server"
-    Text="Logout"
-    OnClick="btnLogout_Click" />
+
 </form>
+
 </body>
 </html>

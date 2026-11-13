@@ -15,7 +15,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
-  const MAX_UID = 1000000;
+  const MAX_UId = 1000000;
   const MILLISECONDS_MULTIPLIER = 1000;
   const TRANSITION_END = 'transitionend'; // Shout-out Angus Croll (https://goo.gl/pxwQGp)
 
@@ -31,9 +31,9 @@
    */
 
 
-  const getUID = prefix => {
+  const getUId = prefix => {
     do {
-      prefix += Math.floor(Math.random() * MAX_UID);
+      prefix += Math.floor(Math.random() * MAX_UId);
     } while (document.getElementById(prefix));
 
     return prefix;
@@ -43,9 +43,9 @@
     let selector = element.getAttribute('data-bs-target');
 
     if (!selector || selector === '#') {
-      let hrefAttribute = element.getAttribute('href'); // The only valid content that could double as a selector are IDs or classes,
+      let hrefAttribute = element.getAttribute('href'); // The only valId content that could double as a selector are Ids or classes,
       // so everything starting with `#` or `.`. If a "real" URL is used as the selector,
-      // `document.querySelector` will rightfully complain it is invalid.
+      // `document.querySelector` will rightfully complain it is invalId.
       // See https://github.com/twbs/bootstrap/issues/32273
 
       if (!hrefAttribute || !hrefAttribute.includes('#') && !hrefAttribute.startsWith('.')) {
@@ -336,10 +336,10 @@
 
   const namespaceRegex = /[^.]*(?=\..*)\.|.*/;
   const stripNameRegex = /\..*/;
-  const stripUidRegex = /::\d+$/;
+  const stripUIdRegex = /::\d+$/;
   const eventRegistry = {}; // Events storage
 
-  let uidEvent = 1;
+  let uIdEvent = 1;
   const customEvents = {
     mouseenter: 'mouseover',
     mouseleave: 'mouseout'
@@ -349,15 +349,15 @@
    * Private methods
    */
 
-  function makeEventUid(element, uid) {
-    return uid && `${uid}::${uidEvent++}` || element.uidEvent || uidEvent++;
+  function makeEventUId(element, uId) {
+    return uId && `${uId}::${uIdEvent++}` || element.uIdEvent || uIdEvent++;
   }
 
   function getElementEvents(element) {
-    const uid = makeEventUid(element);
-    element.uidEvent = uid;
-    eventRegistry[uid] = eventRegistry[uid] || {};
-    return eventRegistry[uid];
+    const uId = makeEventUId(element);
+    element.uIdEvent = uId;
+    eventRegistry[uId] = eventRegistry[uId] || {};
+    return eventRegistry[uId];
   }
 
   function bootstrapHandler(element, fn) {
@@ -446,13 +446,13 @@
       return;
     }
 
-    const uid = makeEventUid(callable, originalTypeEvent.replace(namespaceRegex, ''));
+    const uId = makeEventUId(callable, originalTypeEvent.replace(namespaceRegex, ''));
     const fn = isDelegated ? bootstrapDelegationHandler(element, handler, callable) : bootstrapHandler(element, callable);
     fn.delegationSelector = isDelegated ? handler : null;
     fn.callable = callable;
     fn.oneOff = oneOff;
-    fn.uidEvent = uid;
-    handlers[uid] = fn;
+    fn.uIdEvent = uId;
+    handlers[uId] = fn;
     element.addEventListener(typeEvent, fn, isDelegated);
   }
 
@@ -464,7 +464,7 @@
     }
 
     element.removeEventListener(typeEvent, fn, Boolean(delegationSelector));
-    delete events[typeEvent][fn.uidEvent];
+    delete events[typeEvent][fn.uIdEvent];
   }
 
   function removeNamespacedHandlers(element, events, typeEvent, namespace) {
@@ -521,7 +521,7 @@
       }
 
       for (const keyHandlers of Object.keys(storeElementEvent)) {
-        const handlerKey = keyHandlers.replace(stripUidRegex, '');
+        const handlerKey = keyHandlers.replace(stripUIdRegex, '');
 
         if (!inNamespace || originalTypeEvent.includes(handlerKey)) {
           const event = storeElementEvent[keyHandlers];
@@ -769,7 +769,7 @@
         const valueType = isElement$1(value) ? 'element' : toType(value);
 
         if (!new RegExp(expectedTypes).test(valueType)) {
-          throw new TypeError(`${this.constructor.NAME.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".`);
+          throw new TypeError(`${this.constructor.NAME.toUpperCase()}: Option "${property}" provIded type "${valueType}" but expected type "${expectedTypes}".`);
         }
       }
     }
@@ -862,7 +862,7 @@
    * --------------------------------------------------------------------------
    */
 
-  const enableDismissTrigger = (component, method = 'hide') => {
+  const enableDismissTrigger = (component, method = 'hIde') => {
     const clickEvent = `click.dismiss${component.EVENT_KEY}`;
     const name = component.NAME;
     EventHandler.on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
@@ -875,7 +875,7 @@
       }
 
       const target = getElementFromSelector(this) || this.closest(`.${name}`);
-      const instance = component.getOrCreateInstance(target); // Method argument is left, for Alert and only, as it doesn't implement the 'hide' method
+      const instance = component.getOrCreateInstance(target); // Method argument is left, for Alert and only, as it doesn't implement the 'hIde' method
 
       instance[method]();
     });
@@ -1252,8 +1252,8 @@
   const ORDER_PREV = 'prev';
   const DIRECTION_LEFT = 'left';
   const DIRECTION_RIGHT = 'right';
-  const EVENT_SLIDE = `slide${EVENT_KEY$8}`;
-  const EVENT_SLID = `slid${EVENT_KEY$8}`;
+  const EVENT_SLIdE = `slIde${EVENT_KEY$8}`;
+  const EVENT_SLId = `slId${EVENT_KEY$8}`;
   const EVENT_KEYDOWN$1 = `keydown${EVENT_KEY$8}`;
   const EVENT_MOUSEENTER$1 = `mouseenter${EVENT_KEY$8}`;
   const EVENT_MOUSELEAVE$1 = `mouseleave${EVENT_KEY$8}`;
@@ -1262,7 +1262,7 @@
   const EVENT_CLICK_DATA_API$5 = `click${EVENT_KEY$8}${DATA_API_KEY$5}`;
   const CLASS_NAME_CAROUSEL = 'carousel';
   const CLASS_NAME_ACTIVE$2 = 'active';
-  const CLASS_NAME_SLIDE = 'slide';
+  const CLASS_NAME_SLIdE = 'slIde';
   const CLASS_NAME_END = 'carousel-item-end';
   const CLASS_NAME_START = 'carousel-item-start';
   const CLASS_NAME_NEXT = 'carousel-item-next';
@@ -1272,8 +1272,8 @@
   const SELECTOR_ACTIVE_ITEM = SELECTOR_ACTIVE + SELECTOR_ITEM;
   const SELECTOR_ITEM_IMG = '.carousel-item img';
   const SELECTOR_INDICATORS = '.carousel-indicators';
-  const SELECTOR_DATA_SLIDE = '[data-bs-slide], [data-bs-slide-to]';
-  const SELECTOR_DATA_RIDE = '[data-bs-ride="carousel"]';
+  const SELECTOR_DATA_SLIdE = '[data-bs-slIde], [data-bs-slIde-to]';
+  const SELECTOR_DATA_RIdE = '[data-bs-rIde="carousel"]';
   const KEY_TO_DIRECTION = {
     [ARROW_LEFT_KEY$1]: DIRECTION_RIGHT,
     [ARROW_RIGHT_KEY$1]: DIRECTION_LEFT
@@ -1282,7 +1282,7 @@
     interval: 5000,
     keyboard: true,
     pause: 'hover',
-    ride: false,
+    rIde: false,
     touch: true,
     wrap: true
   };
@@ -1291,7 +1291,7 @@
     // TODO:v6 remove boolean support
     keyboard: 'boolean',
     pause: '(string|boolean)',
-    ride: '(boolean|string)',
+    rIde: '(boolean|string)',
     touch: 'boolean',
     wrap: 'boolean'
   };
@@ -1304,14 +1304,14 @@
       super(element, config);
       this._interval = null;
       this._activeElement = null;
-      this._isSliding = false;
+      this._isSlIding = false;
       this.touchTimeout = null;
       this._swipeHelper = null;
       this._indicatorsElement = SelectorEngine.findOne(SELECTOR_INDICATORS, this._element);
 
       this._addEventListeners();
 
-      if (this._config.ride === CLASS_NAME_CAROUSEL) {
+      if (this._config.rIde === CLASS_NAME_CAROUSEL) {
         this.cycle();
       }
     } // Getters
@@ -1331,24 +1331,24 @@
 
 
     next() {
-      this._slide(ORDER_NEXT);
+      this._slIde(ORDER_NEXT);
     }
 
     nextWhenVisible() {
       // FIXME TODO use `document.visibilityState`
       // Don't call next when the page isn't visible
       // or the carousel or its parent isn't visible
-      if (!document.hidden && isVisible(this._element)) {
+      if (!document.hIdden && isVisible(this._element)) {
         this.next();
       }
     }
 
     prev() {
-      this._slide(ORDER_PREV);
+      this._slIde(ORDER_PREV);
     }
 
     pause() {
-      if (this._isSliding) {
+      if (this._isSlIding) {
         triggerTransitionEnd(this._element);
       }
 
@@ -1364,12 +1364,12 @@
     }
 
     _maybeEnableCycle() {
-      if (!this._config.ride) {
+      if (!this._config.rIde) {
         return;
       }
 
-      if (this._isSliding) {
-        EventHandler.one(this._element, EVENT_SLID, () => this.cycle());
+      if (this._isSlIding) {
+        EventHandler.one(this._element, EVENT_SLId, () => this.cycle());
         return;
       }
 
@@ -1383,8 +1383,8 @@
         return;
       }
 
-      if (this._isSliding) {
-        EventHandler.one(this._element, EVENT_SLID, () => this.to(index));
+      if (this._isSlIding) {
+        EventHandler.one(this._element, EVENT_SLId, () => this.to(index));
         return;
       }
 
@@ -1396,7 +1396,7 @@
 
       const order = index > activeIndex ? ORDER_NEXT : ORDER_PREV;
 
-      this._slide(order, items[index]);
+      this._slIde(order, items[index]);
     }
 
     dispose() {
@@ -1455,8 +1455,8 @@
       };
 
       const swipeConfig = {
-        leftCallback: () => this._slide(this._directionToOrder(DIRECTION_LEFT)),
-        rightCallback: () => this._slide(this._directionToOrder(DIRECTION_RIGHT)),
+        leftCallback: () => this._slIde(this._directionToOrder(DIRECTION_LEFT)),
+        rightCallback: () => this._slIde(this._directionToOrder(DIRECTION_RIGHT)),
         endCallback: endCallBack
       };
       this._swipeHelper = new Swipe(this._element, swipeConfig);
@@ -1472,7 +1472,7 @@
       if (direction) {
         event.preventDefault();
 
-        this._slide(this._directionToOrder(direction));
+        this._slIde(this._directionToOrder(direction));
       }
     }
 
@@ -1488,7 +1488,7 @@
       const activeIndicator = SelectorEngine.findOne(SELECTOR_ACTIVE, this._indicatorsElement);
       activeIndicator.classList.remove(CLASS_NAME_ACTIVE$2);
       activeIndicator.removeAttribute('aria-current');
-      const newActiveIndicator = SelectorEngine.findOne(`[data-bs-slide-to="${index}"]`, this._indicatorsElement);
+      const newActiveIndicator = SelectorEngine.findOne(`[data-bs-slIde-to="${index}"]`, this._indicatorsElement);
 
       if (newActiveIndicator) {
         newActiveIndicator.classList.add(CLASS_NAME_ACTIVE$2);
@@ -1507,8 +1507,8 @@
       this._config.interval = elementInterval || this._config.defaultInterval;
     }
 
-    _slide(order, element = null) {
-      if (this._isSliding) {
+    _slIde(order, element = null) {
+      if (this._isSlIding) {
         return;
       }
 
@@ -1532,9 +1532,9 @@
         });
       };
 
-      const slideEvent = triggerEvent(EVENT_SLIDE);
+      const slIdeEvent = triggerEvent(EVENT_SLIdE);
 
-      if (slideEvent.defaultPrevented) {
+      if (slIdeEvent.defaultPrevented) {
         return;
       }
 
@@ -1546,7 +1546,7 @@
 
       const isCycling = Boolean(this._interval);
       this.pause();
-      this._isSliding = true;
+      this._isSlIding = true;
 
       this._setActiveIndicatorElement(nextElementIndex);
 
@@ -1562,8 +1562,8 @@
         nextElement.classList.remove(directionalClassName, orderClassName);
         nextElement.classList.add(CLASS_NAME_ACTIVE$2);
         activeElement.classList.remove(CLASS_NAME_ACTIVE$2, orderClassName, directionalClassName);
-        this._isSliding = false;
-        triggerEvent(EVENT_SLID);
+        this._isSlIding = false;
+        triggerEvent(EVENT_SLId);
       };
 
       this._queueCallback(completeCallBack, activeElement, this._isAnimated());
@@ -1574,7 +1574,7 @@
     }
 
     _isAnimated() {
-      return this._element.classList.contains(CLASS_NAME_SLIDE);
+      return this._element.classList.contains(CLASS_NAME_SLIdE);
     }
 
     _getActive() {
@@ -1634,7 +1634,7 @@
    */
 
 
-  EventHandler.on(document, EVENT_CLICK_DATA_API$5, SELECTOR_DATA_SLIDE, function (event) {
+  EventHandler.on(document, EVENT_CLICK_DATA_API$5, SELECTOR_DATA_SLIdE, function (event) {
     const target = getElementFromSelector(this);
 
     if (!target || !target.classList.contains(CLASS_NAME_CAROUSEL)) {
@@ -1643,17 +1643,17 @@
 
     event.preventDefault();
     const carousel = Carousel.getOrCreateInstance(target);
-    const slideIndex = this.getAttribute('data-bs-slide-to');
+    const slIdeIndex = this.getAttribute('data-bs-slIde-to');
 
-    if (slideIndex) {
-      carousel.to(slideIndex);
+    if (slIdeIndex) {
+      carousel.to(slIdeIndex);
 
       carousel._maybeEnableCycle();
 
       return;
     }
 
-    if (Manipulator.getDataAttribute(this, 'slide') === 'next') {
+    if (Manipulator.getDataAttribute(this, 'slIde') === 'next') {
       carousel.next();
 
       carousel._maybeEnableCycle();
@@ -1666,7 +1666,7 @@
     carousel._maybeEnableCycle();
   });
   EventHandler.on(window, EVENT_LOAD_DATA_API$3, () => {
-    const carousels = SelectorEngine.find(SELECTOR_DATA_RIDE);
+    const carousels = SelectorEngine.find(SELECTOR_DATA_RIdE);
 
     for (const carousel of carousels) {
       Carousel.getOrCreateInstance(carousel);
@@ -1694,8 +1694,8 @@
   const DATA_API_KEY$4 = '.data-api';
   const EVENT_SHOW$6 = `show${EVENT_KEY$7}`;
   const EVENT_SHOWN$6 = `shown${EVENT_KEY$7}`;
-  const EVENT_HIDE$6 = `hide${EVENT_KEY$7}`;
-  const EVENT_HIDDEN$6 = `hidden${EVENT_KEY$7}`;
+  const EVENT_HIdE$6 = `hIde${EVENT_KEY$7}`;
+  const EVENT_HIdDEN$6 = `hIdden${EVENT_KEY$7}`;
   const EVENT_CLICK_DATA_API$4 = `click${EVENT_KEY$7}${DATA_API_KEY$4}`;
   const CLASS_NAME_SHOW$7 = 'show';
   const CLASS_NAME_COLLAPSE = 'collapse';
@@ -1703,7 +1703,7 @@
   const CLASS_NAME_COLLAPSED = 'collapsed';
   const CLASS_NAME_DEEPER_CHILDREN = `:scope .${CLASS_NAME_COLLAPSE} .${CLASS_NAME_COLLAPSE}`;
   const CLASS_NAME_HORIZONTAL = 'collapse-horizontal';
-  const WIDTH = 'width';
+  const WIdTH = 'wIdth';
   const HEIGHT = 'height';
   const SELECTOR_ACTIVES = '.collapse.show, .collapse.collapsing';
   const SELECTOR_DATA_TOGGLE$4 = '[data-bs-toggle="collapse"]';
@@ -1762,7 +1762,7 @@
 
     toggle() {
       if (this._isShown()) {
-        this.hide();
+        this.hIde();
       } else {
         this.show();
       }
@@ -1792,7 +1792,7 @@
       }
 
       for (const activeInstance of activeChildren) {
-        activeInstance.hide();
+        activeInstance.hIde();
       }
 
       const dimension = this._getDimension();
@@ -1826,12 +1826,12 @@
       this._element.style[dimension] = `${this._element[scrollSize]}px`;
     }
 
-    hide() {
+    hIde() {
       if (this._isTransitioning || !this._isShown()) {
         return;
       }
 
-      const startEvent = EventHandler.trigger(this._element, EVENT_HIDE$6);
+      const startEvent = EventHandler.trigger(this._element, EVENT_HIdE$6);
 
       if (startEvent.defaultPrevented) {
         return;
@@ -1863,7 +1863,7 @@
 
         this._element.classList.add(CLASS_NAME_COLLAPSE);
 
-        EventHandler.trigger(this._element, EVENT_HIDDEN$6);
+        EventHandler.trigger(this._element, EVENT_HIdDEN$6);
       };
 
       this._element.style[dimension] = '';
@@ -1884,7 +1884,7 @@
     }
 
     _getDimension() {
-      return this._element.classList.contains(CLASS_NAME_HORIZONTAL) ? WIDTH : HEIGHT;
+      return this._element.classList.contains(CLASS_NAME_HORIZONTAL) ? WIdTH : HEIGHT;
     }
 
     _initializeChildren() {
@@ -1924,7 +1924,7 @@
     static jQueryInterface(config) {
       const _config = {};
 
-      if (typeof config === 'string' && /show|hide/.test(config)) {
+      if (typeof config === 'string' && /show|hIde/.test(config)) {
         _config.toggle = false;
       }
 
@@ -1948,7 +1948,7 @@
 
 
   EventHandler.on(document, EVENT_CLICK_DATA_API$4, SELECTOR_DATA_TOGGLE$4, function (event) {
-    // preventDefault only for <a> elements (which change the URL) not inside the collapsible element
+    // preventDefault only for <a> elements (which change the URL) not insIde the collapsible element
     if (event.target.tagName === 'A' || event.delegateTarget && event.delegateTarget.tagName === 'A') {
       event.preventDefault();
     }
@@ -2141,7 +2141,7 @@
   }
 
   function isLayoutViewport() {
-    return !/^((?!chrome|android).)*safari/i.test(getUAString());
+    return !/^((?!chrome|androId).)*safari/i.test(getUAString());
   }
 
   function getBoundingClientRect(element, includeScale, isFixedStrategy) {
@@ -2158,7 +2158,7 @@
     var scaleY = 1;
 
     if (includeScale && isHTMLElement(element)) {
-      scaleX = element.offsetWidth > 0 ? round(clientRect.width) / element.offsetWidth || 1 : 1;
+      scaleX = element.offsetWIdth > 0 ? round(clientRect.wIdth) / element.offsetWIdth || 1 : 1;
       scaleY = element.offsetHeight > 0 ? round(clientRect.height) / element.offsetHeight || 1 : 1;
     }
 
@@ -2168,13 +2168,13 @@
     var addVisualOffsets = !isLayoutViewport() && isFixedStrategy;
     var x = (clientRect.left + (addVisualOffsets && visualViewport ? visualViewport.offsetLeft : 0)) / scaleX;
     var y = (clientRect.top + (addVisualOffsets && visualViewport ? visualViewport.offsetTop : 0)) / scaleY;
-    var width = clientRect.width / scaleX;
+    var wIdth = clientRect.wIdth / scaleX;
     var height = clientRect.height / scaleY;
     return {
-      width: width,
+      wIdth: wIdth,
       height: height,
       top: y,
-      right: x + width,
+      right: x + wIdth,
       bottom: y + height,
       left: x,
       x: x,
@@ -2188,11 +2188,11 @@
     var clientRect = getBoundingClientRect(element); // Use the clientRect sizes if it's not been transformed.
     // Fixes https://github.com/popperjs/popper-core/issues/1223
 
-    var width = element.offsetWidth;
+    var wIdth = element.offsetWIdth;
     var height = element.offsetHeight;
 
-    if (Math.abs(clientRect.width - width) <= 1) {
-      width = clientRect.width;
+    if (Math.abs(clientRect.wIdth - wIdth) <= 1) {
+      wIdth = clientRect.wIdth;
     }
 
     if (Math.abs(clientRect.height - height) <= 1) {
@@ -2202,7 +2202,7 @@
     return {
       x: element.offsetLeft,
       y: element.offsetTop,
-      width: width,
+      wIdth: wIdth,
       height: height
     };
   }
@@ -2274,7 +2274,7 @@
 
   function getContainingBlock(element) {
     var isFirefox = /firefox/i.test(getUAString());
-    var isIE = /Trident/i.test(getUAString());
+    var isIE = /TrIdent/i.test(getUAString());
 
     if (isIE && isHTMLElement(element)) {
       // In IE 9, 10 and 11 fixed elements containing block is always established by the viewport
@@ -2294,7 +2294,7 @@
     while (isHTMLElement(currentNode) && ['html', 'body'].indexOf(getNodeName(currentNode)) < 0) {
       var css = getComputedStyle$1(currentNode); // This is non-exhaustive but covers the most common CSS properties that
       // create a containing block.
-      // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
+      // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#Identifying_the_containing_block
 
       if (css.transform !== 'none' || css.perspective !== 'none' || css.contain === 'paint' || ['transform', 'perspective'].indexOf(css.willChange) !== -1 || isFirefox && css.willChange === 'filter' || isFirefox && css.filter && css.filter !== 'none') {
         return currentNode;
@@ -2335,7 +2335,7 @@
     return v > max ? max : v;
   }
 
-  function getFreshSideObject() {
+  function getFreshSIdeObject() {
     return {
       top: 0,
       right: 0,
@@ -2345,7 +2345,7 @@
   }
 
   function mergePaddingObject(paddingObject) {
-    return Object.assign({}, getFreshSideObject(), paddingObject);
+    return Object.assign({}, getFreshSIdeObject(), paddingObject);
   }
 
   function expandToHashMap(value, keys) {
@@ -2373,7 +2373,7 @@
     var basePlacement = getBasePlacement(state.placement);
     var axis = getMainAxisFromPlacement(basePlacement);
     var isVertical = [left, right].indexOf(basePlacement) >= 0;
-    var len = isVertical ? 'height' : 'width';
+    var len = isVertical ? 'height' : 'wIdth';
 
     if (!arrowElement || !popperOffsets) {
       return;
@@ -2386,9 +2386,9 @@
     var endDiff = state.rects.reference[len] + state.rects.reference[axis] - popperOffsets[axis] - state.rects.popper[len];
     var startDiff = popperOffsets[axis] - state.rects.reference[axis];
     var arrowOffsetParent = getOffsetParent(arrowElement);
-    var clientSize = arrowOffsetParent ? axis === 'y' ? arrowOffsetParent.clientHeight || 0 : arrowOffsetParent.clientWidth || 0 : 0;
+    var clientSize = arrowOffsetParent ? axis === 'y' ? arrowOffsetParent.clientHeight || 0 : arrowOffsetParent.clientWIdth || 0 : 0;
     var centerToReference = endDiff / 2 - startDiff / 2; // Make sure the arrow doesn't overflow the popper if the center point is
-    // outside of the popper bounds
+    // outsIde of the popper bounds
 
     var min = paddingObject[minProp];
     var max = clientSize - arrowRect[len] - paddingObject[maxProp];
@@ -2441,14 +2441,14 @@
     return placement.split('-')[1];
   }
 
-  var unsetSides = {
+  var unsetSIdes = {
     top: 'auto',
     right: 'auto',
     bottom: 'auto',
     left: 'auto'
   }; // Round the offsets to the nearest suitable subpixel based on the DPR.
   // Zooming can change the DPR, but it seems to report a value that will
-  // cleanly divide the values into the appropriate subpixels.
+  // cleanly divIde the values into the appropriate subpixels.
 
   function roundOffsetsByDPR(_ref) {
     var x = _ref.x,
@@ -2491,21 +2491,21 @@
     y = _ref3.y;
     var hasX = offsets.hasOwnProperty('x');
     var hasY = offsets.hasOwnProperty('y');
-    var sideX = left;
-    var sideY = top;
+    var sIdeX = left;
+    var sIdeY = top;
     var win = window;
 
     if (adaptive) {
       var offsetParent = getOffsetParent(popper);
       var heightProp = 'clientHeight';
-      var widthProp = 'clientWidth';
+      var wIdthProp = 'clientWIdth';
 
       if (offsetParent === getWindow(popper)) {
         offsetParent = getDocumentElement(popper);
 
         if (getComputedStyle$1(offsetParent).position !== 'static' && position === 'absolute') {
           heightProp = 'scrollHeight';
-          widthProp = 'scrollWidth';
+          wIdthProp = 'scrollWIdth';
         }
       } // $FlowFixMe[incompatible-cast]: force type refinement, we compare offsetParent with window above, but Flow doesn't detect it
 
@@ -2513,7 +2513,7 @@
       offsetParent = offsetParent;
 
       if (placement === top || (placement === left || placement === right) && variation === end) {
-        sideY = bottom;
+        sIdeY = bottom;
         var offsetY = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.height : // $FlowFixMe[prop-missing]
         offsetParent[heightProp];
         y -= offsetY - popperRect.height;
@@ -2521,17 +2521,17 @@
       }
 
       if (placement === left || (placement === top || placement === bottom) && variation === end) {
-        sideX = right;
-        var offsetX = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.width : // $FlowFixMe[prop-missing]
-        offsetParent[widthProp];
-        x -= offsetX - popperRect.width;
+        sIdeX = right;
+        var offsetX = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.wIdth : // $FlowFixMe[prop-missing]
+        offsetParent[wIdthProp];
+        x -= offsetX - popperRect.wIdth;
         x *= gpuAcceleration ? 1 : -1;
       }
     }
 
     var commonStyles = Object.assign({
       position: position
-    }, adaptive && unsetSides);
+    }, adaptive && unsetSIdes);
 
     var _ref4 = roundOffsets === true ? roundOffsetsByDPR({
       x: x,
@@ -2547,10 +2547,10 @@
     if (gpuAcceleration) {
       var _Object$assign;
 
-      return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? '0' : '', _Object$assign[sideX] = hasX ? '0' : '', _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
+      return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sIdeY] = hasY ? '0' : '', _Object$assign[sIdeX] = hasX ? '0' : '', _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
     }
 
-    return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : '', _Object$assign2[sideX] = hasX ? x + "px" : '', _Object$assign2.transform = '', _Object$assign2));
+    return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sIdeY] = hasY ? y + "px" : '', _Object$assign2[sIdeX] = hasX ? x + "px" : '', _Object$assign2.transform = '', _Object$assign2));
   }
 
   function computeStyles(_ref5) {
@@ -2685,10 +2685,10 @@
   }
 
   function getWindowScrollBarX(element) {
-    // If <html> has a CSS width greater than the viewport, then this will be
+    // If <html> has a CSS wIdth greater than the viewport, then this will be
     // incorrect for RTL.
     // Popper 1 is broken in this case and never had a bug report so let's assume
-    // it's not an issue. I don't think anyone ever specifies width on <html>
+    // it's not an issue. I don't think anyone ever specifies wIdth on <html>
     // anyway.
     // Browsers where the left scrollbar doesn't cause an issue report `0` for
     // this (e.g. Edge 2019, IE11, Safari)
@@ -2699,13 +2699,13 @@
     var win = getWindow(element);
     var html = getDocumentElement(element);
     var visualViewport = win.visualViewport;
-    var width = html.clientWidth;
+    var wIdth = html.clientWIdth;
     var height = html.clientHeight;
     var x = 0;
     var y = 0;
 
     if (visualViewport) {
-      width = visualViewport.width;
+      wIdth = visualViewport.wIdth;
       height = visualViewport.height;
       var layoutViewport = isLayoutViewport();
 
@@ -2716,7 +2716,7 @@
     }
 
     return {
-      width: width,
+      wIdth: wIdth,
       height: height,
       x: x + getWindowScrollBarX(element),
       y: y
@@ -2731,17 +2731,17 @@
     var html = getDocumentElement(element);
     var winScroll = getWindowScroll(element);
     var body = (_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body;
-    var width = max(html.scrollWidth, html.clientWidth, body ? body.scrollWidth : 0, body ? body.clientWidth : 0);
+    var wIdth = max(html.scrollWIdth, html.clientWIdth, body ? body.scrollWIdth : 0, body ? body.clientWIdth : 0);
     var height = max(html.scrollHeight, html.clientHeight, body ? body.scrollHeight : 0, body ? body.clientHeight : 0);
     var x = -winScroll.scrollLeft + getWindowScrollBarX(element);
     var y = -winScroll.scrollTop;
 
     if (getComputedStyle$1(body || html).direction === 'rtl') {
-      x += max(html.clientWidth, body ? body.clientWidth : 0) - width;
+      x += max(html.clientWIdth, body ? body.clientWIdth : 0) - wIdth;
     }
 
     return {
-      width: width,
+      wIdth: wIdth,
       height: height,
       x: x,
       y: y
@@ -2755,7 +2755,7 @@
         overflowX = _getComputedStyle.overflowX,
         overflowY = _getComputedStyle.overflowY;
 
-    return /auto|scroll|overlay|hidden/.test(overflow + overflowY + overflowX);
+    return /auto|scroll|overlay|hIdden/.test(overflow + overflowY + overflowX);
   }
 
   function getScrollParent(node) {
@@ -2798,7 +2798,7 @@
     return Object.assign({}, rect, {
       left: rect.x,
       top: rect.y,
-      right: rect.x + rect.width,
+      right: rect.x + rect.wIdth,
       bottom: rect.y + rect.height
     });
   }
@@ -2808,8 +2808,8 @@
     rect.top = rect.top + element.clientTop;
     rect.left = rect.left + element.clientLeft;
     rect.bottom = rect.top + element.clientHeight;
-    rect.right = rect.left + element.clientWidth;
-    rect.width = element.clientWidth;
+    rect.right = rect.left + element.clientWIdth;
+    rect.wIdth = element.clientWIdth;
     rect.height = element.clientHeight;
     rect.x = rect.left;
     rect.y = rect.top;
@@ -2819,7 +2819,7 @@
   function getClientRectFromMixedType(element, clippingParent, strategy) {
     return clippingParent === viewport ? rectToClientRect(getViewportRect(element, strategy)) : isElement(clippingParent) ? getInnerBoundingClientRect(clippingParent, strategy) : rectToClientRect(getDocumentRect(getDocumentElement(element)));
   } // A "clipping parent" is an overflowable container with the characteristic of
-  // clipping (or hiding) overflowing elements with a position different from
+  // clipping (or hIding) overflowing elements with a position different from
   // `initial`
 
 
@@ -2852,7 +2852,7 @@
       accRect.left = max(rect.left, accRect.left);
       return accRect;
     }, getClientRectFromMixedType(element, firstClippingParent, strategy));
-    clippingRect.width = clippingRect.right - clippingRect.left;
+    clippingRect.wIdth = clippingRect.right - clippingRect.left;
     clippingRect.height = clippingRect.bottom - clippingRect.top;
     clippingRect.x = clippingRect.left;
     clippingRect.y = clippingRect.top;
@@ -2865,7 +2865,7 @@
         placement = _ref.placement;
     var basePlacement = placement ? getBasePlacement(placement) : null;
     var variation = placement ? getVariation(placement) : null;
-    var commonX = reference.x + reference.width / 2 - element.width / 2;
+    var commonX = reference.x + reference.wIdth / 2 - element.wIdth / 2;
     var commonY = reference.y + reference.height / 2 - element.height / 2;
     var offsets;
 
@@ -2886,14 +2886,14 @@
 
       case right:
         offsets = {
-          x: reference.x + reference.width,
+          x: reference.x + reference.wIdth,
           y: commonY
         };
         break;
 
       case left:
         offsets = {
-          x: reference.x - element.width,
+          x: reference.x - element.wIdth,
           y: commonY
         };
         break;
@@ -2908,7 +2908,7 @@
     var mainAxis = basePlacement ? getMainAxisFromPlacement(basePlacement) : null;
 
     if (mainAxis != null) {
-      var len = mainAxis === 'y' ? 'height' : 'width';
+      var len = mainAxis === 'y' ? 'height' : 'wIdth';
 
       switch (variation) {
         case start:
@@ -3077,7 +3077,7 @@
 
       var isStartVariation = getVariation(placement) === start;
       var isVertical = [top, bottom].indexOf(_basePlacement) >= 0;
-      var len = isVertical ? 'width' : 'height';
+      var len = isVertical ? 'wIdth' : 'height';
       var overflow = detectOverflow(state, {
         placement: placement,
         boundary: boundary,
@@ -3085,13 +3085,13 @@
         altBoundary: altBoundary,
         padding: padding
       });
-      var mainVariationSide = isVertical ? isStartVariation ? right : left : isStartVariation ? bottom : top;
+      var mainVariationSIde = isVertical ? isStartVariation ? right : left : isStartVariation ? bottom : top;
 
       if (referenceRect[len] > popperRect[len]) {
-        mainVariationSide = getOppositePlacement(mainVariationSide);
+        mainVariationSIde = getOppositePlacement(mainVariationSIde);
       }
 
-      var altVariationSide = getOppositePlacement(mainVariationSide);
+      var altVariationSIde = getOppositePlacement(mainVariationSIde);
       var checks = [];
 
       if (checkMainAxis) {
@@ -3099,7 +3099,7 @@
       }
 
       if (checkAltAxis) {
-        checks.push(overflow[mainVariationSide] <= 0, overflow[altVariationSide] <= 0);
+        checks.push(overflow[mainVariationSIde] <= 0, overflow[altVariationSIde] <= 0);
       }
 
       if (checks.every(function (check) {
@@ -3160,7 +3160,7 @@
     }
   };
 
-  function getSideOffsets(overflow, rect, preventedOffsets) {
+  function getSIdeOffsets(overflow, rect, preventedOffsets) {
     if (preventedOffsets === void 0) {
       preventedOffsets = {
         x: 0,
@@ -3170,19 +3170,19 @@
 
     return {
       top: overflow.top - rect.height - preventedOffsets.y,
-      right: overflow.right - rect.width + preventedOffsets.x,
+      right: overflow.right - rect.wIdth + preventedOffsets.x,
       bottom: overflow.bottom - rect.height + preventedOffsets.y,
-      left: overflow.left - rect.width - preventedOffsets.x
+      left: overflow.left - rect.wIdth - preventedOffsets.x
     };
   }
 
-  function isAnySideFullyClipped(overflow) {
-    return [top, right, bottom, left].some(function (side) {
-      return overflow[side] >= 0;
+  function isAnySIdeFullyClipped(overflow) {
+    return [top, right, bottom, left].some(function (sIde) {
+      return overflow[sIde] >= 0;
     });
   }
 
-  function hide(_ref) {
+  function hIde(_ref) {
     var state = _ref.state,
         name = _ref.name;
     var referenceRect = state.rects.reference;
@@ -3194,48 +3194,48 @@
     var popperAltOverflow = detectOverflow(state, {
       altBoundary: true
     });
-    var referenceClippingOffsets = getSideOffsets(referenceOverflow, referenceRect);
-    var popperEscapeOffsets = getSideOffsets(popperAltOverflow, popperRect, preventedOffsets);
-    var isReferenceHidden = isAnySideFullyClipped(referenceClippingOffsets);
-    var hasPopperEscaped = isAnySideFullyClipped(popperEscapeOffsets);
+    var referenceClippingOffsets = getSIdeOffsets(referenceOverflow, referenceRect);
+    var popperEscapeOffsets = getSIdeOffsets(popperAltOverflow, popperRect, preventedOffsets);
+    var isReferenceHIdden = isAnySIdeFullyClipped(referenceClippingOffsets);
+    var hasPopperEscaped = isAnySIdeFullyClipped(popperEscapeOffsets);
     state.modifiersData[name] = {
       referenceClippingOffsets: referenceClippingOffsets,
       popperEscapeOffsets: popperEscapeOffsets,
-      isReferenceHidden: isReferenceHidden,
+      isReferenceHIdden: isReferenceHIdden,
       hasPopperEscaped: hasPopperEscaped
     };
     state.attributes.popper = Object.assign({}, state.attributes.popper, {
-      'data-popper-reference-hidden': isReferenceHidden,
+      'data-popper-reference-hIdden': isReferenceHIdden,
       'data-popper-escaped': hasPopperEscaped
     });
   } // eslint-disable-next-line import/no-unused-modules
 
 
-  const hide$1 = {
-    name: 'hide',
+  const hIde$1 = {
+    name: 'hIde',
     enabled: true,
     phase: 'main',
     requiresIfExists: ['preventOverflow'],
-    fn: hide
+    fn: hIde
   };
 
-  function distanceAndSkiddingToXY(placement, rects, offset) {
+  function distanceAndSkIddingToXY(placement, rects, offset) {
     var basePlacement = getBasePlacement(placement);
     var invertDistance = [left, top].indexOf(basePlacement) >= 0 ? -1 : 1;
 
     var _ref = typeof offset === 'function' ? offset(Object.assign({}, rects, {
       placement: placement
     })) : offset,
-        skidding = _ref[0],
+        skIdding = _ref[0],
         distance = _ref[1];
 
-    skidding = skidding || 0;
+    skIdding = skIdding || 0;
     distance = (distance || 0) * invertDistance;
     return [left, right].indexOf(basePlacement) >= 0 ? {
       x: distance,
-      y: skidding
+      y: skIdding
     } : {
-      x: skidding,
+      x: skIdding,
       y: distance
     };
   }
@@ -3247,7 +3247,7 @@
     var _options$offset = options.offset,
         offset = _options$offset === void 0 ? [0, 0] : _options$offset;
     var data = placements.reduce(function (acc, placement) {
-      acc[placement] = distanceAndSkiddingToXY(placement, state.rects, offset);
+      acc[placement] = distanceAndSkIddingToXY(placement, state.rects, offset);
       return acc;
     }, {});
     var _data$state$placement = data[state.placement],
@@ -3352,29 +3352,29 @@
     if (checkMainAxis) {
       var _offsetModifierState$;
 
-      var mainSide = mainAxis === 'y' ? top : left;
-      var altSide = mainAxis === 'y' ? bottom : right;
-      var len = mainAxis === 'y' ? 'height' : 'width';
+      var mainSIde = mainAxis === 'y' ? top : left;
+      var altSIde = mainAxis === 'y' ? bottom : right;
+      var len = mainAxis === 'y' ? 'height' : 'wIdth';
       var offset = popperOffsets[mainAxis];
-      var min$1 = offset + overflow[mainSide];
-      var max$1 = offset - overflow[altSide];
+      var min$1 = offset + overflow[mainSIde];
+      var max$1 = offset - overflow[altSIde];
       var additive = tether ? -popperRect[len] / 2 : 0;
       var minLen = variation === start ? referenceRect[len] : popperRect[len];
       var maxLen = variation === start ? -popperRect[len] : -referenceRect[len]; // We need to include the arrow in the calculation so the arrow doesn't go
-      // outside the reference bounds
+      // outsIde the reference bounds
 
       var arrowElement = state.elements.arrow;
       var arrowRect = tether && arrowElement ? getLayoutRect(arrowElement) : {
-        width: 0,
+        wIdth: 0,
         height: 0
       };
-      var arrowPaddingObject = state.modifiersData['arrow#persistent'] ? state.modifiersData['arrow#persistent'].padding : getFreshSideObject();
-      var arrowPaddingMin = arrowPaddingObject[mainSide];
-      var arrowPaddingMax = arrowPaddingObject[altSide]; // If the reference length is smaller than the arrow length, we don't want
+      var arrowPaddingObject = state.modifiersData['arrow#persistent'] ? state.modifiersData['arrow#persistent'].padding : getFreshSIdeObject();
+      var arrowPaddingMin = arrowPaddingObject[mainSIde];
+      var arrowPaddingMax = arrowPaddingObject[altSIde]; // If the reference length is smaller than the arrow length, we don't want
       // to include its full size in the calculation. If the reference is small
       // and near the edge of a boundary, the popper can overflow even if the
       // reference is not overflowing as well (e.g. virtual elements with no
-      // width or height)
+      // wIdth or height)
 
       var arrowLen = within(0, referenceRect[len], arrowRect[len]);
       var minOffset = isBasePlacement ? referenceRect[len] / 2 - additive - arrowLen - arrowPaddingMin - normalizedTetherOffsetValue.mainAxis : minLen - arrowLen - arrowPaddingMin - normalizedTetherOffsetValue.mainAxis;
@@ -3392,27 +3392,27 @@
     if (checkAltAxis) {
       var _offsetModifierState$2;
 
-      var _mainSide = mainAxis === 'x' ? top : left;
+      var _mainSIde = mainAxis === 'x' ? top : left;
 
-      var _altSide = mainAxis === 'x' ? bottom : right;
+      var _altSIde = mainAxis === 'x' ? bottom : right;
 
       var _offset = popperOffsets[altAxis];
 
-      var _len = altAxis === 'y' ? 'height' : 'width';
+      var _len = altAxis === 'y' ? 'height' : 'wIdth';
 
-      var _min = _offset + overflow[_mainSide];
+      var _min = _offset + overflow[_mainSIde];
 
-      var _max = _offset - overflow[_altSide];
+      var _max = _offset - overflow[_altSIde];
 
-      var isOriginSide = [top, left].indexOf(basePlacement) !== -1;
+      var isOriginSIde = [top, left].indexOf(basePlacement) !== -1;
 
       var _offsetModifierValue = (_offsetModifierState$2 = offsetModifierState == null ? void 0 : offsetModifierState[altAxis]) != null ? _offsetModifierState$2 : 0;
 
-      var _tetherMin = isOriginSide ? _min : _offset - referenceRect[_len] - popperRect[_len] - _offsetModifierValue + normalizedTetherOffsetValue.altAxis;
+      var _tetherMin = isOriginSIde ? _min : _offset - referenceRect[_len] - popperRect[_len] - _offsetModifierValue + normalizedTetherOffsetValue.altAxis;
 
-      var _tetherMax = isOriginSide ? _offset + referenceRect[_len] + popperRect[_len] - _offsetModifierValue - normalizedTetherOffsetValue.altAxis : _max;
+      var _tetherMax = isOriginSIde ? _offset + referenceRect[_len] + popperRect[_len] - _offsetModifierValue - normalizedTetherOffsetValue.altAxis : _max;
 
-      var _preventedOffset = tether && isOriginSide ? withinMaxClamp(_tetherMin, _offset, _tetherMax) : within(tether ? _tetherMin : _min, _offset, tether ? _tetherMax : _max);
+      var _preventedOffset = tether && isOriginSIde ? withinMaxClamp(_tetherMin, _offset, _tetherMax) : within(tether ? _tetherMin : _min, _offset, tether ? _tetherMax : _max);
 
       popperOffsets[altAxis] = _preventedOffset;
       data[altAxis] = _preventedOffset - _offset;
@@ -3447,7 +3447,7 @@
 
   function isElementScaled(element) {
     var rect = element.getBoundingClientRect();
-    var scaleX = round(rect.width) / element.offsetWidth || 1;
+    var scaleX = round(rect.wIdth) / element.offsetWIdth || 1;
     var scaleY = round(rect.height) / element.offsetHeight || 1;
     return scaleX !== 1 || scaleY !== 1;
   } // Returns the composite rect of an element relative to its offsetParent.
@@ -3490,7 +3490,7 @@
     return {
       x: rect.left + scroll.scrollLeft - offsets.x,
       y: rect.top + scroll.scrollTop - offsets.y,
-      width: rect.width,
+      wIdth: rect.wIdth,
       height: rect.height
     };
   }
@@ -3575,7 +3575,7 @@
     strategy: 'absolute'
   };
 
-  function areValidElements() {
+  function areValIdElements() {
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
@@ -3630,7 +3630,7 @@
 
           state.orderedModifiers = orderedModifiers.filter(function (m) {
             return m.enabled;
-          }); // Validate the provided modifiers so that the consumer will get warned
+          }); // Validate the provIded modifiers so that the consumer will get warned
 
           runModifierEffects();
           return instance.update();
@@ -3647,10 +3647,10 @@
 
           var _state$elements = state.elements,
               reference = _state$elements.reference,
-              popper = _state$elements.popper; // Don't proceed if `reference` or `popper` are not valid elements
+              popper = _state$elements.popper; // Don't proceed if `reference` or `popper` are not valId elements
           // anymore
 
-          if (!areValidElements(reference, popper)) {
+          if (!areValIdElements(reference, popper)) {
 
             return;
           } // Store the reference and popper rects to be read by modifiers
@@ -3713,7 +3713,7 @@
         }
       };
 
-      if (!areValidElements(reference, popper)) {
+      if (!areValIdElements(reference, popper)) {
 
         return instance;
       }
@@ -3767,7 +3767,7 @@
     defaultModifiers: defaultModifiers$1
   }); // eslint-disable-next-line import/no-unused-modules
 
-  var defaultModifiers = [eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1, offset$1, flip$1, preventOverflow$1, arrow$1, hide$1];
+  var defaultModifiers = [eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1, offset$1, flip$1, preventOverflow$1, arrow$1, hIde$1];
   var createPopper = /*#__PURE__*/popperGenerator({
     defaultModifiers: defaultModifiers
   }); // eslint-disable-next-line import/no-unused-modules
@@ -3808,7 +3808,7 @@
     computeStyles: computeStyles$1,
     eventListeners,
     flip: flip$1,
-    hide: hide$1,
+    hIde: hIde$1,
     offset: offset$1,
     popperOffsets: popperOffsets$1,
     preventOverflow: preventOverflow$1
@@ -3834,8 +3834,8 @@
   const ARROW_DOWN_KEY$1 = 'ArrowDown';
   const RIGHT_MOUSE_BUTTON = 2; // MouseEvent.button value for the secondary button, usually the right button
 
-  const EVENT_HIDE$5 = `hide${EVENT_KEY$6}`;
-  const EVENT_HIDDEN$5 = `hidden${EVENT_KEY$6}`;
+  const EVENT_HIdE$5 = `hIde${EVENT_KEY$6}`;
+  const EVENT_HIdDEN$5 = `hIdden${EVENT_KEY$6}`;
   const EVENT_SHOW$5 = `show${EVENT_KEY$6}`;
   const EVENT_SHOWN$5 = `shown${EVENT_KEY$6}`;
   const EVENT_CLICK_DATA_API$3 = `click${EVENT_KEY$6}${DATA_API_KEY$3}`;
@@ -3907,7 +3907,7 @@
 
 
     toggle() {
-      return this._isShown() ? this.hide() : this.show();
+      return this._isShown() ? this.hIde() : this.show();
     }
 
     show() {
@@ -3947,7 +3947,7 @@
       EventHandler.trigger(this._element, EVENT_SHOWN$5, relatedTarget);
     }
 
-    hide() {
+    hIde() {
       if (isDisabled(this._element) || !this._isShown()) {
         return;
       }
@@ -3956,7 +3956,7 @@
         relatedTarget: this._element
       };
 
-      this._completeHide(relatedTarget);
+      this._completeHIde(relatedTarget);
     }
 
     dispose() {
@@ -3976,10 +3976,10 @@
     } // Private
 
 
-    _completeHide(relatedTarget) {
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$5, relatedTarget);
+    _completeHIde(relatedTarget) {
+      const hIdeEvent = EventHandler.trigger(this._element, EVENT_HIdE$5, relatedTarget);
 
-      if (hideEvent.defaultPrevented) {
+      if (hIdeEvent.defaultPrevented) {
         return;
       } // If this is a touch-enabled device we remove the extra
       // empty mouseover listeners we added for iOS support
@@ -4002,7 +4002,7 @@
       this._element.setAttribute('aria-expanded', 'false');
 
       Manipulator.removeDataAttribute(this._menu, 'popper');
-      EventHandler.trigger(this._element, EVENT_HIDDEN$5, relatedTarget);
+      EventHandler.trigger(this._element, EVENT_HIdDEN$5, relatedTarget);
     }
 
     _getConfig(config) {
@@ -4010,7 +4010,7 @@
 
       if (typeof config.reference === 'object' && !isElement$1(config.reference) && typeof config.reference.getBoundingClientRect !== 'function') {
         // Popper virtual elements require a getBoundingClientRect method
-        throw new TypeError(`${NAME$a.toUpperCase()}: Option "reference" provided type "object" without a required "getBoundingClientRect" method.`);
+        throw new TypeError(`${NAME$a.toUpperCase()}: Option "reference" provIded type "object" without a required "getBoundingClientRect" method.`);
       }
 
       return config;
@@ -4168,7 +4168,7 @@
         const composedPath = event.composedPath();
         const isMenuTarget = composedPath.includes(context._menu);
 
-        if (composedPath.includes(context._element) || context._config.autoClose === 'inside' && !isMenuTarget || context._config.autoClose === 'outside' && isMenuTarget) {
+        if (composedPath.includes(context._element) || context._config.autoClose === 'insIde' && !isMenuTarget || context._config.autoClose === 'outsIde' && isMenuTarget) {
           continue;
         } // Tab navigation through the dropdown menu or events from contained inputs shouldn't close the menu
 
@@ -4185,7 +4185,7 @@
           relatedTarget.clickEvent = event;
         }
 
-        context._completeHide(relatedTarget);
+        context._completeHIde(relatedTarget);
       }
     }
 
@@ -4221,7 +4221,7 @@
       if (instance._isShown()) {
         // else is escape and we check if it is shown
         event.stopPropagation();
-        instance.hide();
+        instance.hIde();
         getToggleButton.focus();
       }
     }
@@ -4270,24 +4270,24 @@
     } // Public
 
 
-    getWidth() {
-      // https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth#usage_notes
-      const documentWidth = document.documentElement.clientWidth;
-      return Math.abs(window.innerWidth - documentWidth);
+    getWIdth() {
+      // https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWIdth#usage_notes
+      const documentWIdth = document.documentElement.clientWIdth;
+      return Math.abs(window.innerWIdth - documentWIdth);
     }
 
-    hide() {
-      const width = this.getWidth();
+    hIde() {
+      const wIdth = this.getWIdth();
 
-      this._disableOverFlow(); // give padding to element to balance the hidden scrollbar width
-
-
-      this._setElementAttributes(this._element, PROPERTY_PADDING, calculatedValue => calculatedValue + width); // trick: We adjust positive paddingRight and negative marginRight to sticky-top elements to keep showing fullwidth
+      this._disableOverFlow(); // give padding to element to balance the hIdden scrollbar wIdth
 
 
-      this._setElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING, calculatedValue => calculatedValue + width);
+      this._setElementAttributes(this._element, PROPERTY_PADDING, calculatedValue => calculatedValue + wIdth); // trick: We adjust positive paddingRight and negative marginRight to sticky-top elements to keep showing fullwIdth
 
-      this._setElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN, calculatedValue => calculatedValue - width);
+
+      this._setElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING, calculatedValue => calculatedValue + wIdth);
+
+      this._setElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN, calculatedValue => calculatedValue - wIdth);
     }
 
     reset() {
@@ -4301,21 +4301,21 @@
     }
 
     isOverflowing() {
-      return this.getWidth() > 0;
+      return this.getWIdth() > 0;
     } // Private
 
 
     _disableOverFlow() {
       this._saveInitialAttribute(this._element, 'overflow');
 
-      this._element.style.overflow = 'hidden';
+      this._element.style.overflow = 'hIdden';
     }
 
     _setElementAttributes(selector, styleProperty, callback) {
-      const scrollbarWidth = this.getWidth();
+      const scrollbarWIdth = this.getWIdth();
 
       const manipulationCallBack = element => {
-        if (element !== this._element && window.innerWidth > element.clientWidth + scrollbarWidth) {
+        if (element !== this._element && window.innerWIdth > element.clientWIdth + scrollbarWIdth) {
           return;
         }
 
@@ -4442,7 +4442,7 @@
       });
     }
 
-    hide(callback) {
+    hIde(callback) {
       if (!this._config.isVisible) {
         execute(callback);
         return;
@@ -4531,7 +4531,7 @@
   const TAB_NAV_BACKWARD = 'backward';
   const Default$7 = {
     autofocus: true,
-    trapElement: null // The element to trap focus inside of
+    trapElement: null // The element to trap focus insIde of
 
   };
   const DefaultType$7 = {
@@ -4635,9 +4635,9 @@
   const EVENT_KEY$4 = `.${DATA_KEY$4}`;
   const DATA_API_KEY$2 = '.data-api';
   const ESCAPE_KEY$1 = 'Escape';
-  const EVENT_HIDE$4 = `hide${EVENT_KEY$4}`;
-  const EVENT_HIDE_PREVENTED$1 = `hidePrevented${EVENT_KEY$4}`;
-  const EVENT_HIDDEN$4 = `hidden${EVENT_KEY$4}`;
+  const EVENT_HIdE$4 = `hIde${EVENT_KEY$4}`;
+  const EVENT_HIdE_PREVENTED$1 = `hIdePrevented${EVENT_KEY$4}`;
+  const EVENT_HIdDEN$4 = `hIdden${EVENT_KEY$4}`;
   const EVENT_SHOW$4 = `show${EVENT_KEY$4}`;
   const EVENT_SHOWN$4 = `shown${EVENT_KEY$4}`;
   const EVENT_RESIZE$1 = `resize${EVENT_KEY$4}`;
@@ -4695,7 +4695,7 @@
 
 
     toggle(relatedTarget) {
-      return this._isShown ? this.hide() : this.show(relatedTarget);
+      return this._isShown ? this.hIde() : this.show(relatedTarget);
     }
 
     show(relatedTarget) {
@@ -4714,7 +4714,7 @@
       this._isShown = true;
       this._isTransitioning = true;
 
-      this._scrollBar.hide();
+      this._scrollBar.hIde();
 
       document.body.classList.add(CLASS_NAME_OPEN);
 
@@ -4723,14 +4723,14 @@
       this._backdrop.show(() => this._showElement(relatedTarget));
     }
 
-    hide() {
+    hIde() {
       if (!this._isShown || this._isTransitioning) {
         return;
       }
 
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$4);
+      const hIdeEvent = EventHandler.trigger(this._element, EVENT_HIdE$4);
 
-      if (hideEvent.defaultPrevented) {
+      if (hIdeEvent.defaultPrevented) {
         return;
       }
 
@@ -4741,7 +4741,7 @@
 
       this._element.classList.remove(CLASS_NAME_SHOW$4);
 
-      this._queueCallback(() => this._hideModal(), this._element, this._isAnimated());
+      this._queueCallback(() => this._hIdeModal(), this._element, this._isAnimated());
     }
 
     dispose() {
@@ -4783,7 +4783,7 @@
 
       this._element.style.display = 'block';
 
-      this._element.removeAttribute('aria-hidden');
+      this._element.removeAttribute('aria-hIdden');
 
       this._element.setAttribute('aria-modal', true);
 
@@ -4822,7 +4822,7 @@
 
         if (this._config.keyboard) {
           event.preventDefault();
-          this.hide();
+          this.hIde();
           return;
         }
 
@@ -4834,7 +4834,7 @@
         }
       });
       EventHandler.on(this._element, EVENT_MOUSEDOWN_DISMISS, event => {
-        // a bad trick to segregate clicks that may start inside dialog but end outside, and avoid listen to scrollbar clicks
+        // a bad trick to segregate clicks that may start insIde dialog but end outsIde, and avoid listen to scrollbar clicks
         EventHandler.one(this._element, EVENT_CLICK_DISMISS, event2 => {
           if (this._element !== event.target || this._element !== event2.target) {
             return;
@@ -4847,16 +4847,16 @@
           }
 
           if (this._config.backdrop) {
-            this.hide();
+            this.hIde();
           }
         });
       });
     }
 
-    _hideModal() {
+    _hIdeModal() {
       this._element.style.display = 'none';
 
-      this._element.setAttribute('aria-hidden', true);
+      this._element.setAttribute('aria-hIdden', true);
 
       this._element.removeAttribute('aria-modal');
 
@@ -4864,14 +4864,14 @@
 
       this._isTransitioning = false;
 
-      this._backdrop.hide(() => {
+      this._backdrop.hIde(() => {
         document.body.classList.remove(CLASS_NAME_OPEN);
 
         this._resetAdjustments();
 
         this._scrollBar.reset();
 
-        EventHandler.trigger(this._element, EVENT_HIDDEN$4);
+        EventHandler.trigger(this._element, EVENT_HIdDEN$4);
       });
     }
 
@@ -4880,21 +4880,21 @@
     }
 
     _triggerBackdropTransition() {
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED$1);
+      const hIdeEvent = EventHandler.trigger(this._element, EVENT_HIdE_PREVENTED$1);
 
-      if (hideEvent.defaultPrevented) {
+      if (hIdeEvent.defaultPrevented) {
         return;
       }
 
       const isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
       const initialOverflowY = this._element.style.overflowY; // return if the following background transition hasn't yet completed
 
-      if (initialOverflowY === 'hidden' || this._element.classList.contains(CLASS_NAME_STATIC)) {
+      if (initialOverflowY === 'hIdden' || this._element.classList.contains(CLASS_NAME_STATIC)) {
         return;
       }
 
       if (!isModalOverflowing) {
-        this._element.style.overflowY = 'hidden';
+        this._element.style.overflowY = 'hIdden';
       }
 
       this._element.classList.add(CLASS_NAME_STATIC);
@@ -4917,18 +4917,18 @@
     _adjustDialog() {
       const isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
 
-      const scrollbarWidth = this._scrollBar.getWidth();
+      const scrollbarWIdth = this._scrollBar.getWIdth();
 
-      const isBodyOverflowing = scrollbarWidth > 0;
+      const isBodyOverflowing = scrollbarWIdth > 0;
 
       if (isBodyOverflowing && !isModalOverflowing) {
         const property = isRTL() ? 'paddingLeft' : 'paddingRight';
-        this._element.style[property] = `${scrollbarWidth}px`;
+        this._element.style[property] = `${scrollbarWIdth}px`;
       }
 
       if (!isBodyOverflowing && isModalOverflowing) {
         const property = isRTL() ? 'paddingRight' : 'paddingLeft';
-        this._element.style[property] = `${scrollbarWidth}px`;
+        this._element.style[property] = `${scrollbarWIdth}px`;
       }
     }
 
@@ -4973,7 +4973,7 @@
         return;
       }
 
-      EventHandler.one(target, EVENT_HIDDEN$4, () => {
+      EventHandler.one(target, EVENT_HIdDEN$4, () => {
         if (isVisible(this)) {
           this.focus();
         }
@@ -4983,7 +4983,7 @@
     const alreadyOpen = SelectorEngine.findOne(OPEN_SELECTOR$1);
 
     if (alreadyOpen) {
-      Modal.getInstance(alreadyOpen).hide();
+      Modal.getInstance(alreadyOpen).hIde();
     }
 
     const data = Modal.getOrCreateInstance(target);
@@ -5014,14 +5014,14 @@
   const ESCAPE_KEY = 'Escape';
   const CLASS_NAME_SHOW$3 = 'show';
   const CLASS_NAME_SHOWING$1 = 'showing';
-  const CLASS_NAME_HIDING = 'hiding';
+  const CLASS_NAME_HIdING = 'hIding';
   const CLASS_NAME_BACKDROP = 'offcanvas-backdrop';
   const OPEN_SELECTOR = '.offcanvas.show';
   const EVENT_SHOW$3 = `show${EVENT_KEY$3}`;
   const EVENT_SHOWN$3 = `shown${EVENT_KEY$3}`;
-  const EVENT_HIDE$3 = `hide${EVENT_KEY$3}`;
-  const EVENT_HIDE_PREVENTED = `hidePrevented${EVENT_KEY$3}`;
-  const EVENT_HIDDEN$3 = `hidden${EVENT_KEY$3}`;
+  const EVENT_HIdE$3 = `hIde${EVENT_KEY$3}`;
+  const EVENT_HIdE_PREVENTED = `hIdePrevented${EVENT_KEY$3}`;
+  const EVENT_HIdDEN$3 = `hIdden${EVENT_KEY$3}`;
   const EVENT_RESIZE = `resize${EVENT_KEY$3}`;
   const EVENT_CLICK_DATA_API$1 = `click${EVENT_KEY$3}${DATA_API_KEY$1}`;
   const EVENT_KEYDOWN_DISMISS = `keydown.dismiss${EVENT_KEY$3}`;
@@ -5065,7 +5065,7 @@
 
 
     toggle(relatedTarget) {
-      return this._isShown ? this.hide() : this.show(relatedTarget);
+      return this._isShown ? this.hIde() : this.show(relatedTarget);
     }
 
     show(relatedTarget) {
@@ -5086,7 +5086,7 @@
       this._backdrop.show();
 
       if (!this._config.scroll) {
-        new ScrollBarHelper().hide();
+        new ScrollBarHelper().hIde();
       }
 
       this._element.setAttribute('aria-modal', true);
@@ -5112,14 +5112,14 @@
       this._queueCallback(completeCallBack, this._element, true);
     }
 
-    hide() {
+    hIde() {
       if (!this._isShown) {
         return;
       }
 
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$3);
+      const hIdeEvent = EventHandler.trigger(this._element, EVENT_HIdE$3);
 
-      if (hideEvent.defaultPrevented) {
+      if (hIdeEvent.defaultPrevented) {
         return;
       }
 
@@ -5129,12 +5129,12 @@
 
       this._isShown = false;
 
-      this._element.classList.add(CLASS_NAME_HIDING);
+      this._element.classList.add(CLASS_NAME_HIdING);
 
-      this._backdrop.hide();
+      this._backdrop.hIde();
 
       const completeCallback = () => {
-        this._element.classList.remove(CLASS_NAME_SHOW$3, CLASS_NAME_HIDING);
+        this._element.classList.remove(CLASS_NAME_SHOW$3, CLASS_NAME_HIdING);
 
         this._element.removeAttribute('aria-modal');
 
@@ -5144,7 +5144,7 @@
           new ScrollBarHelper().reset();
         }
 
-        EventHandler.trigger(this._element, EVENT_HIDDEN$3);
+        EventHandler.trigger(this._element, EVENT_HIdDEN$3);
       };
 
       this._queueCallback(completeCallback, this._element, true);
@@ -5162,11 +5162,11 @@
     _initializeBackDrop() {
       const clickCallback = () => {
         if (this._config.backdrop === 'static') {
-          EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
+          EventHandler.trigger(this._element, EVENT_HIdE_PREVENTED);
           return;
         }
 
-        this.hide();
+        this.hIde();
       }; // 'static' option will be translated to true, and booleans will keep their value
 
 
@@ -5193,11 +5193,11 @@
         }
 
         if (!this._config.keyboard) {
-          EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
+          EventHandler.trigger(this._element, EVENT_HIdE_PREVENTED);
           return;
         }
 
-        this.hide();
+        this.hIde();
       });
     } // Static
 
@@ -5235,7 +5235,7 @@
       return;
     }
 
-    EventHandler.one(target, EVENT_HIDDEN$3, () => {
+    EventHandler.one(target, EVENT_HIdDEN$3, () => {
       // focus on trigger when it is closed
       if (isVisible(this)) {
         this.focus();
@@ -5245,7 +5245,7 @@
     const alreadyOpen = SelectorEngine.findOne(OPEN_SELECTOR);
 
     if (alreadyOpen && alreadyOpen !== target) {
-      Offcanvas.getInstance(alreadyOpen).hide();
+      Offcanvas.getInstance(alreadyOpen).hIde();
     }
 
     const data = Offcanvas.getOrCreateInstance(target);
@@ -5259,7 +5259,7 @@
   EventHandler.on(window, EVENT_RESIZE, () => {
     for (const element of SelectorEngine.find('[aria-modal][class*=show][class*=offcanvas-]')) {
       if (getComputedStyle(element).position !== 'fixed') {
-        Offcanvas.getOrCreateInstance(element).hide();
+        Offcanvas.getOrCreateInstance(element).hIde();
       }
     }
   });
@@ -5286,12 +5286,12 @@
 
   const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i;
   /**
-   * A pattern that matches safe data URLs. Only matches image, video and audio types.
+   * A pattern that matches safe data URLs. Only matches image, vIdeo and audio types.
    *
    * Shout-out to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
    */
 
-  const DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i;
+  const DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|vIdeo\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i;
 
   const allowedAttribute = (attribute, allowedAttributeList) => {
     const attributeName = attribute.nodeName.toLowerCase();
@@ -5302,7 +5302,7 @@
       }
 
       return true;
-    } // Check if a regular expression validates the attribute.
+    } // Check if a regular expression Validates the attribute.
 
 
     return allowedAttributeList.filter(attributeRegex => attributeRegex instanceof RegExp).some(regex => regex.test(attributeName));
@@ -5310,7 +5310,7 @@
 
   const DefaultAllowlist = {
     // Global attributes allowed on any supplied element below.
-    '*': ['class', 'dir', 'id', 'lang', 'role', ARIA_ATTRIBUTE_PATTERN],
+    '*': ['class', 'dir', 'Id', 'lang', 'role', ARIA_ATTRIBUTE_PATTERN],
     a: ['target', 'href', 'title', 'rel'],
     area: [],
     b: [],
@@ -5327,7 +5327,7 @@
     h5: [],
     h6: [],
     i: [],
-    img: ['src', 'srcset', 'alt', 'title', 'width', 'height'],
+    img: ['src', 'srcset', 'alt', 'title', 'wIdth', 'height'],
     li: [],
     ol: [],
     p: [],
@@ -5550,13 +5550,13 @@
   const CLASS_NAME_SHOW$2 = 'show';
   const SELECTOR_TOOLTIP_INNER = '.tooltip-inner';
   const SELECTOR_MODAL = `.${CLASS_NAME_MODAL}`;
-  const EVENT_MODAL_HIDE = 'hide.bs.modal';
+  const EVENT_MODAL_HIdE = 'hIde.bs.modal';
   const TRIGGER_HOVER = 'hover';
   const TRIGGER_FOCUS = 'focus';
   const TRIGGER_CLICK = 'click';
   const TRIGGER_MANUAL = 'manual';
-  const EVENT_HIDE$2 = 'hide';
-  const EVENT_HIDDEN$2 = 'hidden';
+  const EVENT_HIdE$2 = 'hIde';
+  const EVENT_HIdDEN$2 = 'hIdden';
   const EVENT_SHOW$2 = 'show';
   const EVENT_SHOWN$2 = 'shown';
   const EVENT_INSERTED = 'inserted';
@@ -5683,7 +5683,7 @@
 
     dispose() {
       clearTimeout(this._timeout);
-      EventHandler.off(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
+      EventHandler.off(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIdE, this._hIdeModalHandler);
 
       if (this._element.getAttribute('data-bs-original-title')) {
         this._element.setAttribute('title', this._element.getAttribute('data-bs-original-title'));
@@ -5717,7 +5717,7 @@
 
       const tip = this._getTipElement();
 
-      this._element.setAttribute('aria-describedby', tip.getAttribute('id'));
+      this._element.setAttribute('aria-describedby', tip.getAttribute('Id'));
 
       const {
         container
@@ -5753,14 +5753,14 @@
       this._queueCallback(complete, this.tip, this._isAnimated());
     }
 
-    hide() {
+    hIde() {
       if (!this._isShown()) {
         return;
       }
 
-      const hideEvent = EventHandler.trigger(this._element, this.constructor.eventName(EVENT_HIDE$2));
+      const hIdeEvent = EventHandler.trigger(this._element, this.constructor.eventName(EVENT_HIdE$2));
 
-      if (hideEvent.defaultPrevented) {
+      if (hIdeEvent.defaultPrevented) {
         return;
       }
 
@@ -5791,7 +5791,7 @@
 
         this._element.removeAttribute('aria-describedby');
 
-        EventHandler.trigger(this._element, this.constructor.eventName(EVENT_HIDDEN$2));
+        EventHandler.trigger(this._element, this.constructor.eventName(EVENT_HIdDEN$2));
       };
 
       this._queueCallback(complete, this.tip, this._isAnimated());
@@ -5827,8 +5827,8 @@
       tip.classList.remove(CLASS_NAME_FADE$2, CLASS_NAME_SHOW$2); // todo: on v6 the following can be achieved with CSS only
 
       tip.classList.add(`bs-${this.constructor.NAME}-auto`);
-      const tipId = getUID(this.constructor.NAME).toString();
-      tip.setAttribute('id', tipId);
+      const tipId = getUId(this.constructor.NAME).toString();
+      tip.setAttribute('Id', tipId);
 
       if (this._isAnimated()) {
         tip.classList.add(CLASS_NAME_FADE$2);
@@ -5853,7 +5853,7 @@
       } else {
         this._templateFactory = new TemplateFactory({ ...this._config,
           // the `content` var has to be after `this._config`
-          // to override config.content in case of popover
+          // to overrIde config.content in case of popover
           content,
           extraClass: this._resolvePossibleFunction(this._config.customClass)
         });
@@ -5940,7 +5940,7 @@
           phase: 'beforeMain',
           fn: data => {
             // Pre-set Popper's placement attribute in order to read the arrow sizes properly.
-            // Otherwise, Popper mixes up the width and height dimensions since the initial arrow style is for top placement
+            // Otherwise, Popper mixes up the wIdth and height dimensions since the initial arrow style is for top placement
             this._getTipElement().setAttribute('data-popper-placement', data.state.placement);
           }
         }]
@@ -5980,13 +5980,13 @@
         }
       }
 
-      this._hideModalHandler = () => {
+      this._hIdeModalHandler = () => {
         if (this._element) {
-          this.hide();
+          this.hIde();
         }
       };
 
-      EventHandler.on(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
+      EventHandler.on(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIdE, this._hIdeModalHandler);
     }
 
     _fixTitle() {
@@ -6030,9 +6030,9 @@
 
       this._setTimeout(() => {
         if (!this._isHovered) {
-          this.hide();
+          this.hIde();
         }
-      }, this._config.delay.hide);
+      }, this._config.delay.hIde);
     }
 
     _setTimeout(handler, timeout) {
@@ -6070,7 +6070,7 @@
       if (typeof config.delay === 'number') {
         config.delay = {
           show: config.delay,
-          hide: config.delay
+          hIde: config.delay
         };
       }
 
@@ -6179,7 +6179,7 @@
 
     static get NAME() {
       return NAME$3;
-    } // Overrides
+    } // OverrIdes
 
 
     _isWithContent() {
@@ -6377,7 +6377,7 @@
 
 
     _observerCallback(entries) {
-      const targetElement = entry => this._targetLinks.get(`#${entry.target.id}`);
+      const targetElement = entry => this._targetLinks.get(`#${entry.target.Id}`);
 
       const activate = entry => {
         this._previousScrollData.visibleEntryTop = entry.target.offsetTop;
@@ -6423,7 +6423,7 @@
       const targetLinks = SelectorEngine.find(SELECTOR_TARGET_LINKS, this._config.target);
 
       for (const anchor of targetLinks) {
-        // ensure that the anchor has an id and is not disabled
+        // ensure that the anchor has an Id and is not disabled
         if (!anchor.hash || isDisabled(anchor)) {
           continue;
         }
@@ -6527,8 +6527,8 @@
   const NAME$1 = 'tab';
   const DATA_KEY$1 = 'bs.tab';
   const EVENT_KEY$1 = `.${DATA_KEY$1}`;
-  const EVENT_HIDE$1 = `hide${EVENT_KEY$1}`;
-  const EVENT_HIDDEN$1 = `hidden${EVENT_KEY$1}`;
+  const EVENT_HIdE$1 = `hIde${EVENT_KEY$1}`;
+  const EVENT_HIdDEN$1 = `hIdden${EVENT_KEY$1}`;
   const EVENT_SHOW$1 = `show${EVENT_KEY$1}`;
   const EVENT_SHOWN$1 = `shown${EVENT_KEY$1}`;
   const EVENT_CLICK_DATA_API = `click${EVENT_KEY$1}`;
@@ -6563,7 +6563,7 @@
 
       if (!this._parent) {
         return; // todo: should Throw exception on v6
-        // throw new TypeError(`${element.outerHTML} has not a valid parent ${SELECTOR_INNER_ELEM}`)
+        // throw new TypeError(`${element.outerHTML} has not a valId parent ${SELECTOR_INNER_ELEM}`)
       } // Set up initial aria attributes
 
 
@@ -6589,14 +6589,14 @@
 
       const active = this._getActiveElem();
 
-      const hideEvent = active ? EventHandler.trigger(active, EVENT_HIDE$1, {
+      const hIdeEvent = active ? EventHandler.trigger(active, EVENT_HIdE$1, {
         relatedTarget: innerElem
       }) : null;
       const showEvent = EventHandler.trigger(innerElem, EVENT_SHOW$1, {
         relatedTarget: active
       });
 
-      if (showEvent.defaultPrevented || hideEvent && hideEvent.defaultPrevented) {
+      if (showEvent.defaultPrevented || hIdeEvent && hIdeEvent.defaultPrevented) {
         return;
       }
 
@@ -6657,7 +6657,7 @@
 
         this._toggleDropDown(element, false);
 
-        EventHandler.trigger(element, EVENT_HIDDEN$1, {
+        EventHandler.trigger(element, EVENT_HIdDEN$1, {
           relatedTarget: relatedElem
         });
       };
@@ -6733,8 +6733,8 @@
 
       this._setAttributeIfNotExists(target, 'role', 'tabpanel');
 
-      if (child.id) {
-        this._setAttributeIfNotExists(target, 'aria-labelledby', `#${child.id}`);
+      if (child.Id) {
+        this._setAttributeIfNotExists(target, 'aria-labelledby', `#${child.Id}`);
       }
     }
 
@@ -6844,23 +6844,23 @@
   const EVENT_MOUSEOUT = `mouseout${EVENT_KEY}`;
   const EVENT_FOCUSIN = `focusin${EVENT_KEY}`;
   const EVENT_FOCUSOUT = `focusout${EVENT_KEY}`;
-  const EVENT_HIDE = `hide${EVENT_KEY}`;
-  const EVENT_HIDDEN = `hidden${EVENT_KEY}`;
+  const EVENT_HIdE = `hIde${EVENT_KEY}`;
+  const EVENT_HIdDEN = `hIdden${EVENT_KEY}`;
   const EVENT_SHOW = `show${EVENT_KEY}`;
   const EVENT_SHOWN = `shown${EVENT_KEY}`;
   const CLASS_NAME_FADE = 'fade';
-  const CLASS_NAME_HIDE = 'hide'; // @deprecated - kept here only for backwards compatibility
+  const CLASS_NAME_HIdE = 'hIde'; // @deprecated - kept here only for backwards compatibility
 
   const CLASS_NAME_SHOW = 'show';
   const CLASS_NAME_SHOWING = 'showing';
   const DefaultType = {
     animation: 'boolean',
-    autohide: 'boolean',
+    autohIde: 'boolean',
     delay: 'number'
   };
   const Default = {
     animation: true,
-    autohide: true,
+    autohIde: true,
     delay: 5000
   };
   /**
@@ -6909,10 +6909,10 @@
 
         EventHandler.trigger(this._element, EVENT_SHOWN);
 
-        this._maybeScheduleHide();
+        this._maybeScheduleHIde();
       };
 
-      this._element.classList.remove(CLASS_NAME_HIDE); // @deprecated
+      this._element.classList.remove(CLASS_NAME_HIdE); // @deprecated
 
 
       reflow(this._element);
@@ -6922,24 +6922,24 @@
       this._queueCallback(complete, this._element, this._config.animation);
     }
 
-    hide() {
+    hIde() {
       if (!this.isShown()) {
         return;
       }
 
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE);
+      const hIdeEvent = EventHandler.trigger(this._element, EVENT_HIdE);
 
-      if (hideEvent.defaultPrevented) {
+      if (hIdeEvent.defaultPrevented) {
         return;
       }
 
       const complete = () => {
-        this._element.classList.add(CLASS_NAME_HIDE); // @deprecated
+        this._element.classList.add(CLASS_NAME_HIdE); // @deprecated
 
 
         this._element.classList.remove(CLASS_NAME_SHOWING, CLASS_NAME_SHOW);
 
-        EventHandler.trigger(this._element, EVENT_HIDDEN);
+        EventHandler.trigger(this._element, EVENT_HIdDEN);
       };
 
       this._element.classList.add(CLASS_NAME_SHOWING);
@@ -6962,8 +6962,8 @@
     } // Private
 
 
-    _maybeScheduleHide() {
-      if (!this._config.autohide) {
+    _maybeScheduleHIde() {
+      if (!this._config.autohIde) {
         return;
       }
 
@@ -6972,7 +6972,7 @@
       }
 
       this._timeout = setTimeout(() => {
-        this.hide();
+        this.hIde();
       }, this._config.delay);
     }
 
@@ -7005,7 +7005,7 @@
         return;
       }
 
-      this._maybeScheduleHide();
+      this._maybeScheduleHIde();
     }
 
     _setListeners() {

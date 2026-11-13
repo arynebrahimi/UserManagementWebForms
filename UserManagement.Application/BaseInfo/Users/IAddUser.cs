@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using UserManagement.Domain.Entities;
 
-namespace UserManagement.Application.Interfaces
+namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
     public interface IAddUser
     {

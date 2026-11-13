@@ -4,7 +4,7 @@ function DetailsView() {
     this.dataKeys = null;
     this.createPropertyString = DetailsView_createPropertyString;
     this.setStateField = DetailsView_setStateValue;
-    this.getHiddenFieldContents = DetailsView_getHiddenFieldContents;
+    this.getHIddenFieldContents = DetailsView_getHIddenFieldContents;
     this.stateField = null;
     this.panelElement = null;
     this.callback = null;
@@ -25,7 +25,7 @@ function DetailsView_OnCallback (result, context) {
     context.panelElement.innerHTML = innerHtml;
     context.stateField.value = createPropertyStringFromValues_DetailsView(valsArray[0], valsArray[1]);
 }
-function DetailsView_getHiddenFieldContents(arg) {
+function DetailsView_getHIddenFieldContents(arg) {
     return arg + "|" + this.stateField.value;
 }
 function createPropertyStringFromValues_DetailsView(pageIndex, dataKeys) {

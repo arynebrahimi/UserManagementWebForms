@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using UserManagement.Domain.Entities;
 
-namespace UserManagement.Application.Interfaces
+namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
     public interface IGetUserById
     {
-        Task<User> GetByIdAsync(int id);
+        Task<User> GetByIdAsync(int Id);
     }
 }

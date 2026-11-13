@@ -12,11 +12,10 @@ namespace UserManagement.Persistence.Data
         public AppDbContext() : base("DefaultConnection")
         {
         }
-
         // Generic Query
         public IQueryable<T> Query<T>() where T : class
         {
-            return Set<T>();
+            return Set<T>().AsNoTracking();
         }
 
         // Generic Add
@@ -38,10 +37,10 @@ namespace UserManagement.Persistence.Data
         }
 
         // Generic Delete By Id
-        public async Task<bool> DeleteByIdAsync<T>(int id)
+        public async Task<bool> DeleteByIdAsync<T>(int Id)
             where T : class
         {
-            var entity = await Set<T>().FindAsync(id);
+            var entity = await Set<T>().FindAsync(Id);
 
             if (entity == null)
                 return false;
@@ -81,7 +80,7 @@ namespace UserManagement.Persistence.Data
 
             modelBuilder.Entity<User>().ToTable("Users");
 
-            modelBuilder.Entity<User>().HasKey(u => u.ID);
+            modelBuilder.Entity<User>().HasKey(u => u.Id);
 
             modelBuilder.Entity<User>()
                 .Property(u => u.UserName)
@@ -89,9 +88,9 @@ namespace UserManagement.Persistence.Data
                 .HasMaxLength(50);
 
             modelBuilder.Entity<User>()
-    .Property(u => u.Password)
-    .IsRequired()
-    .HasMaxLength(500);
+                .Property(u => u.Password)
+                .IsRequired()
+                .HasMaxLength(500);
 
             modelBuilder.Entity<User>()
                 .Property(u => u.FullName)

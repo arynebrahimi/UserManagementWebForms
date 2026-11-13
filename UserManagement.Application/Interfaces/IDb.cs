@@ -20,7 +20,9 @@ namespace UserManagement.Application.Interfaces
         Task<List<T>> ToListAsync<T>(IQueryable<T> query);
 
         Task<T> FirstOrDefaultAsync<T>(IQueryable<T> query);
+
         Task<bool> AnyAsync<T>(IQueryable<T> query);
+
         Task SaveChangesAsync();
     }
 }

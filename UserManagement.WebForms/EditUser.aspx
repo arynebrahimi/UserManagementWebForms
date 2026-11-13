@@ -9,30 +9,30 @@
     <title>Edit User</title>
 </head>
 <body>
-<form id="form1" runat="server">
+<form Id="form1" runat="server">
 
     <h2>Edit User</h2>
 
-    <asp:HiddenField ID="hfID" runat="server" />
+    <asp:HIddenField Id="hfId" runat="server" />
 
     <p>Username</p>
-    <asp:TextBox ID="txtUsername" runat="server" />
+    <asp:TextBox Id="txtUsername" runat="server" />
 
     <p>Full Name</p>
-    <asp:TextBox ID="txtFullName" runat="server" />
+    <asp:TextBox Id="txtFullName" runat="server" />
 
     <p>Email</p>
-    <asp:TextBox ID="txtEmail" runat="server" />
+    <asp:TextBox Id="txtEmail" runat="server" />
 
     <br /><br />
 
-    <asp:Button ID="btnUpdate" runat="server"
+    <asp:Button Id="btnUpdate" runat="server"
         Text="Update"
         OnClick="btnUpdate_Click" />
 
     <br /><br />
 
-    <asp:Label ID="lblMessage" runat="server" />
+    <asp:Label Id="lblMessage" runat="server" />
 
 </form>
 </body>

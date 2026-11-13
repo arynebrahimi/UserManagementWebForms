@@ -98,10 +98,10 @@ function WebPart_GetParentWebPartElement(containedElement) {
 }
 function WebPart_UpdatePosition() {
     var location = __wpTranslateOffset(0, 0, this.webPartElement, null, false);
-    this.middleX = location.x + this.webPartElement.offsetWidth / 2;
-    this.middleY = location.y + this.webPartElement.offsetHeight / 2;
+    this.mIddleX = location.x + this.webPartElement.offsetWIdth / 2;
+    this.mIddleY = location.y + this.webPartElement.offsetHeight / 2;
 }
-function Zone(zoneElement, zoneIndex, uniqueID, isVertical, allowLayoutChange, highlightColor) {
+function Zone(zoneElement, zoneIndex, uniqueId, isVertical, allowLayoutChange, highlightColor) {
     var webPartTable = null;
     if (zoneElement.rows.length == 1) {
         webPartTableContainer = zoneElement.rows[0].cells[0];
@@ -120,7 +120,7 @@ function Zone(zoneElement, zoneIndex, uniqueID, isVertical, allowLayoutChange, h
     this.zoneElement = zoneElement;
     this.zoneIndex = zoneIndex;
     this.webParts = new Array();
-    this.uniqueID = uniqueID;
+    this.uniqueId = uniqueId;
     this.isVertical = isVertical;
     this.allowLayoutChange = allowLayoutChange;
     this.allowDrop = false;
@@ -225,7 +225,7 @@ function Zone_ToggleDropCues(show, index, ignoreOutline) {
             }
             dropCue.webPartZoneHorizontalCueResized = true;
         }
-        dropCue.style.visibility = (show ? "visible" : "hidden");
+        dropCue.style.visibility = (show ? "visible" : "hIdden");
     }
 }
 function Zone_GetWebPartIndex(location) {
@@ -241,12 +241,12 @@ function Zone_GetWebPartIndex(location) {
     for (var i = 0; i < webPartsCount; i++) {
         var webPart = webParts[i];
         if (vertical) {
-            if (y < webPart.middleY) {
+            if (y < webPart.mIddleY) {
                 return i;
             }
         }
         else {
-            if (x < webPart.middleX) {
+            if (x < webPart.mIddleX) {
                 return i;
             }
         }
@@ -257,7 +257,7 @@ function Zone_UpdatePosition() {
     var topLeft = __wpTranslateOffset(0, 0, this.webPartTable, null, false);
     this.webPartTableLeft = topLeft.x;
     this.webPartTableTop = topLeft.y;
-    this.webPartTableRight = (this.webPartTable != null) ? topLeft.x + this.webPartTable.offsetWidth : topLeft.x;
+    this.webPartTableRight = (this.webPartTable != null) ? topLeft.x + this.webPartTable.offsetWIdth : topLeft.x;
     this.webPartTableBottom = (this.webPartTable != null) ? topLeft.y + this.webPartTable.offsetHeight : topLeft.y;
     for (var i = 0; i < this.webParts.length; i++) {
         this.webParts[i].UpdatePosition();
@@ -291,7 +291,7 @@ function WebPartMenu(menuLabelElement, menuDropDownElement, menuElement) {
     this.oldTextDecoration = this.menuLabelElement.style.textDecoration;
     this.oldClassName = this.menuLabelElement.className;
     this.Show = WebPartMenu_Show;
-    this.Hide = WebPartMenu_Hide;
+    this.HIde = WebPartMenu_HIde;
     this.Hover = WebPartMenu_Hover;
     this.Unhover = WebPartMenu_Unhover;
     this.Dispose = WebPartMenu_Dispose;
@@ -306,43 +306,43 @@ function WebPartMenu_Dispose() {
 }
 function WebPartMenu_Show() {
     if ((typeof(__wpm.menu) != "undefined") && (__wpm.menu != null)) {
-        __wpm.menu.Hide();
+        __wpm.menu.HIde();
     }
     var menuHTML =
         "<html><head><style>" +
         "a.menuItem, a.menuItem:Link { display: block; padding: 1px; text-decoration: none; " + this.itemStyle + " }" +
         "a.menuItem:Hover { " + this.itemHoverStyle + " }" +
-        "</style><body scroll=\"no\" style=\"border: none; margin: 0; padding: 0;\" ondragstart=\"window.event.returnValue=false;\" onclick=\"popup.hide()\">" +
+        "</style><body scroll=\"no\" style=\"border: none; margin: 0; padding: 0;\" ondragstart=\"window.event.returnValue=false;\" onclick=\"popup.hIde()\">" +
         this.menuElement.innerHTML +
         "</body></html>";
-    var width = 16;
+    var wIdth = 16;
     var height = 16;
     this.popup = window.createPopup();
     __wpm.menu = this;
     var popupDocument = this.popup.document;
     popupDocument.write(menuHTML);
-    this.popup.show(0, 0, width, height);
+    this.popup.show(0, 0, wIdth, height);
     var popupBody = popupDocument.body;
-    width = popupBody.scrollWidth;
+    wIdth = popupBody.scrollWIdth;
     height = popupBody.scrollHeight;
-    if (width < this.menuLabelElement.offsetWidth) {
-        width = this.menuLabelElement.offsetWidth + 16;
+    if (wIdth < this.menuLabelElement.offsetWIdth) {
+        wIdth = this.menuLabelElement.offsetWIdth + 16;
     }
-    if (this.menuElement.innerHTML.indexOf("progid:DXImageTransform.Microsoft.Shadow") != -1) {
+    if (this.menuElement.innerHTML.indexOf("progId:DXImageTransform.Microsoft.Shadow") != -1) {
         popupBody.style.paddingRight = "4px";
     }
     popupBody.__wpm = __wpm;
     popupBody.__wpmDeleteWarning = __wpmDeleteWarning;
-    popupBody.__wpmCloseProviderWarning = __wpmCloseProviderWarning;
+    popupBody.__wpmCloseProvIderWarning = __wpmCloseProvIderWarning;
     popupBody.popup = this.popup;
-    this.popup.hide();
-    this.popup.show(0, this.menuLabelElement.offsetHeight, width, height, this.menuLabelElement);
+    this.popup.hIde();
+    this.popup.show(0, this.menuLabelElement.offsetHeight, wIdth, height, this.menuLabelElement);
 }
-function WebPartMenu_Hide() {
+function WebPartMenu_HIde() {
     if (__wpm.menu == this) {
         __wpm.menu = null;
         if ((typeof(this.popup) != "undefined") && (this.popup != null)) {
-            this.popup.hide();
+            this.popup.hIde();
             this.popup = null;
         }
     }
@@ -422,9 +422,9 @@ function WebPartManager_Dispose() {
     }
     window.detachEvent("onunload", WebPartManager_Dispose);
 }
-function WebPartManager_AddZone(zoneElement, uniqueID, isVertical, allowLayoutChange, highlightColor) {
+function WebPartManager_AddZone(zoneElement, uniqueId, isVertical, allowLayoutChange, highlightColor) {
     var zoneIndex = this.zones.length;
-    var zone = new Zone(zoneElement, zoneIndex, uniqueID, isVertical, allowLayoutChange, highlightColor);
+    var zone = new Zone(zoneElement, zoneIndex, uniqueId, isVertical, allowLayoutChange, highlightColor);
     this.zones[zoneIndex] = zone;
     return zone;
 }
@@ -445,10 +445,10 @@ function WebPartManager_InitiateWebPartDragDrop(webPartElement) {
     this.dragState = new WebPartDragState(webPartElement, "move");
     var location = __wpGetPageEventLocation(window.event, true);
     var overlayContainerElement = this.overlayContainerElement;
-    overlayContainerElement.style.left = location.x - webPartElement.offsetWidth / 2;
+    overlayContainerElement.style.left = location.x - webPartElement.offsetWIdth / 2;
     overlayContainerElement.style.top = location.y + 4 + (webPartElement.clientTop ? webPartElement.clientTop : 0);
     overlayContainerElement.style.display = "block";
-    overlayContainerElement.style.width = webPartElement.offsetWidth;
+    overlayContainerElement.style.wIdth = webPartElement.offsetWIdth;
     overlayContainerElement.style.height = webPartElement.offsetHeight;
     overlayContainerElement.appendChild(webPartElement.cloneNode(true));
     if (webPart.allowZoneChange == false) {
@@ -483,8 +483,8 @@ function WebPartManager_CompleteWebPartDragDrop() {
         if ((currentZone != dragState.dropZoneElement.__zone) ||
             ((currentZoneIndex != dragState.dropIndex) &&
              (currentZoneIndex != (dragState.dropIndex - 1)))) {
-            var eventTarget = dragState.dropZoneElement.__zone.uniqueID;
-            var eventArgument = "Drag:" + dragState.webPartElement.id + ":" + dragState.dropIndex;
+            var eventTarget = dragState.dropZoneElement.__zone.uniqueId;
+            var eventArgument = "Drag:" + dragState.webPartElement.Id + ":" + dragState.dropIndex;
             this.SubmitPage(eventTarget, eventArgument);
         }
     }
@@ -494,13 +494,13 @@ function WebPartManager_ContinueWebPartDragDrop() {
     if ((typeof(dragState) != "undefined") && (dragState != null)) {
         var style = this.overlayContainerElement.style;
         var location = __wpGetPageEventLocation(window.event, true);
-        style.left = location.x - dragState.webPartElement.offsetWidth / 2;
+        style.left = location.x - dragState.webPartElement.offsetWIdth / 2;
         style.top = location.y + 4 + (dragState.webPartElement.clientTop ? dragState.webPartElement.clientTop : 0);
     }
 }
 function WebPartManager_Execute(script) {
     if (this.menu) {
-        this.menu.Hide();
+        this.menu.HIde();
     }
     var scriptReference = new Function(script);
     return (scriptReference() != false);
@@ -608,7 +608,7 @@ function WebPartManager_ProcessWebPartDrop() {
 }
 function WebPartManager_ShowHelp(helpUrl, helpMode) {
     if ((typeof(this.menu) != "undefined") && (this.menu != null)) {
-        this.menu.Hide();
+        this.menu.HIde();
     }
     if (helpMode == 0 || helpMode == 1) {
         if (helpMode == 0) {
@@ -641,7 +641,7 @@ function WebPartManager_UpdatePositions() {
 }
 function WebPartManager_SubmitPage(eventTarget, eventArgument) {
     if ((typeof(this.menu) != "undefined") && (this.menu != null)) {
-        this.menu.Hide();
+        this.menu.HIde();
     }
     __doPostBack(eventTarget, eventArgument);
 }

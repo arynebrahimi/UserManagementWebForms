@@ -71,28 +71,28 @@ if ((typeof(window.__smartNav) == "undefined") || (window.__smartNav == null))
             if (hk[i].tagName != "BASEFONT" || hk[i].innerHTML.length == 0)
                 hdm.removeChild(hdm.childNodes[i]);
         }
-        var kids = fd.getElementsByTagName("head")[0].childNodes;
-        for (i = 0; i < kids.length; i++)
+        var kIds = fd.getElementsByTagName("head")[0].childNodes;
+        for (i = 0; i < kIds.length; i++)
         {
-            var tn = kids[i].tagName;
+            var tn = kIds[i].tagName;
             var k = document.createElement(tn);
-            k.id = kids[i].id;
-            k.mergeAttributes(kids[i]);
+            k.Id = kIds[i].Id;
+            k.mergeAttributes(kIds[i]);
             switch(tn)
             {
             case "TITLE":
-                if (tt == kids[i].outerHTML)
+                if (tt == kIds[i].outerHTML)
                     continue;
-                k.innerText = kids[i].text;
+                k.innerText = kIds[i].text;
                 hdm.insertAdjacentElement("afterbegin", k);
                 continue;
             case "BASEFONT" :
-                if (kids[i].innerHTML.length > 0)
+                if (kIds[i].innerHTML.length > 0)
                     continue;
                 break;
             default:
                 var o = document.createElement("BODY");
-                o.innerHTML = "<BODY>" + kids[i].outerHTML + "</BODY>";
+                o.innerHTML = "<BODY>" + kIds[i].outerHTML + "</BODY>";
                 k = o.firstChild;
                 break;
             }
@@ -100,7 +100,7 @@ if ((typeof(window.__smartNav) == "undefined") || (window.__smartNav == null))
                 hdm.appendChild(k);
         }
         document.body.clearAttributes();
-        document.body.id = fd.body.id;
+        document.body.Id = fd.body.Id;
         document.body.mergeAttributes(fd.body);
         var newBodyLoad = fd.body.onload;
         if ((typeof(newBodyLoad) != "undefined") && (newBodyLoad != null))
@@ -148,7 +148,7 @@ if ((typeof(window.__smartNav) == "undefined") || (window.__smartNav == null))
         var curAe = document.activeElement;
         var sAeId = window.__smartNav.ae;
         if (((typeof(sAeId) == "undefined") || (sAeId == null)) ||
-            (typeof(curAe) != "undefined") && (curAe != null) && (curAe.id == sAeId || curAe.name == sAeId))
+            (typeof(curAe) != "undefined") && (curAe != null) && (curAe.Id == sAeId || curAe.name == sAeId))
             return;
         var ae = document.all(sAeId);
         if ((typeof(ae) == "undefined") || (ae == null)) return;
@@ -190,7 +190,7 @@ if ((typeof(window.__smartNav) == "undefined") || (window.__smartNav == null))
         sn.inPost = true;
         if ((typeof(document.activeElement) != "undefined") && (document.activeElement != null))
         {
-            var ae = document.activeElement.id;
+            var ae = document.activeElement.Id;
             if (ae.length == 0)
                 ae = document.activeElement.name;
             sn.ae = ae;
@@ -228,7 +228,7 @@ if ((typeof(window.__smartNav) == "undefined") || (window.__smartNav == null))
             if ((typeof(cf[i].__smartNavEnabled) != "undefined") && (cf[i].__smartNavEnabled != null))
             {
                 window.__smartNav.form = cf[i];
-                window.__smartNav.form.insertAdjacentHTML("beforeEnd", "<input type='hidden' name='__smartNavPostBack' value='false' />");
+                window.__smartNav.form.insertAdjacentHTML("beforeEnd", "<input type='hIdden' name='__smartNavPostBack' value='false' />");
                 break;
             }
         }

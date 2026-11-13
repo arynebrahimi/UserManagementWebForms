@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using UserManagement.Application.Interfaces;
 using UserManagement.Domain.Entities;
+using UserManagement.Application.Interfaces;
+using UserManagement.Application.BaseInfo.Users.Interfaces;
 
-namespace UserManagement.Application.Services
-{
+namespace UserManagement.Application.BaseInfo.Users.Services{
     public class UsernameExists : IUsernameExists
     {
         private readonly IDb _db;
@@ -23,7 +23,7 @@ namespace UserManagement.Application.Services
 
             if (exceptUserId.HasValue)
             {
-                query = query.Where(u => u.ID != exceptUserId.Value);
+                query = query.Where(u => u.Id != exceptUserId.Value);
             }
 
             return _db.AnyAsync(query);

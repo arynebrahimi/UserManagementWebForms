@@ -8,26 +8,26 @@
     <title>Login</title>
 </head>
 <body>
-<form id="form1" runat="server">
+<form Id="form1" runat="server">
 
     <h2>Login</h2>
 
     <p>Username</p>
-    <asp:TextBox ID="txtUsername" runat="server" />
+    <asp:TextBox Id="txtUsername" runat="server" />
 
     <p>Password</p>
-    <asp:TextBox ID="txtPassword" runat="server"
+    <asp:TextBox Id="txtPassword" runat="server"
         TextMode="Password" />
 
     <br /><br />
 
-    <asp:Button ID="btnLogin" runat="server"
+    <asp:Button Id="btnLogin" runat="server"
         Text="Login"
         OnClick="btnLogin_Click" />
 
     <br /><br />
 
-    <asp:Label ID="lblMessage" runat="server" />
+    <asp:Label Id="lblMessage" runat="server" />
 
     <p>
         Don't have an account?

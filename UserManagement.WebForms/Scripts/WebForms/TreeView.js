@@ -82,18 +82,18 @@ function TreeView_ProcessNodeData(result, context) {
                 table.parentNode.insertBefore(newDiv.firstChild, table);
                 newChildren = table.previousSibling;
             }
-            newChildren = document.getElementById(treeNode.id + "Nodes");
+            newChildren = document.getElementById(treeNode.Id + "Nodes");
         }
         else {
             table = WebForm_GetParentByTagName(treeNode, "TABLE");
             table.insertAdjacentHTML("afterEnd", chunk);
-            newChildren = document.all[treeNode.id + "Nodes"];
+            newChildren = document.all[treeNode.Id + "Nodes"];
         }
         if ((typeof(newChildren) != "undefined") && (newChildren != null)) {
             TreeView_ToggleNode(context.data, context.index, treeNode, context.lineType, newChildren);
             treeNode.href = document.getElementById ?
-                "javascript:TreeView_ToggleNode(" + context.data.name + "," + context.index + ",document.getElementById('" + treeNode.id + "'),'" + context.lineType + "',document.getElementById('" + newChildren.id + "'))" :
-                "javascript:TreeView_ToggleNode(" + context.data.name + "," + context.index + "," + treeNode.id + ",'" + context.lineType + "'," + newChildren.id + ")";
+                "javascript:TreeView_ToggleNode(" + context.data.name + "," + context.index + ",document.getElementById('" + treeNode.Id + "'),'" + context.lineType + "',document.getElementById('" + newChildren.Id + "'))" :
+                "javascript:TreeView_ToggleNode(" + context.data.name + "," + context.index + "," + treeNode.Id + ",'" + context.lineType + "'," + newChildren.Id + ")";
             if ((typeof(context.selectNode) != "undefined") && (context.selectNode != null) && context.selectNode.href &&
                 (context.selectNode.href.indexOf("javascript:TreeView_PopulateNode", 0) == 0)) {
                 context.selectNode.href = treeNode.href;
@@ -129,7 +129,7 @@ function TreeView_ProcessNodeData(result, context) {
             }
             else {
                 pe = treeNode.parentElement;
-                treeNode.style.visibility="hidden";
+                treeNode.style.visibility="hIdden";
                 treeNode.style.display="none";
                 pe.insertAdjacentElement("afterBegin", img);
             }
@@ -141,9 +141,9 @@ function TreeView_SelectNode(data, node, nodeId) {
         return;
     }
     if ((typeof(data.selectedClass) != "undefined") && (data.selectedClass != null)) {
-        var id = data.selectedNodeID.value;
-        if (id.length > 0) {
-            var selectedNode = document.getElementById(id);
+        var Id = data.selectedNodeId.value;
+        if (Id.length > 0) {
+            var selectedNode = document.getElementById(Id);
             if ((typeof(selectedNode) != "undefined") && (selectedNode != null)) {
                 WebForm_RemoveClassName(selectedNode, data.selectedHyperLinkClass);
                 selectedNode = WebForm_GetParentByTagName(selectedNode, "TD");
@@ -154,7 +154,7 @@ function TreeView_SelectNode(data, node, nodeId) {
         node = WebForm_GetParentByTagName(node, "TD");
         WebForm_AppendToClassName(node, data.selectedClass)
     }
-    data.selectedNodeID.value = nodeId;
+    data.selectedNodeId.value = nodeId;
 }
 function TreeView_ToggleNode(data, index, node, lineType, children) {
     if (!data) {

@@ -6,15 +6,15 @@
     padding-right: 15px;
 }
 
-/* Set widths on the form inputs since otherwise they're 100% wide */
+/* Set wIdths on the form inputs since otherwise they're 100% wIde */
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-wIdth: 280px;
 }
 
 /* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
+@media screen and (min-wIdth: 768px) {
     .body-content {
         padding: 0;
     }

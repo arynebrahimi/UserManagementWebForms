@@ -1,68 +1,63 @@
 ﻿using System;
 using System.Web.UI;
 using System.Data.Entity.Infrastructure;
-using UserManagement.Application.Interfaces;
 using UserManagement.Domain.Entities;
-using UserManagement.WebForms.Services;
+using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.WebForms
 {
-    public partial class Register : Page
-    {
-        protected async void btnRegister_Click(object sender, EventArgs e)
-        {
-            string username = txtUsername.Text.Trim();
+	public partial class Register : Page
+	{
+		private readonly IRegisterUser _registerUser;
 
-            if (string.IsNullOrWhiteSpace(username) ||
-                string.IsNullOrWhiteSpace(txtPassword.Text) ||
-                string.IsNullOrWhiteSpace(txtFullName.Text) ||
-                string.IsNullOrWhiteSpace(txtEmail.Text))
-            {
-                lblMessage.Text = "Please fill in all fields.";
-                return;
-            }
+		public Register(IRegisterUser registerUser)
+		{
+			_registerUser = registerUser;
+		}
 
-            User user = new User
-            {
-                UserName = username,
-                Password = txtPassword.Text,
-                FullName = txtFullName.Text.Trim(),
-                Email = txtEmail.Text.Trim()
-            };
+		protected async void btnRegister_Click(object sender, EventArgs e)
+		{
+			string username = txtUsername.Text.Trim();
 
-            try
-            {
-                IRegisterUser service =
-                    ServiceFactory.GetRegisterService();
+			if (string.IsNullOrWhiteSpace(username) ||
+				string.IsNullOrWhiteSpace(txtPassword.Text) ||
+				string.IsNullOrWhiteSpace(txtFullName.Text) ||
+				string.IsNullOrWhiteSpace(txtEmail.Text))
+			{
+				lblMessage.Text = "Please fill in all fields.";
+				return;
+			}
 
-                bool result = await service.RegisterAsync(user);
+			User user = new User
+			{
+				UserName = username,
+				Password = txtPassword.Text,
+				FullName = txtFullName.Text.Trim(),
+				Email = txtEmail.Text.Trim()
+			};
 
-                if (!result)
-                {
-                    lblMessage.Text = "Username already exists.";
-                    return;
-                }
+			try
+			{
+				bool result = await _registerUser.RegisterAsync(user);
 
-                Session["UserID"] = user.ID;
-                Session["UserName"] = user.UserName;
-                Session["Role"] = user.Role;
+				if (!result)
+				{
+					lblMessage.Text = "Username already exists.";
+					return;
+				}
 
-                Response.Redirect("Users.aspx", false);
-                Context.ApplicationInstance.CompleteRequest();
-            }
-            catch (DbUpdateException ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.ToString());
-
-                lblMessage.Text =
-                    "Username already exists or database error occurred.";
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.ToString());
-
-                lblMessage.Text = "Registration failed.";
-            }
-        }
-    }
+				Response.Redirect("Users.aspx");
+			}
+			catch (DbUpdateException)
+			{
+				lblMessage.Text =
+					"Username already exists or database error occurred.";
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine(ex.ToString());
+				lblMessage.Text = "Registration failed.";
+			}
+		}
+	}
 }

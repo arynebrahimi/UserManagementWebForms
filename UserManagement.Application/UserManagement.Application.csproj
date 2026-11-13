@@ -10,6 +10,7 @@
     <RootNamespace>UserManagement.Application</RootNamespace>
     <AssemblyName>UserManagement.Application</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <LangVersion>8.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -41,24 +42,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseInfo\Users\ISearchUsers.cs" />
+    <Compile Include="BaseInfo\Users\IValidateLogin.cs" />
+    <Compile Include="BaseInfo\Users\SearchUsers.cs" />
+    <Compile Include="BaseInfo\Users\ValidateLogin.cs" />
     <Compile Include="Interfaces\IDb.cs" />
-    <Compile Include="Interfaces\IAddUser.cs" />
-    <Compile Include="Interfaces\IDeleteUser.cs" />
-    <Compile Include="Interfaces\IGetAllUsers.cs" />
-    <Compile Include="Interfaces\IGetUserById.cs" />
-    <Compile Include="Interfaces\IGetUserByUsername.cs" />
-    <Compile Include="Interfaces\IRegisterUser.cs" />
-    <Compile Include="Interfaces\IUsernameExists.cs" />
-    <Compile Include="Interfaces\IUpdateUser.cs" />
+    <Compile Include="BaseInfo\Users\IAddUser.cs" />
+    <Compile Include="BaseInfo\Users\IDeleteUser.cs" />
+    <Compile Include="BaseInfo\Users\IGetAllUsers.cs" />
+    <Compile Include="BaseInfo\Users\IGetUserById.cs" />
+    <Compile Include="BaseInfo\Users\IGetUserByUsername.cs" />
+    <Compile Include="BaseInfo\Users\IRegisterUser.cs" />
+    <Compile Include="BaseInfo\Users\IUsernameExists.cs" />
+    <Compile Include="BaseInfo\Users\IUpdateUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AddUser.cs" />
-    <Compile Include="Services\GetUserByUsername.cs" />
-    <Compile Include="Services\DeleteUser.cs" />
-    <Compile Include="Services\GetAllUsers.cs" />
-    <Compile Include="Services\GetUserById.cs" />
-    <Compile Include="Services\RegisterUser.cs" />
-    <Compile Include="Services\UpdateUser.cs" />
-    <Compile Include="Services\UsernameExists.cs" />
+    <Compile Include="BaseInfo\Users\AddUser.cs" />
+    <Compile Include="BaseInfo\Users\GetUserByUsername.cs" />
+    <Compile Include="BaseInfo\Users\DeleteUser.cs" />
+    <Compile Include="BaseInfo\Users\GetAllUsers.cs" />
+    <Compile Include="BaseInfo\Users\GetUserById.cs" />
+    <Compile Include="BaseInfo\Users\RegisterUser.cs" />
+    <Compile Include="BaseInfo\Users\UpdateUser.cs" />
+    <Compile Include="BaseInfo\Users\UsernameExists.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UserManagement.Domain\UserManagement.Domain.csproj">
@@ -66,5 +71,6 @@
       <Name>UserManagement.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

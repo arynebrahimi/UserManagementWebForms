@@ -1,42 +1,40 @@
 ﻿using System;
 using System.Web.UI;
-using UserManagement.Application.Services;
-using UserManagement.Persistence.Data;
+using UserManagement.Application.BaseInfo.Users;
 
 namespace UserManagement.WebForms
 {
-    public partial class Login : Page
-    {
-        protected async void btnLogin_Click(object sender, EventArgs e)
-        {
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Text;
+	public partial class Login : Page
+	{
+		private readonly IValidateLogin _ValidateLogin;
 
-            if (username == "" || password == "")
-            {
-                lblMessage.Text = "Please enter username and password.";
-                return;
-            }
+		public Login(IValidateLogin ValidateLogin)
+		{
+			_ValidateLogin = ValidateLogin;
+		}
 
-            using (var db = new AppDbContext())
-            {
-                var service = new GetUserByUsername(db);
+		protected async void btnLogin_Click(object sender, EventArgs e)
+		{
+			string username = txtUsername.Text.Trim();
+			string password = txtPassword.Text;
 
-                var user = await service.GetByUsernameAsync(username);
+			if (string.IsNullOrWhiteSpace(username) ||
+				string.IsNullOrWhiteSpace(password))
+			{
+				lblMessage.Text = "Please enter username and password.";
+				return;
+			}
 
-                if (user == null || user.Password != password)
-                {
-                    lblMessage.Text = "Invalid username or password.";
-                    return;
-                }
+			bool isValid = await _ValidateLogin.ValidateAsync(
+				username, password);
 
-                Session["UserID"] = user.ID;
-                Session["UserName"] = user.UserName;
-                Session["Role"] = user.Role;
-            }
+			if (!isValid)
+			{
+				lblMessage.Text = "Invalid username or password.";
+				return;
+			}
 
-            Response.Redirect("Users.aspx", false);
-            Context.ApplicationInstance.CompleteRequest();
-        }
-    }
+			Response.Redirect("Users.aspx");
+		}
+	}
 }
