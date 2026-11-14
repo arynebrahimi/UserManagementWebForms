@@ -1,9 +1,7 @@
-﻿using System.Threading.Tasks;
-
-namespace UserManagement.Application.BaseInfo.Users
+﻿namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
     public interface IValidateLogin
     {
-        Task<bool> ValidateAsync(string username, string password);
+        bool Validate(string username, string password);
     }
 }

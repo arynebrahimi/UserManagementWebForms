@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
-    public interface IdeleteUser
+    public interface IDeleteUser
     {
-        Task DeleteAsync(int Id);
+        void Delete(int Id);
     }
 }

@@ -6,6 +6,6 @@ namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
     public interface IGetUserByUsername
     {
-        Task<User> GetByUsernameAsync(string username);
+        User GetByUsername(string username);
     }
 }

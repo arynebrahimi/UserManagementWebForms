@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Web.UI;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 
@@ -14,23 +13,17 @@ namespace UserManagement.WebForms
 			_getAllUsers = getAllUsers;
 		}
 
-		protected async void Page_Load(object sender, EventArgs e)
+		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!IsPostBack)
 			{
-				await LoadUsers();
+				LoadUsers();
 			}
 		}
 
-		private async Task LoadUsers()
+		private void LoadUsers()
 		{
-			lnkCreate.Visible = true;
-
-			// Hide edit and delete actions until
-			// user authentication and role management are implemented.
-			gvUsers.Columns[5].Visible = false;
-
-			gvUsers.DataSource = await _getAllUsers.GetAllAsync();
+			gvUsers.DataSource = _getAllUsers.GetAll();
 
 			gvUsers.DataBind();
 		}

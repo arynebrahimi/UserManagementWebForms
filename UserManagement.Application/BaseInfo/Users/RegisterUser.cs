@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using UserManagement.Domain.Entities;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 
@@ -18,11 +17,11 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             _usernameExists = usernameExists;
         }
 
-        public async Task<bool> RegisterAsync(User user)
+        public bool Register(User user)
         {
             user.UserName = user.UserName.Trim();
 
-            bool exists = await _usernameExists.ExistsAsync(user.UserName);
+            bool exists = _usernameExists.Exists(user.UserName);
 
             if (exists)
                 return false;
@@ -30,7 +29,7 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             user.Role = "User";
             user.CreatedAt = DateTime.UtcNow;
 
-            await _addUser.AddAsync(user);
+            _addUser.Add(user);
 
             return true;
         }

@@ -7,6 +7,6 @@ namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
     public interface IGetAllUsers
     {
-        Task<List<User>> GetAllAsync();
+        List<User> GetAll();
     }
 }

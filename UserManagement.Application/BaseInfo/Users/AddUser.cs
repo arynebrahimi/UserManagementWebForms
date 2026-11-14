@@ -14,11 +14,10 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             _db = db;
         }
 
-        public async Task AddAsync(User user)
+        public void Add(User user)
         {
             _db.Add(user);
-
-            await _db.SaveChangesAsync();
+            _db.SaveChanges();
         }
     }
 }

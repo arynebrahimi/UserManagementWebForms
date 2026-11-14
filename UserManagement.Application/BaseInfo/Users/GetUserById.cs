@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using UserManagement.Domain.Entities;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
@@ -15,12 +14,12 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             _db = db;
         }
 
-        public Task<User> GetByIdAsync(int Id)
+        public User GetById(int id)
         {
             var query = _db.Query<User>()
-                .Where(u => u.Id == Id);
+                .Where(u => u.Id == id);
 
-            return _db.FirstOrDefaultAsync(query);
+            return query.SingleOrDefault();
         }
     }
 }

@@ -3,9 +3,9 @@ using System;
 
 namespace UserManagement.Domain.Entities
 {
-    public class User
+    public class User : IEntity
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         public string UserName { get; set; }
 

@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Web.UI;
-using UserManagement.Application.BaseInfo.Users;
+using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.WebForms
 {
 	public partial class Login : Page
 	{
-		private readonly IValidateLogin _ValidateLogin;
+		private readonly IValidateLogin _validateLogin;
 
-		public Login(IValidateLogin ValidateLogin)
+		public Login(IValidateLogin validateLogin)
 		{
-			_ValidateLogin = ValidateLogin;
+			_validateLogin = validateLogin;
 		}
 
-		protected async void btnLogin_Click(object sender, EventArgs e)
+		protected void btnLogin_Click(object sender, EventArgs e)
 		{
 			string username = txtUsername.Text.Trim();
 			string password = txtPassword.Text;
@@ -25,8 +25,7 @@ namespace UserManagement.WebForms
 				return;
 			}
 
-			bool isValid = await _ValidateLogin.ValidateAsync(
-				username, password);
+			bool isValid = _validateLogin.Validate(username, password);
 
 			if (!isValid)
 			{
@@ -34,7 +33,7 @@ namespace UserManagement.WebForms
 				return;
 			}
 
-			Response.Redirect("Users.aspx");
+			Response.Redirect("Users.aspx", false);
 		}
 	}
 }

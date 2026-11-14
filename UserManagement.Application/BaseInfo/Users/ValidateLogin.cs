@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using UserManagement.Domain.Entities;
 using UserManagement.Application.Interfaces;
+using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.Application.BaseInfo.Users.Services
 {
@@ -14,17 +14,13 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             _db = db;
         }
 
-        public async Task<bool> ValidateAsync(
-            string username, string password)
+        public bool Validate(string username, string password)
         {
             username = username.Trim();
 
-            var query = _db.Query<User>()
-                .Where(u => u.UserName == username);
-
-            var user = await _db.FirstOrDefaultAsync(query);
-
-            return user != null && user.Password == password;
+            return _db.Query<User>()
+                .Any(u => u.UserName == username &&
+                          u.Password == password);
         }
     }
 }

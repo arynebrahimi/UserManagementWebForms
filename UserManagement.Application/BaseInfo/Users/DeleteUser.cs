@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using UserManagement.Application.Interfaces;
+﻿using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
+using UserManagement.Domain.Entities;
 
 namespace UserManagement.Application.BaseInfo.Users.Services
 {
-    public class DeleteUser : IdeleteUser
+    public class DeleteUser : IDeleteUser
     {
         private readonly IDb _db;
 
@@ -13,11 +13,14 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             _db = db;
         }
 
-        public async Task DeleteAsync(int Id)
+        public void Delete(int id)
         {
-            await _db.DeleteByIdAsync<UserManagement.Domain.Entities.User>(Id);
+            bool deleted = _db.DeleteById<User>(id);
 
-            await _db.SaveChangesAsync();
+            if (deleted)
+            {
+                _db.SaveChanges();
+            }
         }
     }
 }

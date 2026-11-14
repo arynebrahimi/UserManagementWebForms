@@ -15,7 +15,7 @@ namespace UserManagement.WebForms
 			_registerUser = registerUser;
 		}
 
-		protected async void btnRegister_Click(object sender, EventArgs e)
+		protected void btnRegister_Click(object sender, EventArgs e)
 		{
 			string username = txtUsername.Text.Trim();
 
@@ -38,7 +38,7 @@ namespace UserManagement.WebForms
 
 			try
 			{
-				bool result = await _registerUser.RegisterAsync(user);
+				bool result = _registerUser.Register(user);
 
 				if (!result)
 				{
@@ -46,7 +46,7 @@ namespace UserManagement.WebForms
 					return;
 				}
 
-				Response.Redirect("Users.aspx");
+				Response.Redirect("Users.aspx", false);
 			}
 			catch (DbUpdateException)
 			{

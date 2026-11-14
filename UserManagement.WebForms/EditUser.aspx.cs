@@ -21,7 +21,7 @@ namespace UserManagement.WebForms
 			_updateUser = updateUser;
 		}
 
-		protected async void Page_Load(object sender, EventArgs e)
+		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!IsPostBack)
 			{
@@ -31,7 +31,7 @@ namespace UserManagement.WebForms
 					return;
 				}
 
-				var user = await _getUserById.GetByIdAsync(id);
+				var user = _getUserById.GetById(id);
 
 				if (user == null)
 				{
@@ -46,7 +46,7 @@ namespace UserManagement.WebForms
 			}
 		}
 
-		protected async void btnUpdate_Click(object sender, EventArgs e)
+		protected void btnUpdate_Click(object sender, EventArgs e)
 		{
 			if (!int.TryParse(hfId.Value, out int id))
 			{
@@ -64,7 +64,7 @@ namespace UserManagement.WebForms
 				return;
 			}
 
-			var user = await _getUserById.GetByIdAsync(id);
+			var user = _getUserById.GetById(id);
 
 			if (user == null)
 			{
@@ -72,7 +72,7 @@ namespace UserManagement.WebForms
 				return;
 			}
 
-			bool exists = await _usernameExists.ExistsAsync(username, id);
+			bool exists = _usernameExists.Exists(username, id);
 
 			if (exists)
 			{
@@ -87,7 +87,7 @@ namespace UserManagement.WebForms
 
 			try
 			{
-				await _updateUser.UpdateAsync(user);
+				_updateUser.Update(user);
 
 				Response.Redirect("Users.aspx", false);
 				return;

@@ -16,12 +16,10 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             _db = db;
         }
 
-        public Task<User> GetByUsernameAsync(string username)
+        public User GetByUsername(string username)
         {
-            var query = _db.Query<User>()
-                .Where(u => u.UserName == username);
-
-            return _db.FirstOrDefaultAsync(query);
+            return _db.Query<User>()
+            .SingleOrDefault(u => u.UserName == username);
         }
     }
 }

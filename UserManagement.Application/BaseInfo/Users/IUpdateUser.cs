@@ -6,6 +6,6 @@ namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
     public interface IUpdateUser
     {
-        Task UpdateAsync(User user);
+        void Update(User user);
     }
 }
