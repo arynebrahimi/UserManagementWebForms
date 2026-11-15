@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using UserManagement.Domain.Entities;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
-using System.Linq;
 
 namespace UserManagement.Application.BaseInfo.Users.Services
 {
@@ -20,8 +19,22 @@ namespace UserManagement.Application.BaseInfo.Users.Services
 
         public List<User> GetAll()
         {
-            var query = _searchUsers.Respond();
-            return query.ToList();
+            var users = _searchUsers.Respond().ToList();
+            var persons = _db.Query<Person>().ToList();
+
+            foreach (var user in users)
+            {
+                foreach (var person in persons)
+                {
+                    if (user.Id == person.Id)
+                    {
+                        user.Person = person;
+                        break;
+                    }
+                }
+            }
+
+            return users;
         }
     }
 }

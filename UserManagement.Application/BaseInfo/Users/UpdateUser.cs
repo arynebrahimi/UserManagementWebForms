@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using UserManagement.Domain.Entities;
+﻿using UserManagement.Domain.Entities;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 
@@ -17,6 +16,8 @@ namespace UserManagement.Application.BaseInfo.Users.Services
         public void Update(User user)
         {
             _db.Update(user);
+            _db.Update(user.Person);
+
             _db.SaveChanges();
         }
     }

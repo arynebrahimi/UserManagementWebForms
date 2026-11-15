@@ -39,7 +39,6 @@ namespace UserManagement.Persistence.Data
                 return false;
 
             Set<T>().Remove(entity);
-
             return true;
         }
 
@@ -47,34 +46,10 @@ namespace UserManagement.Persistence.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>().ToTable("Users");
-
-            modelBuilder.Entity<User>().HasKey(u => u.Id);
-
             modelBuilder.Entity<User>()
-                .Property(u => u.UserName)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            modelBuilder.Entity<User>()
-                .Property(u => u.Password)
-                .IsRequired()
-                .HasMaxLength(500);
-
-            modelBuilder.Entity<User>()
-                .Property(u => u.FullName)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            modelBuilder.Entity<User>()
-                .Property(u => u.Email)
-                .IsRequired()
-                .HasMaxLength(150);
-
-            modelBuilder.Entity<User>()
-                .Property(u => u.Role)
-                .IsRequired()
-                .HasMaxLength(20);
+              .HasRequired(u => u.Person)
+              .WithRequiredDependent(p => p.User)
+              .WillCascadeOnDelete(true);
         }
     }
 }

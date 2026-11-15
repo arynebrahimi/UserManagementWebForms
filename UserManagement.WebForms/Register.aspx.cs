@@ -6,58 +6,65 @@ using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.WebForms
 {
-	public partial class Register : Page
-	{
-		private readonly IRegisterUser _registerUser;
+    public partial class Register : Page
+    {
+        private readonly IRegisterUser _registerUser;
 
-		public Register(IRegisterUser registerUser)
-		{
-			_registerUser = registerUser;
-		}
+        public Register(IRegisterUser registerUser)
+        {
+            _registerUser = registerUser;
+        }
 
-		protected void btnRegister_Click(object sender, EventArgs e)
-		{
-			string username = txtUsername.Text.Trim();
+        protected void btnRegister_Click(object sender, EventArgs e)
+        {
+            string username = txtUsername.Text.Trim();
 
-			if (string.IsNullOrWhiteSpace(username) ||
-				string.IsNullOrWhiteSpace(txtPassword.Text) ||
-				string.IsNullOrWhiteSpace(txtFullName.Text) ||
-				string.IsNullOrWhiteSpace(txtEmail.Text))
-			{
-				lblMessage.Text = "Please fill in all fields.";
-				return;
-			}
+            if (string.IsNullOrWhiteSpace(username) ||
+                string.IsNullOrWhiteSpace(txtPassword.Text) ||
+                string.IsNullOrWhiteSpace(txtFullName.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                lblMessage.Text = "Please fill in all fields.";
+                return;
+            }
 
-			User user = new User
-			{
-				UserName = username,
-				Password = txtPassword.Text,
-				FullName = txtFullName.Text.Trim(),
-				Email = txtEmail.Text.Trim()
-			};
+            User user = new User
+            {
+                UserName = username,
+                Password = txtPassword.Text,
 
-			try
-			{
-				bool result = _registerUser.Register(user);
+                Person = new Person
+                {
+                    FullName = txtFullName.Text.Trim(),
+                    Email = txtEmail.Text.Trim()
+                }
+            };
 
-				if (!result)
-				{
-					lblMessage.Text = "Username already exists.";
-					return;
-				}
+            try
+            {
+                bool result = _registerUser.Register(user);
 
-				Response.Redirect("Users.aspx", false);
-			}
-			catch (DbUpdateException)
-			{
-				lblMessage.Text =
-					"Username already exists or database error occurred.";
-			}
-			catch (Exception ex)
-			{
-				System.Diagnostics.Debug.WriteLine(ex.ToString());
-				lblMessage.Text = "Registration failed.";
-			}
-		}
-	}
+                if (!result)
+                {
+                    lblMessage.Text = "Username already exists.";
+                    return;
+                }
+
+                Response.Redirect("Users.aspx", false);
+            }
+            catch (DbUpdateException ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+
+                lblMessage.Text =
+                    "Username already exists or database error occurred.";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+
+                lblMessage.Text = "Registration failed.";
+            }
+        }
+    }
 }

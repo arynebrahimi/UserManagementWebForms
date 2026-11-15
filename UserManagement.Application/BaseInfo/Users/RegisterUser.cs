@@ -19,6 +19,9 @@ namespace UserManagement.Application.BaseInfo.Users.Services
 
         public bool Register(User user)
         {
+            if (user == null || user.Person == null)
+                return false;
+
             user.UserName = user.UserName.Trim();
 
             bool exists = _usernameExists.Exists(user.UserName);

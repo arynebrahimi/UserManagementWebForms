@@ -28,6 +28,7 @@ namespace UserManagement.Application.BaseInfo.Users.Services
                 items = items.Where(i =>
                     i.UserName.Contains(username));
             }
+
             return items;
         }
     }

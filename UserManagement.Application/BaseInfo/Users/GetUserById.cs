@@ -16,10 +16,28 @@ namespace UserManagement.Application.BaseInfo.Users.Services
 
         public User GetById(int id)
         {
-            var query = _db.Query<User>()
-                .Where(u => u.Id == id);
+            var users = _db.Query<User>();
 
-            return query.SingleOrDefault();
+            foreach (var user in users)
+            {
+                if (user.Id == id)
+                {
+                    var persons = _db.Query<Person>();
+
+                    foreach (var person in persons)
+                    {
+                        if (person.Id == user.Id)
+                        {
+                            user.Person = person;
+                            break;
+                        }
+                    }
+
+                    return user;
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -19,6 +19,7 @@ namespace UserManagement.Application.BaseInfo.Users.Services
 
             if (deleted)
             {
+                _db.DeleteById<Person>(id);
                 _db.SaveChanges();
             }
         }
