@@ -17,31 +17,19 @@ namespace UserManagement.WebForms
         {
             var container = new UnityContainer();
 
-            // Database
             container.RegisterType<IDb, AppDbContext>();
 
-            // User Services
             container.RegisterType<ISearchUsers, SearchUsers>();
-
             container.RegisterType<IGetAllUsers, GetAllUsers>();
-
             container.RegisterType<IGetUserById, GetUserById>();
-
             container.RegisterType<IUsernameExists, UsernameExists>();
-
             container.RegisterType<IAddUser, AddUser>();
-
             container.RegisterType<IUpdateUser, UpdateUser>();
-
             container.RegisterType<IDeleteUser, DeleteUser>();
-
             container.RegisterType<IValidateLogin, ValidateLogin>();
-
             container.RegisterType<IRegisterUser, RegisterUser>();
 
-            // Dependency Injection
-            HttpRuntime.WebObjectActivator =
-                new UnityServiceProvider(container);
+            HttpRuntime.WebObjectActivator = new UnityServiceProvider(container);
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

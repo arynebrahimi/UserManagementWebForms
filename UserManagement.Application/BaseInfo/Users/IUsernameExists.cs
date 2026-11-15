@@ -2,6 +2,6 @@
 {
     public interface IUsernameExists
     {
-        bool Exists(string username, int? exceptUserId = null);
+        bool Exists(string username, int id = 0);
     }
 }

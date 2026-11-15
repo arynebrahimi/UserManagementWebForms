@@ -1,6 +1,4 @@
-﻿
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using UserManagement.Domain.Entities;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;

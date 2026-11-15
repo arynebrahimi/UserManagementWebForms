@@ -39,6 +39,7 @@ namespace UserManagement.Persistence.Data
                 return false;
 
             Set<T>().Remove(entity);
+
             return true;
         }
 
@@ -48,8 +49,6 @@ namespace UserManagement.Persistence.Data
                 .HasRequired(u => u.Person)
                 .WithRequiredPrincipal(p => p.User)
                 .WillCascadeOnDelete(true);
-
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

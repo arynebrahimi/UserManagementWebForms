@@ -14,17 +14,10 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             _db = db;
         }
 
-        public bool Exists(string username, int? exceptUserId = null)
+        public bool Exists(string username, int id = 0)
         {
-            var query = _db.Query<User>()
-                .Where(u => u.UserName == username);
-
-            if (exceptUserId.HasValue)
-            {
-                query = query.Where(u => u.Id != exceptUserId.Value);
-            }
-
-            return query.Any();
+            return _db.Query<User>()
+                .Any(u => u.UserName == username && u.Id != id);
         }
     }
 }
