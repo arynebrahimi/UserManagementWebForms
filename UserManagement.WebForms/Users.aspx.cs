@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
@@ -28,8 +30,41 @@ namespace UserManagement.WebForms
 
         private void LoadUsers()
         {
-            gvUsers.DataSource = _getAllUsers.GetAll();
+            var users = _getAllUsers.GetAll();
+
+            if (!string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                var search = (ISearchUsers)
+                    HttpRuntime.WebObjectActivator
+                        .GetService(typeof(ISearchUsers));
+
+                var request = new ISearchUsers.Request
+                {
+                    Username = txtSearch.Text.Trim()
+                };
+
+                var ids = search.Respond(request)
+                    .Select(u => u.Id)
+                    .ToList();
+
+                users = users
+                    .Where(u => ids.Contains(u.Id))
+                    .ToList();
+            }
+
+            gvUsers.DataSource = users;
             gvUsers.DataBind();
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            LoadUsers();
+        }
+
+        protected void btnShowAll_Click(object sender, EventArgs e)
+        {
+            txtSearch.Text = "";
+            LoadUsers();
         }
 
         protected void gvUsers_RowCommand(

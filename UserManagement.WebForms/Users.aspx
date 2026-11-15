@@ -17,6 +17,18 @@
             Text="Add New User" />
 
         <br /><br />
+        <asp:TextBox ID="txtSearch" runat="server"
+    placeholder="Search by username" />
+
+<asp:Button ID="btnSearch" runat="server"
+    Text="Search"
+    OnClick="btnSearch_Click" />
+
+<asp:Button ID="btnShowAll" runat="server"
+    Text="Show All"
+    OnClick="btnShowAll_Click" />
+
+<%--<br /><br />--%>
 
         <asp:GridView ID="gvUsers" runat="server"
             AutoGenerateColumns="False"
