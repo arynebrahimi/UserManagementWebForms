@@ -44,12 +44,12 @@ namespace UserManagement.Persistence.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<User>()
-              .HasRequired(u => u.Person)
-              .WithRequiredDependent(p => p.User)
-              .WillCascadeOnDelete(true);
+                .HasRequired(u => u.Person)
+                .WithRequiredPrincipal(p => p.User)
+                .WillCascadeOnDelete(true);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
