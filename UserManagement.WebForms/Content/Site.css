@@ -1,21 +1,203 @@
-﻿/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
+﻿
+/* ==============================
+   General
+================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 40px 20px;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    background: linear-gradient(135deg, #edf2fa, #dce7f7);
+    color: #1e293b;
+    min-height: 100vh;
+}
+
+/* ==============================
+   Main Container
+================================ */
+
+form#form1 {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 35px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(30, 58, 138, 0.10);
+}
+
+/* ==============================
+   Headings
+================================ */
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #172554;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+/* ==============================
+   Links
+================================ */
+
+a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+    a:hover {
+        color: #1d4ed8;
+    }
+
+/* ==============================
+   Inputs
+================================ */
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    max-width: 420px;
+    padding: 12px 15px;
+    margin: 7px 0 15px;
+    border: 1px solid #dbe3ef;
+    border-radius: 9px;
+    background: #f8fafc;
+    color: #1e293b;
+    font-size: 14px;
+    outline: none;
+    transition: 0.25s;
+}
+
+input:focus {
+    border-color: #3b82f6;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+/* ==============================
+   Buttons
+================================ */
+
+input[type="submit"],
+button {
+    padding: 11px 22px;
+    margin: 5px 5px 5px 0;
+    border: none;
+    border-radius: 9px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+    input[type="submit"]:hover,
+    button:hover {
+        background: #1d4ed8;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(37, 99, 235, 0.22);
+    }
+
+/* ==============================
+   Labels
+================================ */
+
+p {
+    margin-bottom: 5px;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ==============================
+   Users Table
+================================ */
+
+.users-table {
+    width: 100%;
+    min-width: 650px;
+    margin-top: 25px;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+    .users-table th {
+        padding: 16px 12px;
+        background: #172554;
+        color: #ffffff;
+        text-align: left;
+        font-weight: 600;
+    }
+
+    .users-table td {
+        padding: 14px 12px;
+        border-bottom: 1px solid #e8edf5;
+        color: #475569;
+    }
+
+    .users-table tr:nth-child(even) {
+        background: #f8fafc;
+    }
+
+    .users-table tr:hover {
+        background: #eff6ff;
+    }
+
+    .users-table a {
+        display: inline-block;
+        margin: 3px;
+        font-size: 13px;
+    }
+
+/* ==============================
+   Messages
+================================ */
+
+span[id*="lblMessage"] {
+    display: inline-block;
     margin-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
+    color: #dc2626;
+    font-size: 13px;
 }
 
-/* Set wIdths on the form inputs since otherwise they're 100% wIde */
-input,
-select,
-textarea {
-    max-wIdth: 280px;
-}
+/* ==============================
+   Responsive
+================================ */
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-wIdth: 768px) {
-    .body-content {
-        padding: 0;
+@media (max-width: 768px) {
+
+    body {
+        padding: 15px 10px;
+    }
+
+    form#form1 {
+        padding: 20px 15px;
+        border-radius: 12px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    .users-table {
+        font-size: 12px;
+    }
+
+        .users-table th,
+        .users-table td {
+            padding: 10px 7px;
+        }
+    body.auth-page form#form1 {
+        max-width: 480px;
     }
 }

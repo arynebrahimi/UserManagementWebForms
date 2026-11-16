@@ -6,8 +6,9 @@
 <html>
 <head runat="server">
     <title>Login</title>
+    <link href="Content/Site.css" rel="stylesheet" />
 </head>
-<body>
+<body class="auth-page">
 <form Id="form1" runat="server">
 
     <h2>Login</h2>

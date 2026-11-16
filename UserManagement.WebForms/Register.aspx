@@ -6,6 +6,7 @@
 <html>
 <head runat="server">
     <title>Register</title>
+    <link href="Content/Site.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
