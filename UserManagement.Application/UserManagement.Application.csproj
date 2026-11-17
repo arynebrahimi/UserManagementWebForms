@@ -42,9 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseInfo\Persons\Interfaces\ISearchPersons.cs" />
     <Compile Include="BaseInfo\Users\ISearchUsers.cs" />
     <Compile Include="BaseInfo\Users\IValidateLogin.cs" />
-    <Compile Include="BaseInfo\Users\SearchUsers.cs" />
     <Compile Include="BaseInfo\Users\ValidateLogin.cs" />
     <Compile Include="Interfaces\IDb.cs" />
     <Compile Include="BaseInfo\Users\IAddUser.cs" />

@@ -21,7 +21,7 @@
         <br /><br />
 
         <asp:TextBox ID="txtSearch" runat="server"
-            placeholder="Search by username" />
+            placeholder="Search by username,name or email" />
 
         <asp:Button ID="btnSearch" runat="server"
             Text="Search"

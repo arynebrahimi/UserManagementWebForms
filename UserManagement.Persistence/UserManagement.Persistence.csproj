@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\Persons\SearchPersons.cs" />
+    <Compile Include="DataAccess\Users\SearchUsers.cs" />
     <Compile Include="Data\AppDbContext.cs" />
     <Compile Include="Migrations\202611151730135_SeparateUserAndPerson.cs" />
     <Compile Include="Migrations\202611151730135_SeparateUserAndPerson.Designer.cs">

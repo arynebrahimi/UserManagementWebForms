@@ -3,56 +3,50 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using UserManagement.Application.BaseInfo.Persons.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.WebForms
 {
     public partial class Users : Page
     {
-        private readonly IGetAllUsers _getAllUsers;
+        private readonly ISearchUsers _searchUsers;
         private readonly IDeleteUser _deleteUser;
 
-        public Users(
-            IGetAllUsers getAllUsers,
-            IDeleteUser deleteUser)
+        public Users()
         {
-            _getAllUsers = getAllUsers;
+            _searchUsers = (ISearchUsers)
+                HttpRuntime.WebObjectActivator.GetService(typeof(ISearchUsers));
+
+            _deleteUser = (IDeleteUser)
+                HttpRuntime.WebObjectActivator.GetService(typeof(IDeleteUser));
+        }
+
+        public Users(ISearchUsers searchUsers, IDeleteUser deleteUser)
+        {
+            _searchUsers = searchUsers;
             _deleteUser = deleteUser;
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
                 LoadUsers();
-            }
         }
 
         private void LoadUsers()
         {
-            var users = _getAllUsers.GetAll();
-
-            if (!string.IsNullOrWhiteSpace(txtSearch.Text))
+            var request = new ISearchUsers.Request
             {
-                var search = (ISearchUsers)
-                    HttpRuntime.WebObjectActivator
-                        .GetService(typeof(ISearchUsers));
+                Username = txtSearch.Text.Trim(),
 
-                var request = new ISearchUsers.Request
+                Person = new ISearchPersons.Request
                 {
-                    Username = txtSearch.Text.Trim()
-                };
+                    Keyword = txtSearch.Text.Trim()
+                }
+            };
 
-                var ids = search.Respond(request)
-                    .Select(u => u.Id)
-                    .ToList();
-
-                users = users
-                    .Where(u => ids.Contains(u.Id))
-                    .ToList();
-            }
-
-            gvUsers.DataSource = users;
+            gvUsers.DataSource = _searchUsers.Execute(request).ToList();
             gvUsers.DataBind();
         }
 
