@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using UserManagement.Domain.Entities;
+using UserManagement.Application.DTOs;
 
 namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
     public interface IGetAllUsers
     {
-        List<User> GetAll();
+        List<UserDto> GetAll(UserSearchDto request = null);
     }
 }

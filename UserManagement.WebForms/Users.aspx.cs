@@ -1,30 +1,33 @@
 ﻿using System;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UserManagement.Application.BaseInfo.Persons.Interfaces;
+using UserManagement.Application.DTOs;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.WebForms
 {
     public partial class Users : Page
     {
-        private readonly ISearchUsers _searchUsers;
+        private readonly IGetAllUsers _getAllUsers;
         private readonly IDeleteUser _deleteUser;
 
         public Users()
         {
-            _searchUsers = (ISearchUsers)
-                HttpRuntime.WebObjectActivator.GetService(typeof(ISearchUsers));
+            _getAllUsers = (IGetAllUsers)
+                HttpRuntime.WebObjectActivator.GetService(
+                    typeof(IGetAllUsers));
 
             _deleteUser = (IDeleteUser)
-                HttpRuntime.WebObjectActivator.GetService(typeof(IDeleteUser));
+                HttpRuntime.WebObjectActivator.GetService(
+                    typeof(IDeleteUser));
         }
 
-        public Users(ISearchUsers searchUsers, IDeleteUser deleteUser)
+        public Users(
+            IGetAllUsers getAllUsers,
+            IDeleteUser deleteUser)
         {
-            _searchUsers = searchUsers;
+            _getAllUsers = getAllUsers;
             _deleteUser = deleteUser;
         }
 
@@ -36,17 +39,12 @@ namespace UserManagement.WebForms
 
         private void LoadUsers()
         {
-            var request = new ISearchUsers.Request
+            var request = new UserSearchDto
             {
-                Username = txtSearch.Text.Trim(),
-
-                Person = new ISearchPersons.Request
-                {
-                    Keyword = txtSearch.Text.Trim()
-                }
+                Keyword = txtSearch.Text.Trim()
             };
 
-            gvUsers.DataSource = _searchUsers.Execute(request).ToList();
+            gvUsers.DataSource = _getAllUsers.GetAll(request);
             gvUsers.DataBind();
         }
 

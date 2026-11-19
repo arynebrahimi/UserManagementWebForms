@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity.Infrastructure;
 using System.Web.UI;
+using UserManagement.Application.DTOs;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.WebForms
@@ -54,11 +55,17 @@ namespace UserManagement.WebForms
                 return;
             }
 
-            string username = txtUsername.Text.Trim();
+            var request = new UpdateUserDto
+            {
+                Id = id,
+                UserName = txtUsername.Text.Trim(),
+                FullName = txtFullName.Text.Trim(),
+                Email = txtEmail.Text.Trim()
+            };
 
-            if (string.IsNullOrWhiteSpace(username) ||
-                string.IsNullOrWhiteSpace(txtFullName.Text) ||
-                string.IsNullOrWhiteSpace(txtEmail.Text))
+            if (string.IsNullOrWhiteSpace(request.UserName) ||
+                string.IsNullOrWhiteSpace(request.FullName) ||
+                string.IsNullOrWhiteSpace(request.Email))
             {
                 lblMessage.Text = "Please fill in all fields.";
                 return;
@@ -72,7 +79,7 @@ namespace UserManagement.WebForms
                 return;
             }
 
-            bool exists = _usernameExists.Exists(username, id);
+            bool exists = _usernameExists.Exists(request.UserName, id);
 
             if (exists)
             {
@@ -81,13 +88,9 @@ namespace UserManagement.WebForms
                 return;
             }
 
-            user.UserName = username;
-            user.Person.FullName = txtFullName.Text.Trim();
-            user.Person.Email = txtEmail.Text.Trim();
-
             try
             {
-                _updateUser.Update(user);
+                _updateUser.Update(request);
 
                 Response.Redirect("Users.aspx", false);
                 return;

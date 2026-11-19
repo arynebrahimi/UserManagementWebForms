@@ -19,13 +19,13 @@ namespace UserManagement.Persistence.DataAccess.Users
 
         public IQueryable<User> Execute(ISearchUsers.Request request)
         {
-            var items = _db.Query<User>();
+            var users = _db.Query<User>();
 
             if (request == null)
-                return items;
+                return users;
 
             if (request.Id.HasValue)
-                items = items.Where(u => u.Id == request.Id.Value);
+                users = users.Where(u => u.Id == request.Id.Value);
 
             if (!string.IsNullOrWhiteSpace(request.Username))
             {
@@ -36,22 +36,12 @@ namespace UserManagement.Persistence.DataAccess.Users
                     .Select(p => p.Id)
                     .ToList();
 
-                items = items.Where(u =>
+                users = users.Where(u =>
                     u.UserName.Contains(keyword) ||
                     personIds.Contains(u.Id));
             }
 
-            if (request.Person != null)
-            {
-                var personIds = _searchPersons
-                    .Respond(request.Person)
-                    .Select(p => p.Id)
-                    .ToList();
-
-                items = items.Where(u => personIds.Contains(u.Id));
-            }
-
-            return items;
+            return users;
         }
     }
 }

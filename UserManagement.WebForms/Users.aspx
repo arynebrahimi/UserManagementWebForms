@@ -18,7 +18,8 @@
             NavigateUrl="Register.aspx"
             Text="Add New User" />
 
-        <br /><br />
+        <br />
+        <br />
 
         <asp:TextBox ID="txtSearch" runat="server"
             placeholder="Search by username,name or email" />
@@ -31,7 +32,8 @@
             Text="Show All"
             OnClick="btnShowAll_Click" />
 
-        <br /><br />
+        <br />
+        <br />
 
         <asp:GridView ID="gvUsers" runat="server"
             CssClass="users-table"
@@ -41,9 +43,9 @@
 
             <Columns>
 
-                <asp:BoundField
+                <%--<asp:BoundField
                     DataField="Id"
-                    HeaderText="ID" />
+                    HeaderText="ID" />--%>
 
                 <asp:BoundField
                     DataField="UserName"

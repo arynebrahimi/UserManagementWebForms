@@ -1,5 +1,6 @@
 ﻿using System;
 using UserManagement.Domain.Entities;
+using UserManagement.Application.DTOs;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.Application.BaseInfo.Users.Services
@@ -17,20 +18,34 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             _usernameExists = usernameExists;
         }
 
-        public bool Register(User user)
+        public bool Register(RegisterUserDto request)
         {
-            if (user == null || user.Person == null)
+            if (request == null)
                 return false;
 
-            user.UserName = user.UserName.Trim();
-
-            bool exists = _usernameExists.Exists(user.UserName);
-
-            if (exists)
+            if (string.IsNullOrWhiteSpace(request.UserName) ||
+                string.IsNullOrWhiteSpace(request.Password) ||
+                string.IsNullOrWhiteSpace(request.FullName) ||
+                string.IsNullOrWhiteSpace(request.Email))
                 return false;
 
-            user.Role = "User";
-            user.CreatedAt = DateTime.UtcNow;
+            string username = request.UserName.Trim();
+
+            if (_usernameExists.Exists(username))
+                return false;
+
+            var user = new User
+            {
+                UserName = username,
+                Password = request.Password,
+                Role = "User",
+                CreatedAt = DateTime.UtcNow,
+                Person = new Person
+                {
+                    FullName = request.FullName.Trim(),
+                    Email = request.Email.Trim()
+                }
+            };
 
             _addUser.Add(user);
 

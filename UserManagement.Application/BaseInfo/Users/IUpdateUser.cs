@@ -1,9 +1,9 @@
-﻿using UserManagement.Domain.Entities;
+﻿using UserManagement.Application.DTOs;
 
 namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
     public interface IUpdateUser
     {
-        void Update(User user);
+        void Update(UpdateUserDto request);
     }
 }

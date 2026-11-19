@@ -1,9 +1,9 @@
-﻿using UserManagement.Domain.Entities;
+﻿using UserManagement.Application.DTOs;
 
 namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
     public interface IGetUserById
     {
-        User GetById(int id);
+        UserDto GetById(int id);
     }
 }

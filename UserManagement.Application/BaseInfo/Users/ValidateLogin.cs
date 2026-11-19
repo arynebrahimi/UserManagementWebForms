@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using UserManagement.Domain.Entities;
+using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 
@@ -14,13 +15,18 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             _db = db;
         }
 
-        public bool Validate(string username, string password)
+        public bool Validate(LoginDto request)
         {
-            username = username.Trim();
+            if (request == null ||
+                string.IsNullOrWhiteSpace(request.UserName) ||
+                string.IsNullOrWhiteSpace(request.Password))
+                return false;
 
-            return _db.Query<User>()
-                .Any(u => u.UserName == username &&
-                          u.Password == password);
+            string username = request.UserName.Trim();
+
+            return _db.Query<User>().Any(u =>
+                u.UserName == username &&
+                u.Password == request.Password);
         }
     }
 }

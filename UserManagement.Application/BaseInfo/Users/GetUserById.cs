@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using UserManagement.Domain.Entities;
+using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 
@@ -14,30 +15,28 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             _db = db;
         }
 
-        public User GetById(int id)
+        public UserDto GetById(int id)
         {
-            var users = _db.Query<User>();
+            var user = _db.Query<User>()
+                .SingleOrDefault(u => u.Id == id);
 
-            foreach (var user in users)
+            if (user == null)
+                return null;
+
+            var person = _db.Query<Person>()
+                .SingleOrDefault(p => p.Id == id);
+
+            return new UserDto
             {
-                if (user.Id == id)
+                Id = user.Id,
+                UserName = user.UserName,
+                Role = user.Role,
+                Person = person == null ? null : new PersonDto
                 {
-                    var persons = _db.Query<Person>();
-
-                    foreach (var person in persons)
-                    {
-                        if (person.Id == user.Id)
-                        {
-                            user.Person = person;
-                            break;
-                        }
-                    }
-
-                    return user;
+                    FullName = person.FullName,
+                    Email = person.Email
                 }
-            }
-
-            return null;
+            };
         }
     }
 }

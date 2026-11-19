@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.UI;
 using System.Data.Entity.Infrastructure;
-using UserManagement.Domain.Entities;
+using UserManagement.Application.DTOs;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.WebForms
@@ -17,32 +17,26 @@ namespace UserManagement.WebForms
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-            string username = txtUsername.Text.Trim();
+            var request = new RegisterUserDto
+            {
+                UserName = txtUsername.Text.Trim(),
+                Password = txtPassword.Text,
+                FullName = txtFullName.Text.Trim(),
+                Email = txtEmail.Text.Trim()
+            };
 
-            if (string.IsNullOrWhiteSpace(username) ||
-                string.IsNullOrWhiteSpace(txtPassword.Text) ||
-                string.IsNullOrWhiteSpace(txtFullName.Text) ||
-                string.IsNullOrWhiteSpace(txtEmail.Text))
+            if (string.IsNullOrWhiteSpace(request.UserName) ||
+                string.IsNullOrWhiteSpace(request.Password) ||
+                string.IsNullOrWhiteSpace(request.FullName) ||
+                string.IsNullOrWhiteSpace(request.Email))
             {
                 lblMessage.Text = "Please fill in all fields.";
                 return;
             }
 
-            User user = new User
-            {
-                UserName = username,
-                Password = txtPassword.Text,
-
-                Person = new Person
-                {
-                    FullName = txtFullName.Text.Trim(),
-                    Email = txtEmail.Text.Trim()
-                }
-            };
-
             try
             {
-                bool result = _registerUser.Register(user);
+                bool result = _registerUser.Register(request);
 
                 if (!result)
                 {

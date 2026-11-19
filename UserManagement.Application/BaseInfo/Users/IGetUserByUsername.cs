@@ -1,9 +1,9 @@
-﻿using UserManagement.Domain.Entities;
+﻿using UserManagement.Application.DTOs;
 
 namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
     public interface IGetUserByUsername
     {
-        User GetByUsername(string username);
+        UserDto GetByUsername(string username);
     }
 }
