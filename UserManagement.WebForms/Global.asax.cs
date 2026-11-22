@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Web;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -15,14 +14,13 @@ using UserManagement.WebForms.DependencyInjection;
 
 namespace UserManagement.WebForms
 {
-    public class Global : HttpApplication, IContainerProvider
+    public class Global : HttpApplication
     {
         private static IUnityContainer _container;
 
         void Application_Start(object sender, EventArgs e)
         {
-            _container = new UnityContainer();
-
+            var container = new UnityContainer();
             _container.RegisterType<IDb, AppDbContext>();
 
             _container.RegisterType<ISearchUsers, SearchUsers>();
@@ -36,15 +34,10 @@ namespace UserManagement.WebForms
             _container.RegisterType<IValidateLogin, ValidateLogin>();
             _container.RegisterType<IRegisterUser, RegisterUser>();
 
-            HttpRuntime.WebObjectActivator = this;
+            HttpRuntime.WebObjectActivator = new UnityServiceProvider(container);
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-        }
-
-        public object GetService(Type serviceType)
-        {
-            return _container.Resolve(serviceType);
         }
     }
 }

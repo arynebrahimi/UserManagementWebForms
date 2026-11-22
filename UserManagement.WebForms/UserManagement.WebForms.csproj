@@ -298,7 +298,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Dependency Injection\IContainerProvider.cs" />
+    <Compile Include="Dependency Injection\UnityProvider.cs" />
     <Compile Include="EditUser.aspx.cs">
       <DependentUpon>EditUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
