@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Web;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -14,29 +15,36 @@ using UserManagement.WebForms.DependencyInjection;
 
 namespace UserManagement.WebForms
 {
-    public class Global : HttpApplication
+    public class Global : HttpApplication, IContainerProvider
     {
+        private static IUnityContainer _container;
+
         void Application_Start(object sender, EventArgs e)
         {
-            var container = new UnityContainer();
+            _container = new UnityContainer();
 
-            container.RegisterType<IDb, AppDbContext>();
+            _container.RegisterType<IDb, AppDbContext>();
 
-            container.RegisterType<ISearchUsers, SearchUsers>();
-            container.RegisterType<ISearchPersons, SearchPersons>();
-            container.RegisterType<IGetAllUsers, GetAllUsers>();
-            container.RegisterType<IGetUserById, GetUserById>();
-            container.RegisterType<IUsernameExists, UsernameExists>();
-            container.RegisterType<IAddUser, AddUser>();
-            container.RegisterType<IUpdateUser, UpdateUser>();
-            container.RegisterType<IDeleteUser, DeleteUser>();
-            container.RegisterType<IValidateLogin, ValidateLogin>();
-            container.RegisterType<IRegisterUser, RegisterUser>();
+            _container.RegisterType<ISearchUsers, SearchUsers>();
+            _container.RegisterType<ISearchPersons, SearchPersons>();
+            _container.RegisterType<IGetAllUsers, GetAllUsers>();
+            _container.RegisterType<IGetUserById, GetUserById>();
+            _container.RegisterType<IUsernameExists, UsernameExists>();
+            _container.RegisterType<IAddUser, AddUser>();
+            _container.RegisterType<IUpdateUser, UpdateUser>();
+            _container.RegisterType<IDeleteUser, DeleteUser>();
+            _container.RegisterType<IValidateLogin, ValidateLogin>();
+            _container.RegisterType<IRegisterUser, RegisterUser>();
 
-            HttpRuntime.WebObjectActivator = new UnityServiceProvider(container);
+            HttpRuntime.WebObjectActivator = this;
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+
+        public object GetService(Type serviceType)
+        {
+            return _container.Resolve(serviceType);
         }
     }
 }
