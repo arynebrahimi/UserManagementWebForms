@@ -22,22 +22,17 @@ namespace UserManagement.WebForms
                 Password = txtPassword.Text
             };
 
-            if (string.IsNullOrWhiteSpace(request.UserName) ||
-                string.IsNullOrWhiteSpace(request.Password))
+            try
             {
-                lblMessage.Text = "Please enter username and password.";
+                _validateLogin.Validate(request);
+
+                Response.Redirect("Users.aspx", false);
                 return;
             }
-
-            bool isValid = _validateLogin.Validate(request);
-
-            if (!isValid)
+            catch (Exception ex)
             {
-                lblMessage.Text = "Invalid username or password.";
-                return;
+                Response.Write(ex.Message);
             }
-
-            Response.Redirect("Users.aspx", false);
         }
     }
 }

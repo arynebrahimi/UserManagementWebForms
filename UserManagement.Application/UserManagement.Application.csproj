@@ -47,6 +47,7 @@
     <Compile Include="BaseInfo\Users\ISearchUsers.cs" />
     <Compile Include="BaseInfo\Users\IValidateLogin.cs" />
     <Compile Include="BaseInfo\Users\ValidateLogin.cs" />
+    <Compile Include="DTOs\OperationResultDto.cs" />
     <Compile Include="DTOs\UserDTOs.cs" />
     <Compile Include="Interfaces\IDb.cs" />
     <Compile Include="BaseInfo\Users\IAddUser.cs" />

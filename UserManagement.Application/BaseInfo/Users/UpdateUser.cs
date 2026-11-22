@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
@@ -11,21 +12,34 @@ namespace UserManagement.Application.BaseInfo.Users.Services
         private readonly IDb _db;
         private readonly ISearchUsers _searchUsers;
         private readonly ISearchPersons _searchPersons;
+        private readonly IUsernameExists _usernameExists;
 
         public UpdateUser(
             IDb db,
             ISearchUsers searchUsers,
-            ISearchPersons searchPersons)
+            ISearchPersons searchPersons,
+            IUsernameExists usernameExists)
         {
             _db = db;
             _searchUsers = searchUsers;
             _searchPersons = searchPersons;
+            _usernameExists = usernameExists;
         }
 
-        public void Update(UpdateUserDto request)
+        public bool Update(UpdateUserDto request)
         {
             if (request == null)
-                return;
+                throw new ArgumentNullException(nameof(request));
+
+            if (string.IsNullOrWhiteSpace(request.UserName) ||
+                string.IsNullOrWhiteSpace(request.FullName) ||
+                string.IsNullOrWhiteSpace(request.Email))
+            {
+                throw new Exception("Please fill in all fields.");
+            }
+
+            if (_usernameExists.Exists(request.UserName.Trim(), request.Id))
+                throw new Exception("This username is already used by another user.");
 
             var user = _searchUsers.Execute(
                 new ISearchUsers.Request { Id = request.Id })
@@ -36,7 +50,7 @@ namespace UserManagement.Application.BaseInfo.Users.Services
                 .SingleOrDefault();
 
             if (user == null || person == null)
-                return;
+                throw new Exception("User not found.");
 
             user.UserName = request.UserName.Trim();
             person.FullName = request.FullName.Trim();
@@ -44,8 +58,9 @@ namespace UserManagement.Application.BaseInfo.Users.Services
 
             _db.Update(user);
             _db.Update(person);
-
             _db.SaveChanges();
+
+            return true;
         }
     }
 }

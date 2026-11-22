@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿
+using System;
+using System.Linq;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 
@@ -16,17 +18,28 @@ namespace UserManagement.Application.BaseInfo.Users.Services
         public bool Validate(LoginDto request)
         {
             if (request == null)
-                return false;
+                throw new ArgumentNullException(nameof(request));
+
+            if (string.IsNullOrWhiteSpace(request.UserName) ||
+                string.IsNullOrWhiteSpace(request.Password))
+            {
+                throw new Exception("Please enter username and password.");
+            }
 
             string username = request.UserName.Trim();
 
-            return _searchUsers.Execute(
+            bool isValid = _searchUsers.Execute(
                 new ISearchUsers.Request
                 {
                     Username = username
                 })
                 .Any(u => u.UserName == username &&
                           u.Password == request.Password);
+
+            if (!isValid)
+                throw new Exception("Invalid username or password.");
+
+            return true;
         }
     }
 }

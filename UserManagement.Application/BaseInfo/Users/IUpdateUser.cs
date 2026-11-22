@@ -4,6 +4,6 @@ namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
     public interface IUpdateUser
     {
-        void Update(UpdateUserDto request);
+        bool Update(UpdateUserDto request);
     }
 }

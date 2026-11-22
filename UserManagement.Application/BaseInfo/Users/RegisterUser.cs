@@ -1,6 +1,6 @@
 ﻿using System;
-using UserManagement.Domain.Entities;
 using UserManagement.Application.DTOs;
+using UserManagement.Domain.Entities;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.Application.BaseInfo.Users.Services
@@ -21,18 +21,20 @@ namespace UserManagement.Application.BaseInfo.Users.Services
         public bool Register(RegisterUserDto request)
         {
             if (request == null)
-                return false;
+                throw new ArgumentNullException(nameof(request));
 
             if (string.IsNullOrWhiteSpace(request.UserName) ||
                 string.IsNullOrWhiteSpace(request.Password) ||
                 string.IsNullOrWhiteSpace(request.FullName) ||
                 string.IsNullOrWhiteSpace(request.Email))
-                return false;
+            {
+                throw new Exception("Please fill in all fields.");
+            }
 
             string username = request.UserName.Trim();
 
             if (_usernameExists.Exists(username))
-                return false;
+                throw new Exception("Username already exists.");
 
             var user = new User
             {
