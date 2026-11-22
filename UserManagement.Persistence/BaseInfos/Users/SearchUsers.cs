@@ -19,15 +19,21 @@ namespace UserManagement.Persistence.DataAccess.Users
 
         public IQueryable<User> Execute(ISearchUsers.Request request)
         {
-            var users = _db.Query<User>();
+            var items = _db.Query<User>();
 
             if (request == null)
-                return users;
+                return items;
 
             if (request.Id.HasValue)
-                users = users.Where(u => u.Id == request.Id.Value);
+                items = items.Where(u => u.Id == request.Id.Value);
 
-            if (!string.IsNullOrWhiteSpace(request.Username))
+            bool hasUsername = !string.IsNullOrWhiteSpace(request.Username);
+
+            bool hasPerson = request.Person != null &&
+                (request.Person.Id.HasValue ||
+                 !string.IsNullOrWhiteSpace(request.Person.Keyword));
+
+            if (hasUsername && hasPerson)
             {
                 string keyword = request.Username.Trim();
 
@@ -36,12 +42,29 @@ namespace UserManagement.Persistence.DataAccess.Users
                     .Select(p => p.Id)
                     .ToList();
 
-                users = users.Where(u =>
+                items = items.Where(u =>
                     u.UserName.Contains(keyword) ||
                     personIds.Contains(u.Id));
             }
+            else if (hasUsername)
+            {
+                string keyword = request.Username.Trim();
 
-            return users;
+                items = items.Where(u =>
+                    u.UserName.Contains(keyword));
+            }
+            else if (hasPerson)
+            {
+                var personIds = _searchPersons
+                    .Respond(request.Person)
+                    .Select(p => p.Id)
+                    .ToList();
+
+                items = items.Where(u =>
+                    personIds.Contains(u.Id));
+            }
+
+            return items;
         }
     }
 }

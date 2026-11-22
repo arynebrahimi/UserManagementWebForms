@@ -1,30 +1,41 @@
 ﻿using System.Linq;
-using UserManagement.Domain.Entities;
 using UserManagement.Application.DTOs;
-using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
+using UserManagement.Application.BaseInfo.Persons.Interfaces;
 
 namespace UserManagement.Application.BaseInfo.Users.Services
 {
     public class GetUserByUsername : IGetUserByUsername
     {
-        private readonly IDb _db;
+        private readonly ISearchUsers _searchUsers;
+        private readonly ISearchPersons _searchPersons;
 
-        public GetUserByUsername(IDb db)
+        public GetUserByUsername(
+            ISearchUsers searchUsers,
+            ISearchPersons searchPersons)
         {
-            _db = db;
+            _searchUsers = searchUsers;
+            _searchPersons = searchPersons;
         }
 
         public UserDto GetByUsername(string username)
         {
-            var user = _db.Query<User>()
+            var user = _searchUsers.Execute(
+                new ISearchUsers.Request
+                {
+                    Username = username
+                })
                 .SingleOrDefault(u => u.UserName == username);
 
             if (user == null)
                 return null;
 
-            var person = _db.Query<Person>()
-                .SingleOrDefault(p => p.Id == user.Id);
+            var person = _searchPersons.Respond(
+                new ISearchPersons.Request
+                {
+                    Id = user.Id
+                })
+                .SingleOrDefault();
 
             return new UserDto
             {

@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using UserManagement.Domain.Entities;
-using UserManagement.Application.BaseInfo.Users.Interfaces;
 using UserManagement.Application.BaseInfo.Persons.Interfaces;
 
 namespace UserManagement.Application.BaseInfo.Users.Interfaces

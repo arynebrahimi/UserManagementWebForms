@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UserManagement.Domain.Entities;
 using UserManagement.Application.DTOs;
-using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 using UserManagement.Application.BaseInfo.Persons.Interfaces;
 
@@ -11,12 +9,14 @@ namespace UserManagement.Application.BaseInfo.Users.Services
     public class GetAllUsers : IGetAllUsers
     {
         private readonly ISearchUsers _searchUsers;
-        private readonly IDb _db;
+        private readonly ISearchPersons _searchPersons;
 
-        public GetAllUsers(ISearchUsers searchUsers, IDb db)
+        public GetAllUsers(
+            ISearchUsers searchUsers,
+            ISearchPersons searchPersons)
         {
             _searchUsers = searchUsers;
-            _db = db;
+            _searchPersons = searchPersons;
         }
 
         public List<UserDto> GetAll(UserSearchDto request = null)
@@ -26,37 +26,31 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             if (request != null &&
                 !string.IsNullOrWhiteSpace(request.Keyword))
             {
-                string keyword = request.Keyword.Trim();
-
-                searchRequest.Username = keyword;
+                searchRequest.Username = request.Keyword.Trim();
                 searchRequest.Person = new ISearchPersons.Request
                 {
-                    Keyword = keyword
+                    Keyword = request.Keyword.Trim()
                 };
             }
 
-            // Execute each query separately
             var users = _searchUsers.Execute(searchRequest).ToList();
-            var persons = _db.Query<Person>().ToList();
+            var persons = _searchPersons.Respond().ToList();
 
-            // Map entities to DTOs in memory
-            return users.Select(user =>
-            {
-                var person = persons.FirstOrDefault(
-                    p => p.Id == user.Id);
-
-                return new UserDto
+            return users.Join(
+                persons,
+                u => u.Id,
+                p => p.Id,
+                (user, person) => new UserDto
                 {
                     Id = user.Id,
                     UserName = user.UserName,
                     Role = user.Role,
-                    Person = person == null ? null : new PersonDto
+                    Person = new PersonDto
                     {
                         FullName = person.FullName,
                         Email = person.Email
                     }
-                };
-            }).ToList();
+                }).ToList();
         }
     }
 }

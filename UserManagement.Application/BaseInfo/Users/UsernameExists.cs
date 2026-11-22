@@ -1,22 +1,24 @@
 ﻿using System.Linq;
-using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
-using UserManagement.Domain.Entities;
 
 namespace UserManagement.Application.BaseInfo.Users.Services
 {
     public class UsernameExists : IUsernameExists
     {
-        private readonly IDb _db;
+        private readonly ISearchUsers _searchUsers;
 
-        public UsernameExists(IDb db)
+        public UsernameExists(ISearchUsers searchUsers)
         {
-            _db = db;
+            _searchUsers = searchUsers;
         }
 
         public bool Exists(string username, int id = 0)
         {
-            return _db.Query<User>()
+            return _searchUsers.Execute(
+                new ISearchUsers.Request
+                {
+                    Username = username
+                })
                 .Any(u => u.UserName == username && u.Id != id);
         }
     }

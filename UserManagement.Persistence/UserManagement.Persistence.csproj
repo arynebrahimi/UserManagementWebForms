@@ -51,12 +51,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess\Persons\SearchPersons.cs" />
-    <Compile Include="DataAccess\Users\SearchUsers.cs" />
+    <Compile Include="BaseInfos\Persons\SearchPersons.cs" />
+    <Compile Include="BaseInfos\Users\SearchUsers.cs" />
     <Compile Include="Data\AppDbContext.cs" />
     <Compile Include="Migrations\202611151730135_SeparateUserAndPerson.cs" />
     <Compile Include="Migrations\202611151730135_SeparateUserAndPerson.Designer.cs">
       <DependentUpon>202611151730135_SeparateUserAndPerson.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202611220522152_UpdateUserPersonRelation.cs" />
+    <Compile Include="Migrations\202611220522152_UpdateUserPersonRelation.Designer.cs">
+      <DependentUpon>202611220522152_UpdateUserPersonRelation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +82,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202611151730135_SeparateUserAndPerson.resx">
       <DependentUpon>202611151730135_SeparateUserAndPerson.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202611220522152_UpdateUserPersonRelation.resx">
+      <DependentUpon>202611220522152_UpdateUserPersonRelation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

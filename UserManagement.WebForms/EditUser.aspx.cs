@@ -93,12 +93,16 @@ namespace UserManagement.WebForms
                 _updateUser.Update(request);
 
                 Response.Redirect("Users.aspx", false);
-                return;
             }
             catch (DbUpdateException)
             {
                 lblMessage.Text =
                     "Username already exists or database error occurred.";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+                lblMessage.Text = "Update failed.";
             }
         }
     }

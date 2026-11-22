@@ -14,6 +14,7 @@ namespace UserManagement.Domain.Entities
 
         public DateTime CreatedAt { get; set; }
 
-        public virtual Person Person { get; set; }
+        public  Person Person { get; set; }
+        public  int PersonId { get; set; }
     }
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UserManagement.Application.Interfaces;
+﻿using System.Linq;
 using UserManagement.Application.BaseInfo.Persons.Interfaces;
+using UserManagement.Application.Interfaces;
 using UserManagement.Domain.Entities;
 
 namespace UserManagement.Persistence.DataAccess.Persons
@@ -24,7 +20,7 @@ namespace UserManagement.Persistence.DataAccess.Persons
                 return items;
 
             if (request.Id.HasValue)
-            items = items.Where(p => p.Id == request.Id);
+                items = items.Where(p => p.Id == request.Id);
 
             if (!string.IsNullOrWhiteSpace(request.Keyword))
             {

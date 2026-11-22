@@ -1,30 +1,35 @@
 ﻿using System.Linq;
-using UserManagement.Domain.Entities;
 using UserManagement.Application.DTOs;
-using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
+using UserManagement.Application.BaseInfo.Persons.Interfaces;
 
 namespace UserManagement.Application.BaseInfo.Users.Services
 {
     public class GetUserById : IGetUserById
     {
-        private readonly IDb _db;
+        private readonly ISearchUsers _searchUsers;
+        private readonly ISearchPersons _searchPersons;
 
-        public GetUserById(IDb db)
+        public GetUserById(
+            ISearchUsers searchUsers,
+            ISearchPersons searchPersons)
         {
-            _db = db;
+            _searchUsers = searchUsers;
+            _searchPersons = searchPersons;
         }
 
         public UserDto GetById(int id)
         {
-            var user = _db.Query<User>()
-                .SingleOrDefault(u => u.Id == id);
+            var user = _searchUsers.Execute(
+                new ISearchUsers.Request { Id = id })
+                .SingleOrDefault();
 
             if (user == null)
                 return null;
 
-            var person = _db.Query<Person>()
-                .SingleOrDefault(p => p.Id == id);
+            var person = _searchPersons.Respond(
+                new ISearchPersons.Request { Id = id })
+                .SingleOrDefault();
 
             return new UserDto
             {

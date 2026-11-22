@@ -1,35 +1,39 @@
 ﻿using System.Linq;
-using UserManagement.Domain.Entities;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
+using UserManagement.Application.BaseInfo.Persons.Interfaces;
 
 namespace UserManagement.Application.BaseInfo.Users.Services
 {
     public class UpdateUser : IUpdateUser
     {
         private readonly IDb _db;
+        private readonly ISearchUsers _searchUsers;
+        private readonly ISearchPersons _searchPersons;
 
-        public UpdateUser(IDb db)
+        public UpdateUser(
+            IDb db,
+            ISearchUsers searchUsers,
+            ISearchPersons searchPersons)
         {
             _db = db;
+            _searchUsers = searchUsers;
+            _searchPersons = searchPersons;
         }
 
         public void Update(UpdateUserDto request)
         {
-            if (string.IsNullOrWhiteSpace(request.UserName) ||
-                string.IsNullOrWhiteSpace(request.FullName) ||
-                string.IsNullOrWhiteSpace(request.Email))
-                return;
-
             if (request == null)
                 return;
 
-            var user = _db.Query<User>()
-                .SingleOrDefault(u => u.Id == request.Id);
+            var user = _searchUsers.Execute(
+                new ISearchUsers.Request { Id = request.Id })
+                .SingleOrDefault();
 
-            var person = _db.Query<Person>()
-                .SingleOrDefault(p => p.Id == request.Id);
+            var person = _searchPersons.Respond(
+                new ISearchPersons.Request { Id = request.Id })
+                .SingleOrDefault();
 
             if (user == null || person == null)
                 return;
