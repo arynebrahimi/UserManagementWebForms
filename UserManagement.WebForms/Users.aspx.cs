@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using UserManagement.Application.DTOs;
@@ -11,17 +10,6 @@ namespace UserManagement.WebForms
     {
         private readonly IGetAllUsers _getAllUsers;
         private readonly IDeleteUser _deleteUser;
-
-        public Users()
-        {
-            _getAllUsers = (IGetAllUsers)
-                HttpRuntime.WebObjectActivator.GetService(
-                    typeof(IGetAllUsers));
-
-            _deleteUser = (IDeleteUser)
-                HttpRuntime.WebObjectActivator.GetService(
-                    typeof(IDeleteUser));
-        }
 
         public Users(
             IGetAllUsers getAllUsers,

@@ -42,13 +42,5 @@ namespace UserManagement.Persistence.Data
 
             return true;
         }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>()
-                .HasRequired(u => u.Person)
-                .WithRequiredPrincipal(p => p.User)
-                .WillCascadeOnDelete(true);
-        }
     }
 }

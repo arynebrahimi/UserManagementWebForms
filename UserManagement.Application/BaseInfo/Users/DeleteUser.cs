@@ -1,4 +1,6 @@
-﻿using UserManagement.Application.Interfaces;
+﻿using System;
+using System.Linq;
+using UserManagement.Application.Interfaces;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
 using UserManagement.Domain.Entities;
 
@@ -7,21 +9,27 @@ namespace UserManagement.Application.BaseInfo.Users.Services
     public class DeleteUser : IDeleteUser
     {
         private readonly IDb _db;
+        private readonly ISearchUsers _searchUsers;
 
-        public DeleteUser(IDb db)
+        public DeleteUser(IDb db, ISearchUsers searchUsers)
         {
             _db = db;
+            _searchUsers = searchUsers;
         }
 
         public void Delete(int id)
         {
-            bool deleted = _db.DeleteById<User>(id);
+            var user = _searchUsers.Execute(
+                new ISearchUsers.Request { Id = id })
+                .SingleOrDefault();
 
-            if (deleted)
-            {
-                _db.DeleteById<Person>(id);
-                _db.SaveChanges();
-            }
+            if (user == null)
+                throw new Exception("User not found.");
+
+            _db.DeleteById<User>(id);
+            _db.DeleteById<Person>(user.PersonId);
+
+            _db.SaveChanges();
         }
     }
 }

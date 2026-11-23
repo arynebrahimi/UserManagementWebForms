@@ -16,25 +16,24 @@ namespace UserManagement.WebForms
 {
     public class Global : HttpApplication
     {
-        private static IUnityContainer _container;
-
         void Application_Start(object sender, EventArgs e)
         {
             var container = new UnityContainer();
-            _container.RegisterType<IDb, AppDbContext>();
+            container.RegisterType<IDb, AppDbContext>();
 
-            _container.RegisterType<ISearchUsers, SearchUsers>();
-            _container.RegisterType<ISearchPersons, SearchPersons>();
-            _container.RegisterType<IGetAllUsers, GetAllUsers>();
-            _container.RegisterType<IGetUserById, GetUserById>();
-            _container.RegisterType<IUsernameExists, UsernameExists>();
-            _container.RegisterType<IAddUser, AddUser>();
-            _container.RegisterType<IUpdateUser, UpdateUser>();
-            _container.RegisterType<IDeleteUser, DeleteUser>();
-            _container.RegisterType<IValidateLogin, ValidateLogin>();
-            _container.RegisterType<IRegisterUser, RegisterUser>();
+            container.RegisterType<ISearchUsers, SearchUsers>();
+            container.RegisterType<ISearchPersons, SearchPersons>();
+            container.RegisterType<IGetAllUsers, GetAllUsers>();
+            container.RegisterType<IGetUserById, GetUserById>();
+            container.RegisterType<IUsernameExists, UsernameExists>();
+            container.RegisterType<IAddUser, AddUser>();
+            container.RegisterType<IUpdateUser, UpdateUser>();
+            container.RegisterType<IDeleteUser, DeleteUser>();
+            container.RegisterType<IValidateLogin, ValidateLogin>();
+            container.RegisterType<IRegisterUser, RegisterUser>();
 
-            HttpRuntime.WebObjectActivator = new UnityServiceProvider(container);
+            HttpRuntime.WebObjectActivator =
+                new UnityServiceProvider(container);
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
