@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using UserManagement.Domain.Entities;
 using UserManagement.Application.BaseInfo.Persons.Interfaces;
+using UserManagement.Domain.Entities;
 
-namespace UserManagement.Application.BaseInfo.Users.Interfaces
+namespace UserManagement.Application.BaseInfo.Users
 {
     public interface ISearchUsers
     {

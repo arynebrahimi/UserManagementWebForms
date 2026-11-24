@@ -1,9 +1,8 @@
 ﻿using System;
 using UserManagement.Application.DTOs;
 using UserManagement.Domain.Entities;
-using UserManagement.Application.BaseInfo.Users.Interfaces;
 
-namespace UserManagement.Application.BaseInfo.Users.Services
+namespace UserManagement.Application.BaseInfo.Users
 {
     public class RegisterUser : IRegisterUser
     {

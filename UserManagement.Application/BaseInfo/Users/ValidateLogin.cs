@@ -1,10 +1,8 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using UserManagement.Application.DTOs;
-using UserManagement.Application.BaseInfo.Users.Interfaces;
 
-namespace UserManagement.Application.BaseInfo.Users.Services
+namespace UserManagement.Application.BaseInfo.Users
 {
     public class ValidateLogin : IValidateLogin
     {

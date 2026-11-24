@@ -1,6 +1,6 @@
 ﻿using UserManagement.Application.DTOs;
 
-namespace UserManagement.Application.BaseInfo.Users.Interfaces
+namespace UserManagement.Application.BaseInfo.Users
 {
     public interface IUpdateUser
     {

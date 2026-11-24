@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using UserManagement.Application.BaseInfo.Users;
 using UserManagement.Application.DTOs;
-using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.WebForms
 {

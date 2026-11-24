@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
 using UserManagement.Application.Interfaces;
-using UserManagement.Application.BaseInfo.Users.Interfaces;
 using UserManagement.Domain.Entities;
 
-namespace UserManagement.Application.BaseInfo.Users.Services
+namespace UserManagement.Application.BaseInfo.Users
 {
     public class DeleteUser : IDeleteUser
     {

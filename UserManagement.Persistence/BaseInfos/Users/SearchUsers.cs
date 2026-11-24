@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using UserManagement.Application.Interfaces;
-using UserManagement.Application.BaseInfo.Users.Interfaces;
 using UserManagement.Application.BaseInfo.Persons.Interfaces;
+using UserManagement.Application.BaseInfo.Users;
+using UserManagement.Application.Interfaces;
 using UserManagement.Domain.Entities;
 
-namespace UserManagement.Persistence.DataAccess.Users
+namespace UserManagement.Persistence.BaseInfos.Users
 {
     public class SearchUsers : ISearchUsers
     {
@@ -27,41 +27,18 @@ namespace UserManagement.Persistence.DataAccess.Users
             if (request.Id.HasValue)
                 items = items.Where(u => u.Id == request.Id.Value);
 
-            bool hasUsername = !string.IsNullOrWhiteSpace(request.Username);
-
-            bool hasPerson = request.Person != null &&
-                (request.Person.Id.HasValue ||
-                 !string.IsNullOrWhiteSpace(request.Person.Keyword));
-
-            if (hasUsername && hasPerson)
+            if (!string.IsNullOrWhiteSpace(request.Username))
             {
                 string keyword = request.Username.Trim();
-
-                var personIds = _searchPersons
-                    .Respond(request.Person)
-                    .Select(p => p.Id)
-                    .ToList();
-
-                items = items.Where(u =>
-                    u.UserName.Contains(keyword) ||
-                    personIds.Contains(u.Id));
+                items = items.Where(u => u.UserName.Contains(keyword));
             }
-            else if (hasUsername)
-            {
-                string keyword = request.Username.Trim();
 
-                items = items.Where(u =>
-                    u.UserName.Contains(keyword));
-            }
-            else if (hasPerson)
+            if (request.Person != null)
             {
-                var personIds = _searchPersons
-                    .Respond(request.Person)
-                    .Select(p => p.Id)
-                    .ToList();
-
-                items = items.Where(u =>
-                    personIds.Contains(u.Id));
+                items = from user in items
+                    join person in _searchPersons.Respond(request.Person)
+                        on user.PersonId equals person.Id
+                    select user;
             }
 
             return items;

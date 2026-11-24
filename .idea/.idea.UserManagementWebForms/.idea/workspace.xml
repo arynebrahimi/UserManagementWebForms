@@ -4,7 +4,35 @@
     <projectFile>UserManagement.WebForms/UserManagement.WebForms.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a9370f3-5f8f-4892-801f-fa2095168bc1" name="Changes" comment="" />
+    <list default="true" id="7a9370f3-5f8f-4892-801f-fa2095168bc1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UserManagementWebForms/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UserManagementWebForms/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/AddUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/AddUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/DeleteUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/DeleteUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/GetAllUsers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/GetAllUsers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/GetUserById.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/GetUserById.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/GetUserByUsername.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/GetUserByUsername.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IAddUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IAddUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IDeleteUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IDeleteUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IGetAllUsers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IGetAllUsers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IGetUserById.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IGetUserById.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IGetUserByUsername.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IGetUserByUsername.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IRegisterUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IRegisterUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/ISearchUsers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/ISearchUsers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IUpdateUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IUpdateUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IUsernameExists.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IUsernameExists.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IValidateLogin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/IValidateLogin.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/RegisterUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/RegisterUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/UpdateUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/UpdateUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/UsernameExists.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/UsernameExists.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/ValidateLogin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Application/BaseInfo/Users/ValidateLogin.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Persistence/BaseInfos/Persons/SearchPersons.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Persistence/BaseInfos/Persons/SearchPersons.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.Persistence/BaseInfos/Users/SearchUsers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.Persistence/BaseInfos/Users/SearchUsers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.WebForms/EditUser.aspx.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.WebForms/EditUser.aspx.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.WebForms/Global.asax.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.WebForms/Global.asax.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.WebForms/Login.aspx.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.WebForms/Login.aspx.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.WebForms/Register.aspx.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.WebForms/Register.aspx.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserManagement.WebForms/Users.aspx.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UserManagement.WebForms/Users.aspx.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,6 +54,9 @@
     &quot;accountId&quot;: &quot;fc37cea5-709e-4d9e-858c-d14e6105d0d6&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/.idea/config/applicationhost.config" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -38,10 +69,13 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -79,6 +113,8 @@
       <workItem from="1795236234712" duration="606000" />
       <workItem from="1795237001301" duration="878000" />
       <workItem from="1795437208948" duration="379000" />
+      <workItem from="1795437612538" duration="90000" />
+      <workItem from="1795497357531" duration="673000" />
     </task>
     <task id="LOCAL-00001" summary="refactor: general : تمیزکاری بخشهای search در مختلف و...">
       <option name="closed" value="true" />
@@ -96,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1795237807419</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="تمیزکاری">
+      <option name="closed" value="true" />
+      <created>1795437694986</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1795437694986</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,7 +162,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="refactor: general : تمیزکاری بخشهای search در مختلف و..." />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: general : تمیزکاری بخشهای search در مختلف و..." />
+    <MESSAGE value="تمیزکاری" />
+    <option name="LAST_COMMIT_MESSAGE" value="تمیزکاری" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

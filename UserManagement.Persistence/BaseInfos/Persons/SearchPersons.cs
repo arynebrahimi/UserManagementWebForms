@@ -3,7 +3,7 @@ using UserManagement.Application.BaseInfo.Persons.Interfaces;
 using UserManagement.Application.Interfaces;
 using UserManagement.Domain.Entities;
 
-namespace UserManagement.Persistence.DataAccess.Persons
+namespace UserManagement.Persistence.BaseInfos.Persons
 {
     public class SearchPersons : ISearchPersons
     {
@@ -26,8 +26,7 @@ namespace UserManagement.Persistence.DataAccess.Persons
             {
                 string keyword = request.Keyword.Trim();
 
-                items = items.Where(p => p.FullName.Contains(keyword)
-                || p.Email.Contains(keyword));
+                items = items.Where(p => p.FullName.Contains(keyword) || p.Email.Contains(keyword));
             }
             return items;
         }

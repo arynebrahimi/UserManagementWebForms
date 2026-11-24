@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UserManagement.Application.DTOs;
-using UserManagement.Application.BaseInfo.Users.Interfaces;
 using UserManagement.Application.BaseInfo.Persons.Interfaces;
+using UserManagement.Application.DTOs;
 
-namespace UserManagement.Application.BaseInfo.Users.Services
+namespace UserManagement.Application.BaseInfo.Users
 {
     public class GetAllUsers : IGetAllUsers
     {
