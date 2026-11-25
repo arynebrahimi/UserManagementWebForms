@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Web.UI;
-using UserManagement.Application.BaseInfo.Users;
 using UserManagement.Application.DTOs;
+using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.WebForms
 {
     public partial class Login : Page
     {
-        private readonly IValidateLogin _validateLogin;
+        private readonly IAuthenticateUser _authenticateUser;
 
-        public Login(IValidateLogin validateLogin)
+        public Login(IAuthenticateUser authenticateUser)
         {
-            _validateLogin = validateLogin;
+            _authenticateUser = authenticateUser;
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -24,9 +24,11 @@ namespace UserManagement.WebForms
 
             try
             {
-                _validateLogin.Validate(request);
+                _authenticateUser.Authenticate(request);
 
-                Response.Redirect("Users.aspx", false);
+                Session["UserName"] = request.UserName;
+
+                Response.Redirect("Users.aspx");
                 return;
             }
             catch (Exception ex)

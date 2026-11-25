@@ -32,24 +32,19 @@ namespace UserManagement.Application.BaseInfo.Users
                 };
             }
 
-            var users = _searchUsers.Execute(searchRequest).ToList();
-            var persons = _searchPersons.Respond().ToList();
-
-            return users.Join(
-                persons,
-                u => u.Id,
-                p => p.Id,
-                (user, person) => new UserDto
+            return _searchUsers.Execute(searchRequest)
+                .Select(u => new UserDto
                 {
-                    Id = user.Id,
-                    UserName = user.UserName,
-                    Role = user.Role,
+                    Id = u.Id,
+                    UserName = u.UserName,
+                    Role = u.Role,
                     Person = new PersonDto
                     {
-                        FullName = person.FullName,
-                        Email = person.Email
+                        FullName = u.Person.FullName,
+                        Email = u.Person.Email
                     }
                 }).ToList();
+
         }
     }
 }

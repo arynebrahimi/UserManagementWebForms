@@ -19,6 +19,16 @@ namespace UserManagement.WebForms
             _deleteUser = deleteUser;
         }
 
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+
+            if (Session["UserName"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -59,6 +69,15 @@ namespace UserManagement.WebForms
 
                 LoadUsers();
             }
+        }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+
+            Response.Redirect("Login.aspx", false);
+            Context.ApplicationInstance.CompleteRequest();
         }
     }
 }

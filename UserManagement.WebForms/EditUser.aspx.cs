@@ -18,13 +18,23 @@ namespace UserManagement.WebForms
             _updateUser = updateUser;
         }
 
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+
+            if (Session["UserName"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 if (!int.TryParse(Request.QueryString["id"], out int id))
                 {
-                    Response.Redirect("Users.aspx", false);
+                    Response.Redirect("Users.aspx");
                     return;
                 }
 
@@ -32,7 +42,7 @@ namespace UserManagement.WebForms
 
                 if (user == null || user.Person == null)
                 {
-                    Response.Redirect("Users.aspx", false);
+                    Response.Redirect("Users.aspx");
                     return;
                 }
 
@@ -63,7 +73,7 @@ namespace UserManagement.WebForms
             {
                 _updateUser.Update(request);
 
-                Response.Redirect("Users.aspx", false);
+                Response.Redirect("Users.aspx");
                 return;
             }
             catch (Exception ex)

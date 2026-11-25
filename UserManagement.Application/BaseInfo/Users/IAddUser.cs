@@ -1,9 +1,9 @@
-﻿using UserManagement.Domain.Entities;
+﻿using UserManagement.Application.DTOs;
 
-namespace UserManagement.Application.BaseInfo.Users
+namespace UserManagement.Application.BaseInfo.Users.Interfaces
 {
     public interface IAddUser
     {
-        void Add(User user);
+        bool Add(RegisterUserDto request);
     }
 }

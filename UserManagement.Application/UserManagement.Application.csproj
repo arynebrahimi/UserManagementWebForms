@@ -45,25 +45,23 @@
   <ItemGroup>
     <Compile Include="BaseInfo\Persons\Interfaces\ISearchPersons.cs" />
     <Compile Include="BaseInfo\Users\ISearchUsers.cs" />
-    <Compile Include="BaseInfo\Users\IValidateLogin.cs" />
-    <Compile Include="BaseInfo\Users\ValidateLogin.cs" />
+    <Compile Include="BaseInfo\Users\IAuthenticateUser.cs" />
+    <Compile Include="BaseInfo\Users\AuthenticateUser.cs" />
     <Compile Include="DTOs\UserDTOs.cs" />
     <Compile Include="Interfaces\IDb.cs" />
-    <Compile Include="BaseInfo\Users\IAddUser.cs" />
     <Compile Include="BaseInfo\Users\IDeleteUser.cs" />
     <Compile Include="BaseInfo\Users\IGetAllUsers.cs" />
     <Compile Include="BaseInfo\Users\IGetUserById.cs" />
     <Compile Include="BaseInfo\Users\IGetUserByUsername.cs" />
-    <Compile Include="BaseInfo\Users\IRegisterUser.cs" />
+    <Compile Include="BaseInfo\Users\IAddUser.cs" />
     <Compile Include="BaseInfo\Users\IUsernameExists.cs" />
     <Compile Include="BaseInfo\Users\IUpdateUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BaseInfo\Users\AddUser.cs" />
     <Compile Include="BaseInfo\Users\GetUserByUsername.cs" />
     <Compile Include="BaseInfo\Users\DeleteUser.cs" />
     <Compile Include="BaseInfo\Users\GetAllUsers.cs" />
     <Compile Include="BaseInfo\Users\GetUserById.cs" />
-    <Compile Include="BaseInfo\Users\RegisterUser.cs" />
+    <Compile Include="BaseInfo\Users\AddUser.cs" />
     <Compile Include="BaseInfo\Users\UpdateUser.cs" />
     <Compile Include="BaseInfo\Users\UsernameExists.cs" />
   </ItemGroup>

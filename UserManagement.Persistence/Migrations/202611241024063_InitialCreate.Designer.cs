@@ -7,13 +7,13 @@ namespace UserManagement.Persistence.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.2")]
-    public sealed partial class UpdateUserPersonRelation : IMigrationMetadata
+    public sealed partial class InitialCreate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateUserPersonRelation));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
         
         string IMigrationMetadata.Id
         {
-            get { return "202611220522152_UpdateUserPersonRelation"; }
+            get { return "202611241024063_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

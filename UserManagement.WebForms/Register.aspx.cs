@@ -1,34 +1,33 @@
 ﻿using System;
 using System.Web.UI;
-using UserManagement.Application.BaseInfo.Users;
 using UserManagement.Application.DTOs;
+using UserManagement.Application.BaseInfo.Users.Interfaces;
 
 namespace UserManagement.WebForms
 {
     public partial class Register : Page
     {
-        private readonly IRegisterUser _registerUser;
+        private readonly IAddUser _addUser;
 
-        public Register(IRegisterUser registerUser)
+        public Register(IAddUser addUser)
         {
-            _registerUser = registerUser;
+            _addUser = addUser;
         }
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-            var request = new RegisterUserDto
-            {
-                UserName = txtUsername.Text.Trim(),
-                Password = txtPassword.Text,
-                FullName = txtFullName.Text.Trim(),
-                Email = txtEmail.Text.Trim()
-            };
-
             try
             {
-                _registerUser.Register(request);
+                var request = new RegisterUserDto
+                {
+                    UserName = txtUsername.Text.Trim(),
+                    Password = txtPassword.Text,
+                    FullName = txtFullName.Text.Trim(),
+                    Email = txtEmail.Text.Trim()
+                };
+                _addUser.Add(request);
 
-                Response.Redirect("Users.aspx", false);
+                Response.Redirect("Users.aspx");
                 return;
             }
             catch (Exception ex)

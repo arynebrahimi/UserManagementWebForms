@@ -1,19 +1,21 @@
-﻿using System;
+﻿
+using System;
 using System.Linq;
 using UserManagement.Application.DTOs;
+using UserManagement.Application.BaseInfo.Users.Interfaces;
 
-namespace UserManagement.Application.BaseInfo.Users
+namespace UserManagement.Application.BaseInfo.Users.Services
 {
-    public class ValidateLogin : IValidateLogin
+    public class AuthenticateUser : IAuthenticateUser
     {
         private readonly ISearchUsers _searchUsers;
 
-        public ValidateLogin(ISearchUsers searchUsers)
+        public AuthenticateUser(ISearchUsers searchUsers)
         {
             _searchUsers = searchUsers;
         }
 
-        public bool Validate(LoginDto request)
+        public bool Authenticate(LoginDto request)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));

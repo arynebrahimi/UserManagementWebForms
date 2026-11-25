@@ -11,6 +11,10 @@ namespace UserManagement.Persistence.Data
         {
         }
 
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Person> Persons { get; set; }
+
         public IQueryable<T> Query<T>() where T : class
         {
             return Set<T>().AsNoTracking();
@@ -41,6 +45,11 @@ namespace UserManagement.Persistence.Data
             Set<T>().Remove(entity);
 
             return true;
+        }
+
+        public int SaveChanges()
+        {
+            return base.SaveChanges();
         }
     }
 }

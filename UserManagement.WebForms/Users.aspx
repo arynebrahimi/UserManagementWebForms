@@ -14,6 +14,10 @@
 
         <h2>Users List</h2>
 
+        <asp:Button ID="btnLogout" runat="server"
+            text="Logout"
+            OnClick ="btnLogout_Click" />
+
         <asp:HyperLink ID="lnkCreate" runat="server"
             NavigateUrl="Register.aspx"
             Text="Add New User" />

@@ -9,7 +9,7 @@ namespace UserManagement.Application.BaseInfo.Persons.Interfaces
 
         class Request
         {
-            public int? Id {  get; set; }
+            public int? Id { get; set; }
             public string Keyword { get; set; }
         }
     }

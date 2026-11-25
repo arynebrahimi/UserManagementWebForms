@@ -5,6 +5,8 @@ using System.Web.Routing;
 using Unity;
 using UserManagement.Application.BaseInfo.Persons.Interfaces;
 using UserManagement.Application.BaseInfo.Users;
+using UserManagement.Application.BaseInfo.Users.Interfaces;
+using UserManagement.Application.BaseInfo.Users.Services;
 using UserManagement.Application.Interfaces;
 using UserManagement.Persistence.BaseInfos.Persons;
 using UserManagement.Persistence.BaseInfos.Users;
@@ -18,6 +20,7 @@ namespace UserManagement.WebForms
         void Application_Start(object sender, EventArgs e)
         {
             var container = new UnityContainer();
+
             container.RegisterType<IDb, AppDbContext>();
 
             container.RegisterType<ISearchUsers, SearchUsers>();
@@ -28,8 +31,7 @@ namespace UserManagement.WebForms
             container.RegisterType<IAddUser, AddUser>();
             container.RegisterType<IUpdateUser, UpdateUser>();
             container.RegisterType<IDeleteUser, DeleteUser>();
-            container.RegisterType<IValidateLogin, ValidateLogin>();
-            container.RegisterType<IRegisterUser, RegisterUser>();
+            container.RegisterType<IAuthenticateUser, AuthenticateUser>();
 
             HttpRuntime.WebObjectActivator =
                 new UnityServiceProvider(container);
