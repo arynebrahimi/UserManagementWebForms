@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿
+using System.Linq;
 using UserManagement.Application.BaseInfo.Persons.Interfaces;
 using UserManagement.Application.DTOs;
 
@@ -20,15 +21,19 @@ namespace UserManagement.Application.BaseInfo.Users
         public UserDto GetById(int id)
         {
             var user = _searchUsers.Execute(
-                new ISearchUsers.Request { Id = id })
-                .SingleOrDefault();
+                new ISearchUsers.Request
+                {
+                    Id = id
+                }).SingleOrDefault();
 
             if (user == null)
                 return null;
 
             var person = _searchPersons.Respond(
-                new ISearchPersons.Request { Id = id })
-                .SingleOrDefault();
+                new ISearchPersons.Request
+                {
+                    Id = user.PersonId
+                }).SingleOrDefault();
 
             return new UserDto
             {

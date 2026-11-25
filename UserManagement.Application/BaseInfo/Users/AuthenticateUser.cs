@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.BaseInfo.Users.Interfaces;

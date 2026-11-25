@@ -1,8 +1,9 @@
 ﻿using System;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
+using UserManagement.Application.BaseInfo.Users.Interfaces;
 using UserManagement.Domain.Entities;
-using UserManagement.Application.BaseInfo.Users.Interfaces; 
+
 namespace UserManagement.Application.BaseInfo.Users.Services
 {
     public class AddUser : IAddUser

@@ -37,21 +37,26 @@ namespace UserManagement.Application.BaseInfo.Users
                 throw new Exception("Please fill in all fields.");
             }
 
-            if (_usernameExists.Exists(request.UserName.Trim(), request.Id))
-                throw new Exception("This username is already used by another user.");
-
             var user = _searchUsers.Execute(
                 new ISearchUsers.Request { Id = request.Id })
                 .SingleOrDefault();
 
-            var person = _searchPersons.Respond(
-                new ISearchPersons.Request { Id = request.Id })
-                .SingleOrDefault();
-
-            if (user == null || person == null)
+            if (user == null)
                 throw new Exception("User not found.");
 
-            user.UserName = request.UserName.Trim();
+            var person = _searchPersons.Respond(
+                new ISearchPersons.Request { Id = user.PersonId })
+                .SingleOrDefault();
+
+            if (person == null)
+                throw new Exception("Person not found.");
+
+            string username = request.UserName.Trim();
+
+            if (_usernameExists.Exists(username, request.Id))
+                throw new Exception("This username is already used by another user.");
+
+            user.UserName = username;
             person.FullName = request.FullName.Trim();
             person.Email = request.Email.Trim();
 
