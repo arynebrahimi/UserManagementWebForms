@@ -39,5 +39,6 @@
     public class UserSearchDto
     {
         public string Keyword { get; set; }
+        public int PageNumber { get; set; }
     }
 }

@@ -31,7 +31,12 @@
 
         <div>
             <label>Email</label>
-            <asp:TextBox ID="txtEmail" runat="server" />
+            <asp:TextBox ID="txtEmail" runat="server" />
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEmail"
+                ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                Display="Dynamic" ErrorMessage="Invalid email address" />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtEmail"
+                ForeColor="Red" Display="Dynamic" ErrorMessage="Required" />
         </div>
 
         <br />

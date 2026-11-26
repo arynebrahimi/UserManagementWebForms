@@ -47,7 +47,7 @@ namespace UserManagement.Persistence.Data
             return true;
         }
 
-        public int SaveChanges()
+        public override int SaveChanges()
         {
             return base.SaveChanges();
         }

@@ -1,13 +1,15 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UserManagement.Application.BaseInfo.Persons.Interfaces;
 using UserManagement.Application.DTOs;
+using UserManagement.Domain.Entities;
 
 namespace UserManagement.Application.BaseInfo.Users
 {
     public class GetAllUsers : IGetAllUsers
     {
+        private const int PageSize = 10;
+
         private readonly ISearchUsers _searchUsers;
 
         public GetAllUsers(ISearchUsers searchUsers)
@@ -15,7 +17,7 @@ namespace UserManagement.Application.BaseInfo.Users
             _searchUsers = searchUsers;
         }
 
-        public List<UserDto> GetAll(UserSearchDto request = null)
+        private IQueryable<User> Search(UserSearchDto request)
         {
             var searchRequest = new ISearchUsers.Request();
 
@@ -32,7 +34,19 @@ namespace UserManagement.Application.BaseInfo.Users
                 };
             }
 
-            return _searchUsers.Execute(searchRequest)
+            return _searchUsers.Execute(searchRequest);
+        }
+
+        public List<UserDto> GetAll(UserSearchDto request = null)
+        {
+            int pageNumber = request == null || request.PageNumber < 1
+                ? 1
+                : request.PageNumber;
+
+            return Search(request)
+                .OrderBy(u => u.Id)
+                .Skip((pageNumber - 1) * PageSize)
+                .Take(PageSize)
                 .Select(u => new UserDto
                 {
                     Id = u.Id,
@@ -45,6 +59,11 @@ namespace UserManagement.Application.BaseInfo.Users
                     }
                 })
                 .ToList();
+        }
+
+        public int GetCount(UserSearchDto request = null)
+        {
+            return Search(request).Count();
         }
     }
 }

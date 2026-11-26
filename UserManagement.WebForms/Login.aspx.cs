@@ -24,7 +24,7 @@ namespace UserManagement.WebForms
 
             try
             {
-                _authenticateUser.Authenticate(request);
+                _authenticateUser.Authenticate(request, out string authUsername);
 
                 Session["UserName"] = request.UserName;
 

@@ -14,7 +14,7 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             _searchUsers = searchUsers;
         }
 
-        public bool Authenticate(LoginDto request)
+        public bool Authenticate(LoginDto request, out string authUsername)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
@@ -25,7 +25,7 @@ namespace UserManagement.Application.BaseInfo.Users.Services
                 throw new Exception("Please enter username and password.");
             }
 
-            string username = request.UserName.Trim();
+            var username = request.UserName.Trim();
 
             bool isValid = _searchUsers.Execute(
                 new ISearchUsers.Request
@@ -38,6 +38,7 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             if (!isValid)
                 throw new Exception("Invalid username or password.");
 
+            authUsername = username;
             return true;
         }
     }

@@ -19,7 +19,7 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             _usernameExists = usernameExists;
         }
 
-        public bool Add(RegisterUserDto request)
+        public bool Add(RegisterUserDto request, out User user)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
@@ -37,7 +37,7 @@ namespace UserManagement.Application.BaseInfo.Users.Services
             if (_usernameExists.Exists(username))
                 throw new Exception("Username already exists.");
 
-            var user = new User
+            user = new User
             {
                 UserName = username,
                 Password = request.Password,

@@ -15,8 +15,8 @@
         <h2>Users List</h2>
 
         <asp:Button ID="btnLogout" runat="server"
-            text="Logout"
-            OnClick ="btnLogout_Click" />
+            Text="Logout"
+            OnClick="btnLogout_Click" />
 
         <asp:HyperLink ID="lnkCreate" runat="server"
             NavigateUrl="Register.aspx"
@@ -26,7 +26,7 @@
         <br />
 
         <asp:TextBox ID="txtSearch" runat="server"
-            placeholder="Search by username,name or email" />
+            placeholder="Search by username, name or email" />
 
         <asp:Button ID="btnSearch" runat="server"
             Text="Search"
@@ -46,10 +46,6 @@
             OnRowCommand="gvUsers_RowCommand">
 
             <Columns>
-
-                <%--<asp:BoundField
-                    DataField="Id"
-                    HeaderText="ID" />--%>
 
                 <asp:BoundField
                     DataField="UserName"
@@ -92,6 +88,21 @@
             </Columns>
 
         </asp:GridView>
+
+        <br />
+
+        <asp:Button ID="btnPrevious" runat="server"
+            Text="Previous"
+            OnClick="btnPrevious_Click"
+            Enabled="False" />
+
+        <asp:Label ID="lblPageInfo" runat="server"
+            Text="Page 1 of 1" />
+
+        <asp:Button ID="btnNext" runat="server"
+            Text="Next"
+            OnClick="btnNext_Click"
+            Enabled="False" />
 
     </form>
 </body>

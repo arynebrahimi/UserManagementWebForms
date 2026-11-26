@@ -2,6 +2,7 @@
 using System.Web.UI;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.BaseInfo.Users.Interfaces;
+using UserManagement.Domain.Entities;
 
 namespace UserManagement.WebForms
 {
@@ -25,7 +26,8 @@ namespace UserManagement.WebForms
                     FullName = txtFullName.Text.Trim(),
                     Email = txtEmail.Text.Trim()
                 };
-                _addUser.Add(request);
+                _addUser.Add(request, out User user);
+                Session["UserName"] = user.UserName;
 
                 Response.Redirect("Users.aspx");
                 return;
